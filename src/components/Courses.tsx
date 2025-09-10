@@ -9,7 +9,7 @@ export default function Courses() {
       title: "Java Full Stack",
       icon: Code2,
       description: "Master enterprise-level development with Java backend and modern frontend technologies.",
-      duration: "6 months",
+      duration: "60 Days",
       level: "Intermediate to Advanced",
       highlights: ["Spring Boot", "Microservices", "React Integration", "Database Design"]
     },
@@ -18,7 +18,7 @@ export default function Courses() {
       title: "MERN Full Stack",
       icon: Database,
       description: "Build modern web applications using MongoDB, Express.js, React, and Node.js.",
-      duration: "5 months",
+      duration: "60 Days",
       level: "Beginner to Advanced",
       highlights: ["React.js", "Node.js", "MongoDB", "RESTful APIs"]
     },
@@ -36,7 +36,7 @@ export default function Courses() {
       title: "MS Office",
       icon: FileSpreadsheet,
       description: "Master essential productivity tools for professional workplace efficiency.",
-      duration: "2 months",
+      duration: "45 Days",
       level: "Beginner to Advanced",
       highlights: ["Excel Advanced", "PowerPoint Design", "Word Processing", "Data Analysis"]
     },
@@ -45,7 +45,7 @@ export default function Courses() {
       title: "Digital Marketing",
       icon: TrendingUp,
       description: "Learn comprehensive digital marketing strategies to grow businesses online.",
-      duration: "3 months",
+      duration: "45 Days",
       level: "Beginner to Intermediate",
       highlights: ["SEO & SEM", "Social Media Marketing", "Analytics", "Content Strategy"]
     }
