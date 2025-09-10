@@ -30,59 +30,41 @@ export default function About() {
         <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
           {/* Innovation Focused */}
           <div className="group bg-white border border-gray-100 p-8 transition-all duration-300 hover:border-gray-200 hover:shadow-sm animate-fade-in-up delay-300">
-            <div className="mb-8">
-              <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center mb-6 group-hover:scale-105 transition-transform duration-300">
+            <div className="mb-8 flex items-center gap-4">
+              <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
                 <Lightbulb className="w-5 h-5 text-white" />
               </div>
-              <h3 className="text-xl font-medium text-black mb-4 tracking-tight">Innovation Focused</h3>
-              <p className="text-gray-600 leading-relaxed font-light">
-                Stay ahead with curricula updated for the latest industry trends.
-              </p>
+              <h3 className="text-xl font-medium text-black tracking-tight">Innovation Focused</h3>
             </div>
-            {/* <div className="pt-6 border-t border-gray-50">
-              <div className="flex items-center text-gray-800 text-sm font-medium">
-                <div className="w-1.5 h-1.5 bg-black rounded-full mr-3"></div>
-                Latest Tech Stack
-              </div>
-            </div> */}
+            <p className="text-gray-600 leading-relaxed font-light">
+              Stay ahead with curricula updated for the latest industry trends.
+            </p>
           </div>
 
           {/* Career Driven */}
           <div className="group bg-white border border-gray-100 p-8 transition-all duration-300 hover:border-gray-200 hover:shadow-sm animate-fade-in-up delay-500">
-            <div className="mb-8">
-              <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center mb-6 group-hover:scale-105 transition-transform duration-300">
+            <div className="mb-8 flex items-center gap-4">
+              <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
                 <TrendingUp className="w-5 h-5 text-white" />
               </div>
-              <h3 className="text-xl font-medium text-black mb-4 tracking-tight">Career Driven</h3>
-              <p className="text-gray-600 leading-relaxed font-light">
-                Programs built to accelerate your professional journey and job readiness.
-              </p>
+              <h3 className="text-xl font-medium text-black tracking-tight">Career Driven</h3>
             </div>
-            {/* <div className="pt-6 border-t border-gray-50">
-              <div className="flex items-center text-gray-800 text-sm font-medium">
-                <div className="w-1.5 h-1.5 bg-black rounded-full mr-3"></div>
-                Job Placement Support
-              </div>
-            </div> */}
+            <p className="text-gray-600 leading-relaxed font-light">
+              Programs built to accelerate your professional journey and job readiness.
+            </p>
           </div>
 
           {/* Supportive Community */}
           <div className="group bg-white border border-gray-100 p-8 transition-all duration-300 hover:border-gray-200 hover:shadow-sm animate-fade-in-up delay-700">
-            <div className="mb-8">
-              <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center mb-6 group-hover:scale-105 transition-transform duration-300">
+            <div className="mb-8 flex items-center gap-4">
+              <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
                 <Users className="w-5 h-5 text-white" />
               </div>
-              <h3 className="text-xl font-medium text-black mb-4 tracking-tight">Supportive Community</h3>
-              <p className="text-gray-600 leading-relaxed font-light">
-                Join a network of peers and mentors for lifelong learning.
-              </p>
+              <h3 className="text-xl font-medium text-black tracking-tight">Supportive Community</h3>
             </div>
-            {/* <div className="pt-6 border-t border-gray-50">
-              <div className="flex items-center text-gray-800 text-sm font-medium">
-                <div className="w-1.5 h-1.5 bg-black rounded-full mr-3"></div>
-                Mentor Network
-              </div>
-            </div> */}
+            <p className="text-gray-600 leading-relaxed font-light">
+              Join a network of peers and mentors for lifelong learning.
+            </p>
           </div>
         </div>
       </div>

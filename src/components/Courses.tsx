@@ -84,16 +84,18 @@ export default function Courses() {
                     index === 3 ? 'delay-900' : 'delay-1100'
                   }`}
                 >
-                  {/* Icon */}
-                  <div className="mb-6">
-                    <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center mb-6 group-hover:scale-105 transition-transform duration-300">
+                  {/* Icon and Title */}
+                  <div className="mb-6 flex items-center gap-4">
+                    <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
                       <IconComponent className="w-5 h-5 text-white" />
                     </div>
-                    <h3 className="text-xl font-medium text-black mb-3 tracking-tight">{course.title}</h3>
-                    <p className="text-gray-600 font-light leading-relaxed mb-6">
-                      {course.description}
-                    </p>
+                    <h3 className="text-xl font-medium text-black tracking-tight mb-0">{course.title}</h3>
                   </div>
+
+                  {/* Description */}
+                  <p className="text-gray-600 font-light leading-relaxed mb-6">
+                    {course.description}
+                  </p>
 
                   {/* Course Details */}
                   <div className="space-y-4 mb-6">
@@ -168,7 +170,7 @@ export default function Courses() {
                     <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center mr-4 flex-shrink-0">
                       <IconComponent className="w-4 h-4 text-white" />
                     </div>
-                    <h3 className="text-lg font-medium text-black tracking-tight">{course.title}</h3>
+                    <h3 className="text-lg font-medium text-black tracking-tight mb-0">{course.title}</h3>
                   </div>
 
                   {/* Description */}
