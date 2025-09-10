@@ -27,7 +27,7 @@ export default function Courses() {
       title: "Web Development",
       icon: Globe,
       description: "Create responsive, interactive websites with HTML, CSS, JavaScript, and modern frameworks.",
-      duration: "4 months",
+      duration: "45 days",
       level: "Beginner to Intermediate",
       highlights: ["HTML5 & CSS3", "JavaScript ES6+", "Responsive Design", "Version Control"]
     },
