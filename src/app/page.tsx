@@ -2,7 +2,7 @@ import Hero from "@/components/Hero";
 import About from "@/components/About";
 import WhyChoose from "@/components/WhyChoose";
 import Courses from "@/components/Courses";
-import SuccessStories from "@/components/SuccessStories";
+// import SuccessStories from "@/components/SuccessStories";
 import VisitUs from "@/components/VisitUs";
 import CallToAction from "@/components/CallToAction";
 export default function Home() {
@@ -20,9 +20,9 @@ export default function Home() {
     <section id="courses">
       <Courses />
     </section>
-    <section id="success-stories">
+    {/* <section id="success-stories">
       <SuccessStories />
-    </section>
+    </section> */}
     <section id="visit-us">
       <VisitUs />
     </section>
