@@ -9,7 +9,7 @@ export default function Courses() {
       title: "Java Full Stack",
       icon: Code2,
       description: "Master enterprise-level development with Java backend and modern frontend technologies.",
-      duration: "60 Days",
+      duration: "90 Days",
       level: "Intermediate to Advanced",
       highlights: ["Spring Boot", "Microservices", "React Integration", "Database Design"]
     },
