@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 
 import { Code2, Database, Globe, FileSpreadsheet, TrendingUp } from 'lucide-react';
 
@@ -7,6 +8,7 @@ export default function Courses() {
     {
       id: 1,
       title: "Java Full Stack",
+      slug : "java-full-stack",
       icon: Code2,
       description: "Master enterprise-level development with Java backend and modern frontend technologies.",
       duration: "90 Days",
@@ -16,6 +18,7 @@ export default function Courses() {
     {
       id: 2,
       title: "MERN Full Stack",
+      slug : "mern-full-stack",
       icon: Database,
       description: "Build modern web applications using MongoDB, Express.js, React, and Node.js.",
       duration: "60 Days",
@@ -25,6 +28,7 @@ export default function Courses() {
     {
       id: 3,
       title: "Web Development",
+      slug : "web-development",
       icon: Globe,
       description: "Create responsive, interactive websites with HTML, CSS, JavaScript, and modern frameworks.",
       duration: "45 days",
@@ -34,6 +38,7 @@ export default function Courses() {
     {
       id: 4,
       title: "MS Office",
+      slug : "ms-office",
       icon: FileSpreadsheet,
       description: "Master essential productivity tools for professional workplace efficiency.",
       duration: "45 Days",
@@ -43,6 +48,7 @@ export default function Courses() {
     {
       id: 5,
       title: "Digital Marketing",
+      slug : "digital-marketing",
       icon: TrendingUp,
       description: "Learn comprehensive digital marketing strategies to grow businesses online.",
       duration: "45 Days",
@@ -123,9 +129,12 @@ export default function Courses() {
 
                   {/* CTA Button */}
                   <div className="pt-6">
-                    <button className="w-full border border-black text-black hover:bg-black hover:text-white py-3 text-sm font-medium transition-all duration-300 tracking-wide">
+                    <Link 
+                      href={`/course/${course.slug}`}
+                      className="block w-full border border-black text-black hover:bg-black hover:text-white py-3 text-sm font-medium transition-all duration-300 tracking-wide text-center cursor-pointer"
+                    >
                       Learn More
-                    </button>
+                    </Link>
                   </div>
                 </div>
               );
@@ -203,9 +212,12 @@ export default function Courses() {
                   </div>
 
                   {/* CTA Button */}
-                  <button className="w-full border border-black text-black hover:bg-black hover:text-white py-2.5 text-sm font-medium transition-all duration-300 tracking-wide">
+                  <Link 
+                    href={`/course/${course.slug}`}
+                    className="block w-full border border-black text-black hover:bg-black hover:text-white py-2.5 text-sm font-medium transition-all duration-300 tracking-wide text-center cursor-pointer"
+                  >
                     Learn More
-                  </button>
+                  </Link>
                 </div>
               );
             })}

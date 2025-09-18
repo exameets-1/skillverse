@@ -8,7 +8,7 @@ export default function Hero() {
         {/* Background Video */}
         <video
           className="absolute inset-0 w-full h-full object-cover"
-          src="/videos/landing.mp4"
+          src="/videos/landing-2.mp4"
           poster="/images/land.png"  // 👈 fallback image
           autoPlay
           muted
