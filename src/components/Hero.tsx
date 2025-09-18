@@ -52,7 +52,7 @@ export default function Hero() {
         {/* Background Video */}
         <video
           className="absolute inset-0 w-full h-full object-cover object-center"
-          src="/videos/landing-mobile.mp4"
+          src="/videos/landing-mobile-2.mp4"
           autoPlay
           poster="/images/land.png"  // 👈 fallback image
           muted
