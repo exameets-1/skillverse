@@ -54,8 +54,28 @@ export default function Courses() {
       duration: "45 Days",
       level: "Beginner to Intermediate",
       highlights: ["SEO & SEM", "Social Media Marketing", "Analytics", "Content Strategy"]
+    },
+    {
+      id: 6,
+      title: "JAVA CORE + OOPS",
+      slug : "java-core-oops",
+      icon: TrendingUp,
+      description: "Master the fundamentals of Java programming and object-oriented design.",
+      duration: "45 Days",
+      level: "Beginner to Intermediate",
+      highlights: ["Java Basics", "OOP Principles", "Collections Framework"]
+    },
+    {
+      id: 7,
+      title: "Python CORE + OOPS",
+      slug : "python-core-oops",
+      icon: TrendingUp,
+      description: "Master the fundamentals of Python programming and object-oriented design.",
+      duration: "45 Days",
+      level: "Beginner to Intermediate",
+      highlights: ["Python Basics", "OOP Principles"]
     }
-  ];
+  ]
 
   return (
     <>

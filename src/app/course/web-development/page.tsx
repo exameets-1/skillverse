@@ -16,9 +16,64 @@ import {
   Mail,
 } from 'lucide-react';
 import { useState } from 'react';
+import Image from 'next/image';
+import AIModal from '@/components/AiModal';
+
+// Define the course data type to match AIModal expectations
+interface CourseData {
+  name: string;
+  duration: string;
+  fee: string;
+  level: string;
+  description: string;
+  curriculum: string[];
+  highlights: string[];
+  prerequisites: string;
+  careerOutcomes: string;
+  salaryRange: string;
+  tools: string;
+}
 
 export default function WebDevelopmentCoursePage() {
   const [activeModule, setActiveModule] = useState<number | null>(null);
+
+  // Course-specific data for AI modal - properly typed
+  const courseData: CourseData = {
+    name: "Web Development",
+    duration: "45 Days",
+    fee: "₹7,000",
+    level: "Beginner to Intermediate",
+    description: "Complete web development course covering HTML, CSS, JavaScript, and modern frameworks. Students build 5 real-world projects including portfolio, landing pages, interactive apps, and deploy them live.",
+    curriculum: [
+      "Level 0: HTML Basics (7 Days) - HTML structure, semantic tags, forms, tables, portfolio project",
+      "Level 1: CSS Fundamentals (9 Days) - Box model, Flexbox, Grid, responsive design, landing page project", 
+      "Level 2: JavaScript Core (12 Days) - ES6+, DOM manipulation, events, interactive To-Do App",
+      "Level 3: Client-side Web App (7 Days) - LocalStorage, APIs, async/await, feedback form project",
+      "Level 4: Capstone Project (9 Days) - Project planning, GitHub workflow, deployment, presentation"
+    ],
+    highlights: [
+      "5 real-world projects in portfolio",
+      "Max 15 students for personalized attention", 
+      "Live deployment on GitHub Pages",
+      "Industry-recognized completion certificate",
+      "Resume building and job referrals",
+      "Flexible weekend batches available"
+    ],
+    prerequisites: "No prior coding knowledge required - designed for complete beginners",
+    careerOutcomes: "Frontend Developer, Full-stack Developer, Web Designer, Freelancer",
+    salaryRange: "₹3-8 LPA for fresher frontend developers",
+    tools: "VS Code, Git, GitHub, Chrome DevTools, Figma basics"
+  };
+
+  const quickQuestions: string[] = [
+    "What will I learn in this course?",
+    "What projects will I build?", 
+    "Is this suitable for beginners?",
+    "What's the class schedule?",
+    "Do I get placement support?",
+    "What tools do I need?",
+    "Can I work as freelancer after this?"
+  ];
 
   const curriculum = [
     {
@@ -157,6 +212,21 @@ export default function WebDevelopmentCoursePage() {
             Progressive curriculum from basics to advanced concepts
           </p>
 
+          {/* JavaScript Showcase Image */}
+          <div className="mb-12 text-center">
+            <div className="inline-block p-4 bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-lg">
+              <Image 
+                src="/course/html-css-js-usage.webp"
+                alt="8 Compelling Websites That Use JavaScript - including Google, LinkedIn, YouTube, X (Twitter), Facebook, Wikipedia, Quora, and Amazon"
+                width={1500}
+                height={800}
+                priority
+                className="w-full max-w-4xl h-auto rounded-lg shadow-lg"
+              />
+            </div>
+            <p className="text-xs text-gray-500 mt-2 font-light">Major websites powered by JavaScript - you&apos;ll learn to build similar interactive experiences</p>
+          </div>
+
           <div className="space-y-4">
             {curriculum.map((module, index) => {
               const IconComponent = module.icon;
@@ -228,7 +298,7 @@ export default function WebDevelopmentCoursePage() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-16">
+      <section className="py-16" id="faqs">
         <div className="max-w-3xl mx-auto px-6">
           <h2 className="text-2xl text-black font-light text-center mb-12 tracking-tight">
             Frequently Asked <span className="font-medium">Questions</span>
@@ -282,6 +352,12 @@ export default function WebDevelopmentCoursePage() {
 
       {/* Bottom padding for mobile sticky CTA */}
       <div className="h-16 lg:hidden"></div>
+
+      {/* AI Modal with course-specific data */}
+      <AIModal 
+        courseData={courseData}
+        quickQuestions={quickQuestions}
+      />
     </div>
   );
 }
