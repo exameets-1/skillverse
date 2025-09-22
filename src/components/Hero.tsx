@@ -31,7 +31,7 @@ export default function Hero() {
               </h1>
               
               <p className="text-lg lg:text-xl text-gray-200 mb-10 font-light animate-fade-in-up delay-300">
-                Learn Python, Data Science, AI & more – Now in Kadapa!
+                Learn Java, Web Development, Digital Marketing & more – Now in Kadapa!
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up delay-500">
@@ -88,7 +88,7 @@ export default function Hero() {
               
               <p className="text-xl sm:text-2xl md:text-3xl text-gray-100 mb-12 font-extralight leading-relaxed tracking-wide animate-fade-in-up delay-300" 
                  style={{ fontFamily: 'Inter, system-ui, -apple-system, sans-serif' }}>
-                Learn Python, Data Science, AI & more – Now in Kadapa!
+                Learn Java, Web Development, Digital Marketing & more – Now in Kadapa!
               </p>
             </div>
           </div>

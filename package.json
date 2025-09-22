@@ -9,6 +9,11 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@editorjs/editorjs": "^2.31.0",
+    "@editorjs/header": "^2.8.8",
+    "@editorjs/image": "^2.10.3",
+    "@editorjs/list": "^2.0.8",
+    "@editorjs/paragraph": "^2.11.7",
     "@reduxjs/toolkit": "^2.9.0",
     "lucide-react": "^0.543.0",
     "next": "15.5.2",
@@ -16,6 +21,7 @@
     "ogl": "^1.0.11",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "react-editor-js": "^2.1.0",
     "react-markdown": "^10.1.0",
     "react-redux": "^9.2.0"
   },
