@@ -32,7 +32,7 @@ export async function sendEmail({ subject, message }) {
 
     const mailOptions = {
       from: `Exameets Skillverse`,
-      to: "info@exameets.in", // all leads go here
+      to: "exameets@gmail.com", // all leads go here
       subject,
       html: message,
     };
