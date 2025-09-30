@@ -90,10 +90,14 @@ export default function Courses() {
                 Offered
               </span>
             </h1>
-            <p className="text-lg text-gray-600 leading-relaxed font-light max-w-3xl mx-auto">
+            <p className="text-lg text-gray-600 leading-relaxed font-light max-w-3xl mx-auto py-2">
               Choose from our comprehensive range of industry-focused programs designed to transform 
               your career and equip you with cutting-edge skills.
             </p>
+            <p className="text-lg text-gray-600 leading-relaxed font-light max-w-3xl mx-auto">
+              Our courses range from Rs. 500 to Rs. 15000, providing affordable options for quality education.
+            </p>
+
           </div>
 
           {/* Courses Grid */}
@@ -174,9 +178,12 @@ export default function Courses() {
                 Offered
               </span>
             </h1>
-            <p className="text-base text-gray-600 leading-relaxed font-light">
+            <p className="text-base text-gray-600 leading-relaxed font-light mb-2">
               Choose from our comprehensive range of industry-focused programs designed to transform 
               your career and equip you with cutting-edge skills.
+            </p>
+            <p className="text-base text-gray-600 leading-relaxed font-light">
+              Our courses range from Rs. 500 to Rs. 15000, providing affordable options for quality education.
             </p>
           </div>
 
