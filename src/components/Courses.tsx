@@ -74,6 +74,16 @@ export default function Courses() {
       duration: "45 Days",
       level: "Beginner to Intermediate",
       highlights: ["Python Basics", "OOP Principles"]
+    },
+    {
+      id: 8,
+      title : "Career Guidance",
+      slug : "career-guidance",
+      icon : TrendingUp,
+      description : "Get advice and strategies to navigate your career path successfully.",
+      duration : "7 Days",
+      level : "All Levels",
+      highlights : ["Resume Building", "Interview Preparation", "Job Search Strategies"]
     }
   ]
 
@@ -95,7 +105,7 @@ export default function Courses() {
               your career and equip you with cutting-edge skills.
             </p>
             <p className="text-lg text-gray-600 leading-relaxed font-light max-w-3xl mx-auto">
-              Our courses range from Rs. 500 to Rs. 15000, providing affordable options for quality education.
+              Our courses range from Rs. 500 to Rs. 25000, providing affordable options for quality education.
             </p>
 
           </div>
@@ -183,7 +193,7 @@ export default function Courses() {
               your career and equip you with cutting-edge skills.
             </p>
             <p className="text-base text-gray-600 leading-relaxed font-light">
-              Our courses range from Rs. 500 to Rs. 15000, providing affordable options for quality education.
+              Our courses range from Rs. 500 to Rs. 25000, providing affordable options for quality education.
             </p>
           </div>
 
