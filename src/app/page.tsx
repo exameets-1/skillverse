@@ -6,6 +6,7 @@ import Courses from "@/components/Courses";
 import VisitUs from "@/components/VisitUs";
 import CallToAction from "@/components/CallToAction";
 import AIModal from "@/components/AiModal";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -31,6 +32,8 @@ export default function Home() {
     <section id="call-to-action">
       <CallToAction />
     </section>
+
+    <Footer />
     <AIModal courseData={undefined} quickQuestions={undefined} />
     </>
   );
