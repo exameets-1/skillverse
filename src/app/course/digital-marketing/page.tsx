@@ -40,7 +40,7 @@ export default function DigitalMarketingPage() {
   const courseData: CourseData = {
     name: "Digital Marketing Mastery",
     duration: "60 Days",
-    fee: "₹12,000",
+    fee: "₹25,000",
     level: "Beginner to Advanced",
     description: "Master comprehensive digital marketing strategies including SEO, SEM, Social Media Marketing, Content Marketing, Email Marketing, and Analytics. Build real campaigns and grow businesses through 6 hands-on marketing projects.",
     curriculum: [

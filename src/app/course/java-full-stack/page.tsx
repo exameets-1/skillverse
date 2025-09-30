@@ -40,7 +40,7 @@ export default function JavaFullStackPage() {
   const courseData: CourseData = {
     name: "Java Full Stack",
     duration: "90 Days",
-    fee: "₹15,000",
+    fee: "₹22,000",
     level: "Intermediate to Advanced",
     description: "Master enterprise-level development with Java backend and modern frontend technologies. Build scalable web applications using Spring Boot, Microservices, React, and database design through 6 real-world projects.",
     curriculum: [

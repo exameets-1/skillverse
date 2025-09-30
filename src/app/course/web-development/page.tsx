@@ -41,7 +41,7 @@ export default function WebDevelopmentCoursePage() {
   const courseData: CourseData = {
     name: "Web Development",
     duration: "45 Days",
-    fee: "₹7,000",
+    fee: "₹12,000",
     level: "Beginner to Intermediate",
     description: "Complete web development course covering HTML, CSS, JavaScript, and modern frameworks. Students build 5 real-world projects including portfolio, landing pages, interactive apps, and deploy them live.",
     curriculum: [

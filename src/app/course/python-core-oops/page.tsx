@@ -40,7 +40,7 @@ export default function PythonCoreOOPSPage() {
   const courseData: CourseData = {
     name: "Python Core + OOPS",
     duration: "45 Days",
-    fee: "₹6,000",
+    fee: "₹10,000",
     level: "Beginner to Intermediate",
     description: "Master Python programming fundamentals and object-oriented design. Learn Python syntax, data structures, functions, and OOP concepts through hands-on projects including calculator, file manager, and mini games.",
     curriculum: [

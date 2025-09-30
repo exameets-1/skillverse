@@ -40,7 +40,7 @@ export default function MernFullStackPage() {
   const courseData: CourseData = {
     name: "MERN Full Stack",
     duration: "90 Days",
-    fee: "₹18,000",
+    fee: "₹15,000",
     level: "Beginner to Advanced",
     description: "Master modern web development with MongoDB, Express.js, React, and Node.js. Build scalable full-stack applications with real-time features through 6 industry-standard projects.",
     curriculum: [
