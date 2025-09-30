@@ -1,7 +1,7 @@
 export default function TermsAndConditions() {
     return (
         <div className="max-w-4xl mx-auto p-6 bg-white">
-            <h1 className="text-3xl font-bold mb-6 text-center">Terms and Conditions</h1>
+            <h1 className="text-3xl font-bold text-black mb-6 text-center">Terms and Conditions</h1>
             
             <div className="space-y-6">
                 <p className="text-gray-700 leading-relaxed">
@@ -12,7 +12,7 @@ export default function TermsAndConditions() {
                     The term 'EXAMEETS SKILLVERSE ACADEMY' or 'us' or 'we' refers to the owner of the website. The term 'you' refers to the user or viewer of our website.
                 </p>
 
-                <h2 className="text-2xl font-semibold mt-8 mb-4">Terms of Use</h2>
+                <h2 className="text-2xl font-semibold mt-8 mb-4 text-black">Terms of Use</h2>
                 <ul className="list-disc pl-6 space-y-3 text-gray-700">
                     <li>The content of the pages of this website is for your general information and use only. It is subject to change without notice.</li>
                     <li>Neither we nor any third parties provide any warranty or guarantee as to the accuracy, timeliness, performance, completeness or suitability of the information and materials found or offered on this website for any particular purpose.</li>
@@ -28,7 +28,7 @@ export default function TermsAndConditions() {
                     <li>Your use of this website and any dispute arising out of such use of the website is subject to the laws of India or other regulatory authority.</li>
                 </ul>
 
-                <h2 className="text-2xl font-semibold mt-8 mb-4">Additional Terms</h2>
+                <h2 className="text-2xl font-semibold mt-8 mb-4 text-black">Additional Terms</h2>
                 <ul className="list-disc pl-6 space-y-3 text-gray-700">
                     <li><strong>Payment Terms:</strong> Credit Card orders will commence on receiving the authorization/confirmation from the Credit Card/respective Payment Gateway companies.</li>
                     <li><strong>Educational Purpose Only:</strong> This website is designed solely for educational purposes to help users develop skills. We do not guarantee any income or financial success from using this website.</li>
