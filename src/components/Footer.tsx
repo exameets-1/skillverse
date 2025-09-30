@@ -45,7 +45,7 @@ export default function Footer() {
           
           {/* Copyright - Bottom Row */}
           <p className="text-center">
-            &copy; {new Date().getFullYear()} Exameets SkillVerse. All rights reserved.
+            &copy; {new Date().getFullYear()} Exameets Skillverse. All rights reserved.
           </p>
         </div>
       </div>
