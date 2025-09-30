@@ -173,7 +173,7 @@ export default function MernFullStackPage() {
             <div className="flex items-center gap-2">
               <Star className="w-4 h-4 text-gray-500" />
               <span className="text-gray-500">Fee:</span>
-              <span className="font-medium text-black">₹18,000</span>
+              <span className="font-medium text-black">₹15,000</span>
             </div>
           </div>
 

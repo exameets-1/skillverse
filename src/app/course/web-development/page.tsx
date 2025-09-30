@@ -166,7 +166,7 @@ export default function WebDevelopmentCoursePage() {
             <div className="flex items-center gap-2">
               <Star className="w-4 h-4 text-gray-500" />
               <span className="text-gray-500">Fee:</span>
-              <span className="font-medium text-black">₹7,000</span>
+              <span className="font-medium text-black">₹12,000</span>
             </div>
           </div>
 
