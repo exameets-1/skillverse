@@ -1,6 +1,6 @@
 'use client';
 
-import { MapPin, Phone, Mail, Clock } from 'lucide-react';
+import { MapPin, Phone, Mail, User, Clock } from 'lucide-react';
 
 export default function VisitUs() {
   return (
@@ -76,6 +76,16 @@ export default function VisitUs() {
                     </div>
                   </div>
 
+                  <div className="flex items-center">
+                    <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                      <User className="w-3 h-3 text-black" />
+                    </div>
+                    <div>
+                      <p className="text-gray-500 font-light text-sm">Contact Person</p>
+                      <p className="font-medium text-black">Macha Venkata Sivarama Krishna</p>
+                    </div>
+                  </div>
+
                   {/* Email */}
                   <div className="flex items-center">
                     <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
@@ -83,7 +93,7 @@ export default function VisitUs() {
                     </div>
                     <div>
                       <p className="text-gray-500 font-light text-sm">Email</p>
-                      <p className="font-medium text-black">info@exameets.in</p>
+                      <p className="font-medium text-black">management@exameets.in</p>
                     </div>
                   </div>
 
@@ -94,7 +104,7 @@ export default function VisitUs() {
                     </div>
                     <div>
                       <p className="text-gray-500 font-light text-sm">Open Hours</p>
-                      <p className="font-medium text-black">Monday - Saturday, 9 AM - 6 PM</p>
+                      <p className="font-medium text-black">Monday - Saturday, 9 AM - 9 PM</p>
                     </div>
                   </div>
                 </div>
@@ -176,6 +186,17 @@ export default function VisitUs() {
                   </div>
                 </div>
 
+                {/* User */}
+                <div className="flex items-center">
+                  <div className="w-6 h-6 bg-gray-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                    <User className="w-2.5 h-2.5 text-black" />
+                  </div>
+                  <div>
+                    <p className="text-gray-500 font-light text-xs">Contact Person</p>
+                    <p className="font-medium text-black text-sm">Macha Venkata Sivarama Krishna</p>
+                  </div>
+                </div>
+
                 {/* Email */}
                 <div className="flex items-center">
                   <div className="w-6 h-6 bg-gray-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
@@ -183,7 +204,7 @@ export default function VisitUs() {
                   </div>
                   <div>
                     <p className="text-gray-500 font-light text-xs">Email</p>
-                    <p className="font-medium text-black text-sm">info@exameets.in</p>
+                    <p className="font-medium text-black text-sm">management@exameets.in</p>
                   </div>
                 </div>
 
@@ -194,7 +215,7 @@ export default function VisitUs() {
                   </div>
                   <div>
                     <p className="text-gray-500 font-light text-xs">Open Hours</p>
-                    <p className="font-medium text-black text-sm">Monday - Saturday, 9 AM - 6 PM</p>
+                    <p className="font-medium text-black text-sm">Monday - Saturday, 9 AM - 9 PM</p>
                   </div>
                 </div>
               </div>
