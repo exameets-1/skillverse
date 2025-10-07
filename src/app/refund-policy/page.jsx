@@ -25,7 +25,7 @@ export default function RefundPolicy() {
                 <h2 className="text-2xl font-semibold text-black mt-8 mb-4">Important Notes</h2>
                 <ul className="list-disc pl-6 space-y-3 text-gray-700">
                     <li>All refund requests must be accompanied by proper documentation and proof of the eligible circumstances</li>
-                    <li>Refund processing may take 7-14 business days once approved</li>
+                    <li>Refund will be credited within 7-14 days to the original payment method</li>
                     <li>Refunds will be processed through the original payment method used for the purchase</li>
                     <li>For any refund-related queries, please contact our support team with your order details</li>
                 </ul>
