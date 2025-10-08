@@ -16,6 +16,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+
 export const metadata: Metadata = {
   title: "Exameets Skillverse Academy | Best Tech Training in Kadapa",
   description:
