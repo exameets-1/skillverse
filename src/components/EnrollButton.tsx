@@ -25,7 +25,7 @@ export default function EnrollButton({
   const handleEnroll = async () => {
     try {
       setLoading(true);
-      console.log("Initiating payment with:", { amount, courseName, userId, mobileNumber });
+      //console.log("Initiating payment with:", { amount, courseName, userId, mobileNumber });
       
       const res = await fetch("/api/payment/initiate", {
         method: "POST",
@@ -38,29 +38,30 @@ export default function EnrollButton({
         }),
       });
 
-      console.log("Response status:", res.status);
+      //console.log("Response status:", res.status);
       
       if (!res.ok) {
         const errorData = await res.json();
-        console.error("API Error:", errorData);
+        //console.error("API Error:", errorData);
         alert(`Payment initiation failed: ${errorData.message || 'Unknown error'}`);
         return;
       }
 
       const data = await res.json();
-      console.log("Payment response:", data);
+      //console.log("Payment response:", data);
       
       // Check for success and redirect URL
       if (data.success && data.data?.instrumentResponse?.redirectInfo?.url) {
         const url = data.data.instrumentResponse.redirectInfo.url;
-        console.log("Redirecting to:", url);
+        //console.log("Redirecting to:", url);
         window.location.href = url;
       } else {
-        console.error("Payment initiation failed - no redirect URL:", data);
+        //console.error("Payment initiation failed - no redirect URL:", data);
         alert(`Payment initiation failed: ${data.message || 'No redirect URL received'}`);
       }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
-      console.error("Payment error:", err);
+      //console.error("Payment error:", err);
       alert("Something went wrong. Please try again.");
     } finally {
       setLoading(false);

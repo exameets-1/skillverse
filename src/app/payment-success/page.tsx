@@ -1,35 +1,120 @@
 'use client';
 
-import { CheckCircle, Home, Download } from 'lucide-react';
+import { CheckCircle, Home, Download, AlertCircle } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { Suspense } from 'react';
+import { Suspense, useEffect, useState, useCallback } from 'react';
+
+interface PaymentVerificationResult {
+  success: boolean;
+  data?: {
+    state: string;
+    responseCode: string;
+    amount?: number;
+  };
+  message?: string;
+}
 
 function PaymentSuccessContent() {
   const searchParams = useSearchParams();
   const txnId = searchParams.get('txnId');
+  const amount = searchParams.get('amount');
+  const [isVerifying, setIsVerifying] = useState(true);
+  const [verificationResult, setVerificationResult] = useState<PaymentVerificationResult | null>(null);
+
+  const verifyPaymentStatus = useCallback(async () => {
+    if (!txnId) {
+      setIsVerifying(false);
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/payment/status', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ transactionId: txnId })
+      });
+      
+      const result = await response.json();
+      //console.log("Payment verification result:", result);
+      setVerificationResult(result);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      //console.error("Verification error:", error);
+      setVerificationResult({ success: false, message: 'Verification failed' });
+    } finally {
+      setIsVerifying(false);
+    }
+  }, [txnId]);
+
+  useEffect(() => {
+    verifyPaymentStatus();
+  }, [verifyPaymentStatus]);
+
+  if (isVerifying) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center px-6">
+        <div className="text-center">
+          <div className="w-8 h-8 border-2 border-gray-300 border-t-black rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-600">Verifying payment status...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show warning if payment verification failed or shows unexpected status
+  const showWarning = !verificationResult?.success || 
+                     verificationResult?.data?.state !== "COMPLETED" ||
+                     verificationResult?.data?.responseCode !== "SUCCESS";
 
   return (
     <div className="min-h-screen bg-white flex items-center justify-center px-6">
       <div className="max-w-md w-full text-center">
-        <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-          <CheckCircle className="w-10 h-10 text-green-600" />
+        <div className={`w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 ${
+          showWarning ? 'bg-orange-100' : 'bg-green-100'
+        }`}>
+          {showWarning ? 
+            <AlertCircle className="w-10 h-10 text-orange-600" /> :
+            <CheckCircle className="w-10 h-10 text-green-600" />
+          }
         </div>
         
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
-          Payment Successful!
+          {showWarning ? "Payment Status Unclear" : "Payment Successful!"}
         </h1>
         
         <p className="text-gray-600 mb-6 leading-relaxed">
-          Thank you for your enrollment. You will receive a confirmation email with course details and access instructions shortly.
+          {showWarning ? 
+            "We're unable to confirm your payment status. Please contact support if you were charged." :
+            "Thank you for your enrollment. You will receive a confirmation email with course details and access instructions shortly."
+          }
         </p>
-        
-        {txnId && (
-          <div className="bg-gray-50 p-4 rounded-lg mb-6">
-            <p className="text-xs text-gray-500 mb-1">Transaction ID</p>
-            <p className="text-sm font-mono text-gray-800 break-all">{txnId}</p>
-          </div>
-        )}
+
+        {/* Payment Details */}
+        <div className="bg-gray-50 p-4 rounded-lg mb-6 space-y-2">
+          {txnId && (
+            <div>
+              <p className="text-xs text-gray-500">Transaction ID</p>
+              <p className="text-sm font-mono text-gray-800 break-all">{txnId}</p>
+            </div>
+          )}
+          {amount && (
+            <div>
+              <p className="text-xs text-gray-500">Amount</p>
+              <p className="text-sm font-medium text-gray-800">₹{(parseInt(amount) / 100).toFixed(2)}</p>
+            </div>
+          )}
+          {verificationResult && (
+            <div>
+              <p className="text-xs text-gray-500">Status</p>
+              <p className={`text-sm font-medium ${
+                verificationResult.data?.state === 'COMPLETED' ? 'text-green-600' : 'text-orange-600'
+              }`}>
+                {verificationResult.data?.state || 'Unknown'}
+              </p>
+            </div>
+          )}
+        </div>
         
         <div className="space-y-3">
           <Link 
@@ -40,10 +125,12 @@ function PaymentSuccessContent() {
             Back to Home
           </Link>
           
-          <button className="flex items-center justify-center gap-2 w-full border border-gray-300 text-gray-700 px-6 py-3 text-sm font-medium tracking-wide hover:bg-gray-50 transition-all duration-300">
-            <Download className="w-4 h-4" />
-            Download Receipt
-          </button>
+          {!showWarning && (
+            <button className="flex items-center justify-center gap-2 w-full border border-gray-300 text-gray-700 px-6 py-3 text-sm font-medium tracking-wide hover:bg-gray-50 transition-all duration-300">
+              <Download className="w-4 h-4" />
+              Download Receipt
+            </button>
+          )}
         </div>
         
         <div className="mt-8 pt-6 border-t border-gray-100">
