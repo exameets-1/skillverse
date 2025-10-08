@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { useState } from 'react';
 import AIModal from '@/components/AiModal';
+import EnrollButton from '@/components/EnrollButton';
 
 // Define the course data type to match AIModal expectations
 interface CourseData {
@@ -170,10 +171,10 @@ export default function MsOfficePage() {
           </div>
 
           {/* CTA Button */}
-          <button className="bg-black text-white px-8 py-4 text-sm font-medium tracking-wide hover:bg-gray-900 transition-all duration-300 group">
-            Enroll Now
-            <ArrowRight className="inline-block w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-          </button>
+          <EnrollButton 
+            amount={8000}
+            courseName="MS Office Mastery"
+          />
         </div>
       </section>
 
@@ -310,9 +311,13 @@ export default function MsOfficePage() {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <button className="bg-white text-black px-8 py-4 text-sm font-medium tracking-wide hover:bg-gray-100 transition-all duration-300">
+            <EnrollButton 
+              amount={8000}
+              courseName="MS Office Mastery"
+              className="bg-white text-black px-8 py-4 text-sm font-medium tracking-wide hover:bg-gray-100 transition-all duration-300"
+            >
               Book Free Demo
-            </button>
+            </EnrollButton>
             <div className="flex items-center gap-6 text-sm">
               <a href="tel:+91" className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors">
                 <Phone className="w-4 h-4" />
@@ -329,9 +334,13 @@ export default function MsOfficePage() {
 
       {/* Sticky CTA for Mobile */}
       <div className="fixed bottom-0 left-0 right-0 bg-black text-white p-4 lg:hidden z-50">
-        <button className="w-full py-3 text-sm font-medium tracking-wide">
+        <EnrollButton 
+          amount={8000}
+          courseName="MS Office Mastery"
+          className="w-full py-3 text-sm font-medium tracking-wide"
+        >
           Enroll Now - ₹8,000
-        </button>
+        </EnrollButton>
       </div>
 
       {/* Bottom padding for mobile sticky CTA */}

@@ -8,7 +8,7 @@ import {
   CheckCircle, 
   Code2, 
   Palette, 
-  Database, 
+  Layers, 
   Globe,
   Star,
   ArrowRight,
@@ -16,8 +16,8 @@ import {
   Mail,
 } from 'lucide-react';
 import { useState } from 'react';
-import Image from 'next/image';
 import AIModal from '@/components/AiModal';
+import EnrollButton from '@/components/EnrollButton';
 
 // Define the course data type to match AIModal expectations
 interface CourseData {
@@ -34,108 +34,116 @@ interface CourseData {
   tools: string;
 }
 
-export default function WebDevelopmentCoursePage() {
+export default function WebDevelopmentPage() {
   const [activeModule, setActiveModule] = useState<number | null>(null);
 
   // Course-specific data for AI modal - properly typed
   const courseData: CourseData = {
-    name: "Web Development",
-    duration: "45 Days",
-    fee: "₹12,000",
+    name: "Web Development Fundamentals",
+    duration: "75 Days",
+    fee: "₹14,000",
     level: "Beginner to Intermediate",
-    description: "Complete web development course covering HTML, CSS, JavaScript, and modern frameworks. Students build 5 real-world projects including portfolio, landing pages, interactive apps, and deploy them live.",
+    description: "Master web development fundamentals with HTML, CSS, JavaScript, and responsive design. Build modern, interactive websites and web applications through 6 hands-on projects.",
     curriculum: [
-      "Level 0: HTML Basics (7 Days) - HTML structure, semantic tags, forms, tables, portfolio project",
-      "Level 1: CSS Fundamentals (9 Days) - Box model, Flexbox, Grid, responsive design, landing page project", 
-      "Level 2: JavaScript Core (12 Days) - ES6+, DOM manipulation, events, interactive To-Do App",
-      "Level 3: Client-side Web App (7 Days) - LocalStorage, APIs, async/await, feedback form project",
-      "Level 4: Capstone Project (9 Days) - Project planning, GitHub workflow, deployment, presentation"
+      "Level 0: HTML Fundamentals (12 Days) - Structure, Elements, Forms, Semantic HTML, Personal Portfolio Website",
+      "Level 1: CSS Mastery (15 Days) - Styling, Layouts, Flexbox, Grid, Responsive Business Website", 
+      "Level 2: JavaScript Essentials (18 Days) - Programming basics, DOM manipulation, Events, Interactive Web Apps",
+      "Level 3: Advanced CSS & Frameworks (15 Days) - Animations, Bootstrap, Sass, Modern Landing Pages",
+      "Level 4: JavaScript Projects (12 Days) - API integration, Local storage, Dynamic Web Applications",
+      "Level 5: Final Project & Deployment (3 Days) - Complete website, Domain & hosting, Portfolio showcase"
     ],
     highlights: [
-      "5 real-world projects in portfolio",
-      "Max 15 students for personalized attention", 
-      "Live deployment on GitHub Pages",
-      "Industry-recognized completion certificate",
-      "Resume building and job referrals",
-      "Flexible weekend batches available"
+      "6 complete website projects",
+      "Max 15 students for hands-on learning", 
+      "Industry-standard web development practices",
+      "Responsive design certification",
+      "100% placement assistance",
+      "Live website deployment"
     ],
-    prerequisites: "No prior coding knowledge required - designed for complete beginners",
-    careerOutcomes: "Frontend Developer, Full-stack Developer, Web Designer, Freelancer",
-    salaryRange: "₹3-8 LPA for fresher frontend developers",
-    tools: "VS Code, Git, GitHub, Chrome DevTools, Figma basics"
+    prerequisites: "Basic computer knowledge required - perfect for beginners wanting to become web developers",
+    careerOutcomes: "Frontend Developer, Web Designer, UI Developer, Junior Web Developer, Freelance Web Developer",
+    salaryRange: "₹3-8 LPA for Web Developers",
+    tools: "VS Code, HTML, CSS, JavaScript, Bootstrap, Git, Netlify, GitHub"
   };
 
   const quickQuestions: string[] = [
-    "What will I learn in this course?",
-    "What projects will I build?", 
-    "Is this suitable for beginners?",
-    "What's the class schedule?",
-    "Do I get placement support?",
-    "What tools do I need?",
-    "Can I work as freelancer after this?"
+    "What will I learn in web development?",
+    "What websites will I build?", 
+    "Is this good for complete beginners?",
+    "What's the batch timing?",
+    "Do I get portfolio websites?",
+    "What tools and frameworks?",
+    "Can I become a freelancer?"
   ];
 
   const curriculum = [
     {
       level: "Level 0",
-      title: "HTML Basics",
-      duration: "7 Days",
+      title: "HTML Fundamentals",
+      duration: "12 Days",
       icon: Code2,
-      topics: ["HTML boilerplate & structure", "Semantic tags & accessibility", "Forms & tables", "Multi-page portfolio project"]
+      topics: ["HTML structure & elements", "Forms & input validation", "Semantic HTML5", "Personal Portfolio Website"]
     },
     {
       level: "Level 1", 
-      title: "CSS Fundamentals",
-      duration: "9 Days",
+      title: "CSS Mastery",
+      duration: "15 Days",
       icon: Palette,
-      topics: ["Box model & positioning", "Flexbox & Grid layouts", "Responsive design", "Landing page project"]
+      topics: ["CSS styling & selectors", "Flexbox & Grid layouts", "Responsive design", "Business Website project"]
     },
     {
       level: "Level 2",
-      title: "JavaScript Core",
-      duration: "12 Days", 
-      icon: Database,
-      topics: ["ES6+ features", "DOM manipulation", "Event handling", "Interactive To-Do App project"]
+      title: "JavaScript Essentials",
+      duration: "18 Days", 
+      icon: Code2,
+      topics: ["JavaScript fundamentals", "DOM manipulation", "Event handling", "Interactive Web Applications"]
     },
     {
       level: "Level 3",
-      title: "Client-side Web App",
-      duration: "7 Days",
-      icon: Globe,
-      topics: ["LocalStorage & APIs", "Fetch & async/await", "Modular code", "Feedback form project"]
+      title: "Advanced CSS & Frameworks",
+      duration: "15 Days",
+      icon: Layers,
+      topics: ["CSS animations & transitions", "Bootstrap framework", "Sass preprocessing", "Modern Landing Pages"]
     },
     {
       level: "Level 4",
-      title: "Capstone Project",
-      duration: "9 Days",
+      title: "JavaScript Projects",
+      duration: "12 Days",
+      icon: Globe,
+      topics: ["API integration", "Local storage", "Advanced DOM", "Dynamic Web Applications"]
+    },
+    {
+      level: "Level 5",
+      title: "Final Project & Deployment",
+      duration: "3 Days",
       icon: Award,
-      topics: ["Project planning", "GitHub workflow", "Deployment", "Final presentation"]
+      topics: ["Complete website development", "Domain & hosting setup", "Portfolio showcase", "Deployment strategies"]
     }
   ];
 
   const highlights = [
-    { icon: Award, title: "Industry Projects", desc: "5 real-world projects in portfolio" },
-    { icon: Users, title: "Small Batches", desc: "Max 15 students for personalized attention" },
-    { icon: Globe, title: "Live Deployment", desc: "Host projects on GitHub Pages" },
-    { icon: CheckCircle, title: "Certificate", desc: "Industry-recognized completion certificate" }
+    { icon: Award, title: "Complete Websites", desc: "6 fully functional website projects" },
+    { icon: Users, title: "Hands-on Learning", desc: "Max 15 students for practical sessions" },
+    { icon: Globe, title: "Live Deployment", desc: "Deploy websites with custom domains" },
+    { icon: CheckCircle, title: "Portfolio Ready", desc: "Professional portfolio for job applications" }
   ];
 
   const faqs = [
     {
-      q: "Do I need prior coding knowledge?",
-      a: "No! This course is designed for complete beginners. We start from the very basics."
+      q: "Do I need any prior coding experience?",
+      a: "No! This course is designed for complete beginners. We start from HTML basics and gradually build up to advanced web development concepts."
     },
     {
-      q: "What kind of projects will I build?",
-      a: "Personal portfolio, business landing page, interactive calculator, to-do app, and a final capstone project of your choice."
+      q: "What kind of websites will I build?",
+      a: "Personal Portfolio, Business Website, Interactive Web Apps, Landing Pages, Dynamic Applications, and a comprehensive final project."
     },
     {
-      q: "Will I get placement support?",
-      a: "Yes, we provide resume building, mock interviews, and job referrals to our hiring partners."
+      q: "Will I be able to freelance after this course?",
+      a: "Absolutely! You'll have a strong portfolio of websites and the skills needed to start freelancing or apply for web developer positions."
     },
     {
-      q: "What's the class schedule?",
-      a: "1 hour daily classes + 1-2 hours assignments. Flexible weekend batches also available."
+      q: "What's the class schedule like?",
+      a: "2 hours daily classes with hands-on coding practice. Weekend batches available for working professionals and students."
     }
   ];
 
@@ -145,10 +153,10 @@ export default function WebDevelopmentCoursePage() {
       <section className="pt-24 pb-16 px-6">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl lg:text-5xl font-light text-gray-900 mb-6 tracking-tight">
-            Web <span className="font-medium text-black">Development</span>
+            Web Development <span className="font-medium text-black">Fundamentals</span>
           </h1>
           <p className="text-xl text-gray-600 font-light mb-8 leading-relaxed max-w-2xl mx-auto">
-            Create responsive, interactive websites with HTML, CSS, JavaScript, and modern frameworks
+            Master web development fundamentals and build modern, responsive websites
           </p>
           
           {/* Quick Info */}
@@ -156,7 +164,7 @@ export default function WebDevelopmentCoursePage() {
             <div className="flex items-center gap-2">
               <Clock className="w-4 h-4 text-gray-500" />
               <span className="text-gray-500">Duration:</span>
-              <span className="font-medium text-black">45 Days</span>
+              <span className="font-medium text-black">75 Days</span>
             </div>
             <div className="flex items-center gap-2">
               <Target className="w-4 h-4 text-gray-500" />
@@ -166,15 +174,15 @@ export default function WebDevelopmentCoursePage() {
             <div className="flex items-center gap-2">
               <Star className="w-4 h-4 text-gray-500" />
               <span className="text-gray-500">Fee:</span>
-              <span className="font-medium text-black">₹12,000</span>
+              <span className="font-medium text-black">₹14,000</span>
             </div>
           </div>
 
           {/* CTA Button */}
-          <button className="bg-black text-white px-8 py-4 text-sm font-medium tracking-wide hover:bg-gray-900 transition-all duration-300 group">
-            Enroll Now
-            <ArrowRight className="inline-block w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-          </button>
+          <EnrollButton 
+            amount={14000}
+            courseName="Web Development Fundamentals"
+          />
         </div>
       </section>
 
@@ -209,23 +217,8 @@ export default function WebDevelopmentCoursePage() {
             What You&apos;ll <span className="font-medium">Learn</span>
           </h2>
           <p className="text-gray-600 text-center mb-12 font-light">
-            Progressive curriculum from basics to advanced concepts
+            Comprehensive curriculum from HTML basics to advanced web development
           </p>
-
-          {/* JavaScript Showcase Image */}
-          <div className="mb-12 text-center">
-            <div className="inline-block p-4 bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-lg">
-              <Image 
-                src="/course/html-css-js-usage.webp"
-                alt="8 Compelling Websites That Use JavaScript - including Google, LinkedIn, YouTube, X (Twitter), Facebook, Wikipedia, Quora, and Amazon"
-                width={1500}
-                height={800}
-                priority
-                className="w-full max-w-4xl h-auto rounded-lg shadow-lg"
-              />
-            </div>
-            <p className="text-xs text-gray-500 mt-2 font-light">Major websites powered by JavaScript - you&apos;ll learn to build similar interactive experiences</p>
-          </div>
 
           <div className="space-y-4">
             {curriculum.map((module, index) => {
@@ -284,9 +277,9 @@ export default function WebDevelopmentCoursePage() {
           
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              "Complete beginners wanting to start web development",
-              "Students looking to build a strong foundation",
-              "Career switchers entering the tech industry"
+              "Complete beginners wanting to learn web development",
+              "Students looking to build portfolio websites", 
+              "Professionals wanting to start freelancing"
             ].map((text, index) => (
               <div key={index} className="p-6 bg-white border border-gray-100">
                 <CheckCircle className="w-8 h-8 text-black mx-auto mb-4" />
@@ -319,16 +312,20 @@ export default function WebDevelopmentCoursePage() {
       <section className="py-16 bg-black text-white">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-2xl font-light mb-4 tracking-tight">
-            Ready to Start Your <span className="font-medium">Web Development</span> Journey?
+            Ready to Master <span className="font-medium">Web Development</span>?
           </h2>
           <p className="text-gray-300 font-light mb-8">
-            Join hundreds of students who have transformed their careers with us
+            Join aspiring developers who have built amazing websites and launched their web dev careers
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <button className="bg-white text-black px-8 py-4 text-sm font-medium tracking-wide hover:bg-gray-100 transition-all duration-300">
+            <EnrollButton 
+              amount={14000}
+              courseName="Web Development Fundamentals"
+              className="bg-white text-black px-8 py-4 text-sm font-medium tracking-wide hover:bg-gray-100 transition-all duration-300"
+            >
               Book Free Demo
-            </button>
+            </EnrollButton>
             <div className="flex items-center gap-6 text-sm">
               <a href="tel:+91" className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors">
                 <Phone className="w-4 h-4" />
@@ -345,9 +342,13 @@ export default function WebDevelopmentCoursePage() {
 
       {/* Sticky CTA for Mobile */}
       <div className="fixed bottom-0 left-0 right-0 bg-black text-white p-4 lg:hidden z-50">
-        <button className="w-full py-3 text-sm font-medium tracking-wide">
-          Enroll Now - ₹7,000
-        </button>
+        <EnrollButton 
+          amount={14000}
+          courseName="Web Development Fundamentals"
+          className="w-full py-3 text-sm font-medium tracking-wide"
+        >
+          Enroll Now - ₹14,000
+        </EnrollButton>
       </div>
 
       {/* Bottom padding for mobile sticky CTA */}
