@@ -115,9 +115,10 @@ export default function Courses() {
             {courses.map((course) => {
               const IconComponent = course.icon;
               return (
-                <div 
+                <Link 
                   key={course.id}
-                  className="group border border-gray-100 p-8 transition-all duration-300 hover:border-gray-200 hover:shadow-sm"
+                  href={`/course/${course.slug}`}
+                  className="group border border-gray-100 p-8 transition-all duration-300 hover:border-gray-200 hover:shadow-lg cursor-pointer block"
                 >
                   {/* Icon and Title */}
                   <div className="mb-6 flex items-center gap-4">
@@ -155,17 +156,7 @@ export default function Courses() {
                       ))}
                     </div>
                   </div>
-
-                  {/* CTA Button */}
-                  <div className="pt-6">
-                    <Link 
-                      href={`/course/${course.slug}`}
-                      className="block w-full border border-black text-black hover:bg-black hover:text-white py-3 text-sm font-medium transition-all duration-300 tracking-wide text-center cursor-pointer"
-                    >
-                      Learn More
-                    </Link>
-                  </div>
-                </div>
+                </Link>
               );
             })}
           </div>
@@ -197,9 +188,10 @@ export default function Courses() {
             {courses.map((course) => {
               const IconComponent = course.icon;
               return (
-                <div 
+                <Link 
                   key={course.id}
-                  className="border border-gray-100 p-6"
+                  href={`/course/${course.slug}`}
+                  className="border border-gray-100 p-6 block hover:shadow-md transition-all duration-300 cursor-pointer"
                 >
                   {/* Header */}
                   <div className="flex items-center mb-4">
@@ -227,7 +219,7 @@ export default function Courses() {
                   </div>
 
                   {/* Highlights */}
-                  <div className="border-t border-gray-50 pt-4 mb-4">
+                  <div className="border-t border-gray-50 pt-4">
                     <div className="grid grid-cols-2 gap-2">
                       {course.highlights.map((highlight, idx) => (
                         <div key={idx} className="flex items-center text-xs text-gray-700">
@@ -237,15 +229,7 @@ export default function Courses() {
                       ))}
                     </div>
                   </div>
-
-                  {/* CTA Button */}
-                  <Link 
-                    href={`/course/${course.slug}`}
-                    className="block w-full border border-black text-black hover:bg-black hover:text-white py-2.5 text-sm font-medium transition-all duration-300 tracking-wide text-center cursor-pointer"
-                  >
-                    Learn More
-                  </Link>
-                </div>
+                </Link>
               );
             })}
           </div>
