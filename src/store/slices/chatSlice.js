@@ -4,8 +4,6 @@ import { getCourseSpecificPrompt } from "@/utils/prompt";
 export const sendMessage = createAsyncThunk(
   "chat/sendMessage",
   async ({ message, courseData }, { rejectWithValue }) => {
-    const userMessage = { role: "user", content: message };
-
     try {
       const response = await fetch("/api/chat", {
         method: "POST",
@@ -23,7 +21,7 @@ export const sendMessage = createAsyncThunk(
       const data = await response.json();
       const assistantMessage = { role: "assistant", content: data.response };
 
-      return { userMessage, assistantMessage };
+      return { assistantMessage };
     } catch (error) {
       console.error("Chat API error:", error);
       return rejectWithValue(error.message || "Failed to send message");
@@ -45,13 +43,19 @@ const chatSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(sendMessage.pending, (state) => {
+      .addCase(sendMessage.pending, (state, action) => {
         state.loading = true;
         state.error = null;
+        // Add user message immediately when request starts
+        const userMessage = { 
+          role: "user", 
+          content: action.meta.arg.message 
+        };
+        state.messages.push(userMessage);
       })
       .addCase(sendMessage.fulfilled, (state, action) => {
         state.loading = false;
-        state.messages.push(action.payload.userMessage);
+        // Only add assistant message since user message was already added
         state.messages.push(action.payload.assistantMessage);
       })
       .addCase(sendMessage.rejected, (state, action) => {
@@ -66,5 +70,4 @@ const chatSlice = createSlice({
 });
 
 export const { clearMessages } = chatSlice.actions;
-export const { addUserMessage, resetChat } = chatSlice.actions;
 export default chatSlice.reducer;

@@ -7,7 +7,7 @@ export default function About() {
     <section className="py-20 lg:py-32 bg-white">
       <div className="max-w-6xl mx-auto px-6 lg:px-8">
         {/* Header Section */}
-        <div className="text-center mb-20 animate-fade-in-up">
+        <div className="text-center mb-20">
           <h2 className="text-3xl lg:text-4xl font-light text-gray-900 mb-8 tracking-tight">
             Welcome to{' '}
             <span className="font-medium text-black">
@@ -29,7 +29,7 @@ export default function About() {
         {/* Features Grid */}
         <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
           {/* Innovation Focused */}
-          <div className="group bg-white border border-gray-100 p-8 transition-all duration-300 hover:border-gray-200 hover:shadow-sm animate-fade-in-up delay-300">
+          <div className="group bg-white border border-gray-100 p-8 transition-all duration-300 hover:border-gray-200 hover:shadow-sm">
             <div className="mb-8 flex items-center gap-4">
               <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
                 <Lightbulb className="w-5 h-5 text-white" />
@@ -42,7 +42,7 @@ export default function About() {
           </div>
 
           {/* Career Driven */}
-          <div className="group bg-white border border-gray-100 p-8 transition-all duration-300 hover:border-gray-200 hover:shadow-sm animate-fade-in-up delay-500">
+          <div className="group bg-white border border-gray-100 p-8 transition-all duration-300 hover:border-gray-200 hover:shadow-sm">
             <div className="mb-8 flex items-center gap-4">
               <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
                 <TrendingUp className="w-5 h-5 text-white" />
@@ -55,7 +55,7 @@ export default function About() {
           </div>
 
           {/* Supportive Community */}
-          <div className="group bg-white border border-gray-100 p-8 transition-all duration-300 hover:border-gray-200 hover:shadow-sm animate-fade-in-up delay-700">
+          <div className="group bg-white border border-gray-100 p-8 transition-all duration-300 hover:border-gray-200 hover:shadow-sm">
             <div className="mb-8 flex items-center gap-4">
               <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
                 <Users className="w-5 h-5 text-white" />
@@ -68,37 +68,6 @@ export default function About() {
           </div>
         </div>
       </div>
-
-      {/* Custom CSS for Animations */}
-      <style jsx>{`
-        @keyframes fade-in-up {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        
-        .animate-fade-in-up {
-          animation: fade-in-up 0.8s ease-out forwards;
-          opacity: 0;
-        }
-        
-        .delay-300 {
-          animation-delay: 0.2s;
-        }
-        
-        .delay-500 {
-          animation-delay: 0.4s;
-        }
-        
-        .delay-700 {
-          animation-delay: 0.6s;
-        }
-      `}</style>
     </section>
   );
 }

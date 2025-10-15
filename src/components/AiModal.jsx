@@ -167,7 +167,7 @@ export default function AIModal({ courseData , quickQuestions }) {
       <div className="fixed bottom-6 right-6 z-50 flex items-end gap-3">
         {/* Chat Bubble */}
         {!isOpen && showBubble && (
-          <div className="relative animate-fadeInUp">
+          <div className="relative">
             <div className="bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-4 py-3 rounded-2xl rounded-br-md shadow-xl border border-slate-200 dark:border-slate-700 max-w-[200px] transform transition-all duration-300 hover:scale-105 relative">
               <p className="text-sm font-medium leading-relaxed">
                 {invitingMessages[currentMessageIndex]}
@@ -208,7 +208,7 @@ export default function AIModal({ courseData , quickQuestions }) {
           {/* Modal Container - Responsive sizing */}
           <div
             className={
-              "fixed bottom-4 right-4 z-50 shadow-2xlbg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 flex flex-col overflow-hidden backdrop-blur-lg animate-slideInUp " +
+              "fixed bottom-4 right-4 z-50 shadow-2xlbg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 flex flex-col overflow-hidden backdrop-blur-lg " +
               "w-[calc(100vw-2rem)] h-[480px] max-w-[360px] " +
               "sm:w-[380px] sm:h-[550px] sm:bottom-20 sm:right-6 " +
               "md:w-[420px] md:h-[600px]"
@@ -244,7 +244,7 @@ export default function AIModal({ courseData , quickQuestions }) {
               <div className="px-3 sm:px-4 py-3 sm:py-4 space-y-3 sm:space-y-4">
                 {/* Welcome Message */}
                 {messages.length === 0 && (
-                  <div className="text-center py-6 sm:py-8 animate-fadeInUp">
+                  <div className="text-center py-6 sm:py-8">
                     <div className="w-12 h-12 sm:w-16 sm:h-16 bg-black rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 shadow-lg animate-bounce">
                       <Sparkles
                         size={20}
@@ -268,8 +268,7 @@ export default function AIModal({ courseData , quickQuestions }) {
                 {messages.map((msg, i) => (
                   <div
                     key={i}
-                    className={`flex items-start gap-2 sm:gap-3 animate-fadeInUp ${msg.role === "user" ? "flex-row-reverse" : ""}`}
-                    style={{ animationDelay: `${i * 0.1}s` }}
+                    className={`flex items-start gap-2 sm:gap-3 ${msg.role === "user" ? "flex-row-reverse" : ""}`}
                   >
                     {/* Avatar */}
                     <div
@@ -357,7 +356,7 @@ export default function AIModal({ courseData , quickQuestions }) {
 
                 {/* Loading indicator */}
                 {loading && (
-                  <div className="flex items-start gap-2 sm:gap-3 animate-fadeInUp">
+                  <div className="flex items-start gap-2 sm:gap-3">
                     <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-black-500 to-black-600 flex items-center justify-center">
                       <Bot size={14} className="sm:w-4 sm:h-4 text-white" />
                     </div>
@@ -426,39 +425,6 @@ export default function AIModal({ courseData , quickQuestions }) {
           </div>
         </>
       )}
-
-      {/* Custom CSS for animations */}
-      <style jsx>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes slideInUp {
-          from {
-            opacity: 0;
-            transform: translateY(100px) scale(0.95);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-          }
-        }
-
-        .animate-fadeInUp {
-          animation: fadeInUp 0.6s ease-out forwards;
-        }
-
-        .animate-slideInUp {
-          animation: slideInUp 0.4s ease-out forwards;
-        }
-      `}</style>
     </>
   );
 }

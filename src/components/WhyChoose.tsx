@@ -1,7 +1,6 @@
 'use client';
 
 import { FlaskConical, MessageSquare, Target } from 'lucide-react';
-// import { User2 } from 'lucide-react';
 import Image from 'next/image';
 
 export default function WhyChoose() {
@@ -14,7 +13,7 @@ export default function WhyChoose() {
             {/* Content Section - Left Side */}
             <div className="space-y-12">
               {/* Header */}
-              <div className="animate-fade-in-up">
+              <div>
                 <h2 className="text-3xl lg:text-4xl font-light text-gray-900 mb-8 tracking-tight">
                   Why Choose{' '}
                   <span className="font-medium text-black">
@@ -31,7 +30,7 @@ export default function WhyChoose() {
               {/* Features List */}
               <div className="space-y-8">
                 {/* Feature 1 */}
-                <div className="flex items-start space-x-6 group animate-fade-in-up delay-300">
+                <div className="flex items-start space-x-6 group">
                   <div className="flex-shrink-0">
                     <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center text-white font-medium text-sm group-hover:scale-105 transition-transform duration-300">
                       1
@@ -49,25 +48,7 @@ export default function WhyChoose() {
                 </div>
 
                 {/* Feature 2 */}
-                {/* <div className="flex items-start space-x-6 group animate-fade-in-up delay-500">
-                  <div className="flex-shrink-0">
-                    <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center text-white font-medium text-sm group-hover:scale-105 transition-transform duration-300">
-                      2
-                    </div>
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center mb-3">
-                      <Users2 className="w-5 h-5 text-black mr-3" />
-                      <h3 className="text-xl font-medium text-black tracking-tight">Robust Alumni Network</h3>
-                    </div>
-                    <p className="text-gray-600 font-light">
-                      Connect with successful graduates for mentorship and career opportunities.
-                    </p>
-                  </div>
-                </div> */}
-
-                {/* Feature 3 */}
-                <div className="flex items-start space-x-6 group animate-fade-in-up delay-700">
+                <div className="flex items-start space-x-6 group">
                   <div className="flex-shrink-0">
                     <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center text-white font-medium text-sm group-hover:scale-105 transition-transform duration-300">
                       2
@@ -84,8 +65,8 @@ export default function WhyChoose() {
                   </div>
                 </div>
 
-                {/* Feature 4 */}
-                <div className="flex items-start space-x-6 group animate-fade-in-up delay-900">
+                {/* Feature 3 */}
+                <div className="flex items-start space-x-6 group">
                   <div className="flex-shrink-0">
                     <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center text-white font-medium text-sm group-hover:scale-105 transition-transform duration-300">
                       3
@@ -105,7 +86,7 @@ export default function WhyChoose() {
             </div>
 
             {/* Image Section - Right Side */}
-            <div className="relative animate-fade-in-up delay-1100">
+            <div className="relative">
               <div className="relative overflow-hidden">
                 <Image
                   src="/images/Vertical.webp"
@@ -126,7 +107,7 @@ export default function WhyChoose() {
       <section className="block lg:hidden py-16 bg-white">
         <div className="px-6">
           {/* Header */}
-          <div className="text-center mb-12 animate-fade-in-up">
+          <div className="text-center mb-12">
             <h2 className="text-2xl sm:text-3xl font-light text-gray-900 mb-6 tracking-tight">
               Why Choose{' '}
               <span className="font-medium text-black">
@@ -140,7 +121,7 @@ export default function WhyChoose() {
           </div>
 
           {/* Image */}
-          <div className="mb-12 animate-fade-in-up delay-300">
+          <div className="mb-12">
             <div className="relative overflow-hidden mx-auto max-w-sm">
               <Image
                 src="/images/Vertical.webp"
@@ -157,14 +138,13 @@ export default function WhyChoose() {
           {/* Features */}
           <div className="space-y-6">
             {/* Feature 1 */}
-            <div className="border border-gray-100 p-6 animate-fade-in-up delay-500">
+            <div className="border border-gray-100 p-6">
               <div className="flex items-start space-x-4">
                 <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center text-white font-medium text-sm flex-shrink-0">
                   1
                 </div>
                 <div>
                   <div className="flex items-center mb-2 flex-wrap">
-                    {/* <FlaskConical className="w-4 h-4 text-black mr-2" /> */}
                     <h3 className="text-lg font-medium text-black tracking-tight">State-of-the-Art Lab Modules</h3>
                   </div>
                   <p className="text-gray-600 font-light text-sm">
@@ -175,32 +155,13 @@ export default function WhyChoose() {
             </div>
 
             {/* Feature 2 */}
-            {/* <div className="border border-gray-100 p-6 animate-fade-in-up delay-700">
+            <div className="border border-gray-100 p-6">
               <div className="flex items-start space-x-4">
                 <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center text-white font-medium text-sm flex-shrink-0">
                   2
                 </div>
                 <div>
                   <div className="flex items-center mb-2 flex-wrap">
-                    <Users2 className="w-4 h-4 text-black mr-2" />
-                    <h3 className="text-lg font-medium text-black tracking-tight">Robust Alumni Network</h3>
-                  </div>
-                  <p className="text-gray-600 font-light text-sm">
-                    Connect with successful graduates for mentorship and career opportunities.
-                  </p>
-                </div>
-              </div>
-            </div> */}
-
-            {/* Feature 3 */}
-            <div className="border border-gray-100 p-6 animate-fade-in-up delay-900">
-              <div className="flex items-start space-x-4">
-                <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center text-white font-medium text-sm flex-shrink-0">
-                  2
-                </div>
-                <div>
-                  <div className="flex items-center mb-2 flex-wrap">
-                    {/* <MessageSquare className="w-4 h-4 text-black mr-2" /> */}
                     <h3 className="text-lg font-medium text-black tracking-tight">Intensive Mock Interviews</h3>
                   </div>
                   <p className="text-gray-600 font-light text-sm">
@@ -210,15 +171,14 @@ export default function WhyChoose() {
               </div>
             </div>
 
-            {/* Feature 4 */}
-            <div className="border border-gray-100 p-6 animate-fade-in-up delay-1100">
+            {/* Feature 3 */}
+            <div className="border border-gray-100 p-6">
               <div className="flex items-start space-x-4">
                 <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center text-white font-medium text-sm flex-shrink-0">
                   3
                 </div>
                 <div>
                   <div className="flex items-center mb-2 flex-wrap">
-                    {/* <Target className="w-4 h-4 text-black mr-2" /> */}
                     <h3 className="text-lg font-medium text-black tracking-tight">Personalized Career Guidance</h3>
                   </div>
                   <p className="text-gray-600 font-light text-sm">
@@ -230,31 +190,6 @@ export default function WhyChoose() {
           </div>
         </div>
       </section>
-
-      {/* Custom CSS for Animations */}
-      <style jsx>{`
-        @keyframes fade-in-up {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        
-        .animate-fade-in-up {
-          animation: fade-in-up 0.8s ease-out forwards;
-          opacity: 0;
-        }
-        
-        .delay-300 { animation-delay: 0.2s; }
-        .delay-500 { animation-delay: 0.4s; }
-        .delay-700 { animation-delay: 0.6s; }
-        .delay-900 { animation-delay: 0.8s; }
-        .delay-1100 { animation-delay: 1s; }
-      `}</style>
     </>
   );
 }

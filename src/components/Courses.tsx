@@ -93,7 +93,7 @@ export default function Courses() {
       <section id="courses" className="hidden lg:block py-20 lg:py-32 bg-white" style={{ scrollMarginTop: '80px' }}>
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           {/* Header */}
-          <div className="text-center mb-20 animate-fade-in-up">
+          <div className="text-center mb-20">
             <h1 className="text-3xl lg:text-4xl font-light text-gray-900 mb-8 tracking-tight">
               Courses{' '}
               <span className="font-medium text-black">
@@ -112,17 +112,12 @@ export default function Courses() {
 
           {/* Courses Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {courses.map((course, index) => {
+            {courses.map((course) => {
               const IconComponent = course.icon;
               return (
                 <div 
                   key={course.id}
-                  className={`group border border-gray-100 p-8 transition-all duration-300 hover:border-gray-200 hover:shadow-sm animate-fade-in-up ${
-                    index === 0 ? 'delay-300' : 
-                    index === 1 ? 'delay-500' : 
-                    index === 2 ? 'delay-700' : 
-                    index === 3 ? 'delay-900' : 'delay-1100'
-                  }`}
+                  className="group border border-gray-100 p-8 transition-all duration-300 hover:border-gray-200 hover:shadow-sm"
                 >
                   {/* Icon and Title */}
                   <div className="mb-6 flex items-center gap-4">
@@ -181,7 +176,7 @@ export default function Courses() {
       <section id="courses" className="block lg:hidden py-16 bg-white" style={{ scrollMarginTop: '80px' }}>
         <div className="px-6">
           {/* Header */}
-          <div className="text-center mb-12 animate-fade-in-up">
+          <div className="text-center mb-12">
             <h1 className="text-2xl sm:text-3xl font-light text-gray-900 mb-6 tracking-tight">
               Courses{' '}
               <span className="font-medium text-black">
@@ -199,17 +194,12 @@ export default function Courses() {
 
           {/* Courses List */}
           <div className="space-y-6">
-            {courses.map((course, index) => {
+            {courses.map((course) => {
               const IconComponent = course.icon;
               return (
                 <div 
                   key={course.id}
-                  className={`border border-gray-100 p-6 animate-fade-in-up ${
-                    index === 0 ? 'delay-300' : 
-                    index === 1 ? 'delay-500' : 
-                    index === 2 ? 'delay-700' : 
-                    index === 3 ? 'delay-900' : 'delay-1100'
-                  }`}
+                  className="border border-gray-100 p-6"
                 >
                   {/* Header */}
                   <div className="flex items-center mb-4">
@@ -261,38 +251,6 @@ export default function Courses() {
           </div>
         </div>
       </section>
-
-      {/* Custom CSS for Animations */}
-      <style jsx>{`
-        @keyframes fade-in-up {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        
-        .animate-fade-in-up {
-          animation: fade-in-up 0.8s ease-out forwards;
-          opacity: 0;
-        }
-        
-        .delay-300 { animation-delay: 0.2s; }
-        .delay-500 { animation-delay: 0.4s; }
-        .delay-700 { animation-delay: 0.6s; }
-        .delay-900 { animation-delay: 0.8s; }
-        .delay-1100 { animation-delay: 1s; }
-      `}</style>
-
-      {/* Global CSS for Smooth Scrolling */}
-      <style jsx global>{`
-        html {
-          scroll-behavior: smooth;
-        }
-      `}</style>
     </>
   );
 }
