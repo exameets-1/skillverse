@@ -5,8 +5,14 @@ export default function Footer() {
     <footer className="w-full bg-white text-sm text-gray-600 dark:bg-gray-900 dark:text-gray-400 border-t border-gray-200 dark:border-gray-700">
       <div className="container mx-auto px-4 py-6">
         <div className="flex flex-col items-center space-y-4">
-          {/* Policy Links - Top Row */}
           <div className="flex flex-wrap justify-center space-x-1 md:space-x-4">
+            <Link 
+              href="/read" 
+              className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 px-2 py-1"
+            >
+              Blog
+            </Link>
+            <span className="text-gray-400">|</span>
             <Link 
               href="/#about" 
               className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 px-2 py-1"
