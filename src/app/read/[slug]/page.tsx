@@ -155,12 +155,25 @@ export default async function ReadPage({ params }: Props) {
           .markdown-blog ul, .markdown-blog ol {
             margin: 20px 0;
             padding-left: 30px;
+            color: #2c3e50;
+          }
+          
+          .markdown-blog ul {
+            list-style-type: disc;
+            list-style-position: outside;
+          }
+          
+          .markdown-blog ol {
+            list-style-type: decimal;
+            list-style-position: outside;
           }
           
           .markdown-blog li {
             margin-bottom: 8px;
             line-height: 1.6;
             font-size: 18px;
+            display: list-item;
+            color: #2c3e50;
           }
           
           .markdown-blog strong {
