@@ -188,6 +188,7 @@ export default function WhyChoose() {
               </div>
             </div>
           </div>
+          
         </div>
       </section>
     </>
