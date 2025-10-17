@@ -18,7 +18,11 @@ export async function POST(req) {
       <p><strong>Preferred Time:</strong> ${time}</p>
     `;
 
-    await sendEmail({ subject, message });
+    await sendEmail({ 
+      to: "exameets@gmail.com",
+      subject, 
+      message 
+    });
 
     return NextResponse.json({ success: true });
   } catch (error) {

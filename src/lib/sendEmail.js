@@ -1,7 +1,7 @@
 // lib/sendEmail.js
 import nodemailer from "nodemailer";
 
-export async function sendEmail({ subject, message }) {
+export async function sendEmail({ to, subject, message }) {
   try {
     const smtpHost = process.env.SMTP_HOST;
     const smtpService = process.env.SMTP_SERVICE;
@@ -31,8 +31,8 @@ export async function sendEmail({ subject, message }) {
     await transporter.verify();
 
     const mailOptions = {
-      from: `Exameets Skillverse`,
-      to: "exameets@gmail.com", // all leads go here
+      from: `Exameets Skillverse <${smtpUser}>`,
+      to: to,
       subject,
       html: message,
     };
