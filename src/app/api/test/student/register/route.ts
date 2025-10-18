@@ -92,7 +92,7 @@ export async function POST(request: NextRequest) {
       },
       registeredCourses, // Add this field
       referredBy,
-      verified: true
+      verified: false
     });
 
     const savedStudent = await newStudent.save();

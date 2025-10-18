@@ -404,7 +404,7 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
 
             <div>
               <label htmlFor="email" className="block text-sm font-semibold text-slate-700 mb-2">Email Address</label>
-              <div className="flex gap-3">
+              <div className="flex flex-col sm:flex-row gap-3">
                 <input
                   id="email"
                   type="email"
@@ -420,7 +420,7 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
                     type="button"
                     onClick={handleSendOTP}
                     disabled={!formData.studentEmail || otpState.loading || otpState.sent}
-                    className="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-xl hover:from-indigo-700 hover:to-purple-700 disabled:from-slate-300 disabled:to-slate-400 disabled:cursor-not-allowed transition-all duration-300 flex items-center gap-2 shadow-lg"
+                    className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-xl hover:from-indigo-700 hover:to-purple-700 disabled:from-slate-300 disabled:to-slate-400 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-2 shadow-lg"
                   >
                     {otpState.loading ? (
                       <Loader2 className="w-5 h-5 animate-spin" />
@@ -448,9 +448,9 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
 
             {/* OTP Input */}
             {otpState.sent && !otpState.verified && (
-              <div className="space-y-4 bg-gradient-to-br from-indigo-50 to-purple-50 p-6 rounded-2xl border border-indigo-200">
+              <div className="space-y-4 bg-gradient-to-br from-indigo-50 to-purple-50 p-4 sm:p-6 rounded-2xl border border-indigo-200">
                 <label className="block text-sm font-semibold text-slate-700">Enter OTP</label>
-                <div className="flex gap-3 justify-center">
+                <div className="flex gap-2 sm:gap-3 justify-center">
                   {otpDigits.map((digit, index) => (
                     <input
                       key={`otp-input-${index}`}
@@ -461,12 +461,12 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
                       value={digit}
                       onChange={(e) => handleOTPChange(index, e.target.value)}
                       onKeyDown={(e) => handleOTPKeyDown(index, e)}
-                      className="w-14 h-14 text-center text-2xl font-bold border-2 border-indigo-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none rounded-xl bg-white transition-all"
+                      className="w-10 h-10 sm:w-14 sm:h-14 text-center text-lg sm:text-2xl font-bold border-2 border-indigo-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none rounded-lg sm:rounded-xl bg-white transition-all"
                       aria-label={`OTP digit ${index + 1}`}
                     />
                   ))}
                 </div>
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                   <p className="text-sm text-slate-600">
                     {otpState.remainingAttempts < 5 && (
                       <span className="text-orange-600 font-medium">Remaining attempts: {otpState.remainingAttempts}</span>
@@ -476,7 +476,7 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
                     type="button"
                     onClick={handleVerifyOTP}
                     disabled={otpDigits.join('').length !== 6 || otpState.loading}
-                    className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-xl hover:from-indigo-700 hover:to-purple-700 disabled:from-slate-300 disabled:to-slate-400 disabled:cursor-not-allowed transition-all duration-300 flex items-center gap-2"
+                    className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-xl hover:from-indigo-700 hover:to-purple-700 disabled:from-slate-300 disabled:to-slate-400 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-2"
                   >
                     {otpState.loading ? (
                       <Loader2 className="w-4 h-4 animate-spin" />
@@ -491,30 +491,30 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
 
           {/* Guardian Information */}
           <div className="space-y-6 pt-6 border-t border-slate-200">
-            <h3 className="text-xl font-bold text-slate-900">Guardian Information</h3>
+            <h3 className="text-xl font-bold text-slate-900">Parent Information</h3>
 
             <div>
-              <label htmlFor="guardian-name" className="block text-sm font-semibold text-slate-700 mb-2">Guardian Name</label>
+              <label htmlFor="guardian-name" className="block text-sm font-semibold text-slate-700 mb-2">Parent Name</label>
               <input
                 id="guardian-name"
                 type="text"
                 value={formData.studentGuardianName}
                 onChange={(e) => handleInputChange('studentGuardianName', e.target.value)}
                 className="w-full px-5 py-4 border-2 border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none text-slate-900 rounded-xl transition-all text-lg"
-                placeholder="Enter guardian's name"
+                placeholder="Enter parent's name"
                 required
               />
             </div>
 
             <div>
-              <label htmlFor="guardian-phone" className="block text-sm font-semibold text-slate-700 mb-2">Guardian Phone Number</label>
+              <label htmlFor="guardian-phone" className="block text-sm font-semibold text-slate-700 mb-2">Parent Phone Number</label>
               <input
                 id="guardian-phone"
                 type="tel"
                 value={formData.studentGuardianNumber}
                 onChange={(e) => handleInputChange('studentGuardianNumber', e.target.value)}
                 className="w-full px-5 py-4 border-2 border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none text-slate-900 rounded-xl transition-all text-lg"
-                placeholder="Enter guardian's phone number"
+                placeholder="Enter parent's phone number"
                 pattern="[0-9]{10}"
                 required
               />
@@ -530,7 +530,7 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
               <h3 className="text-xl font-bold text-slate-900">Location</h3>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label htmlFor="state" className="block text-sm font-semibold text-slate-700 mb-2">State</label>
                 <select
@@ -658,7 +658,7 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
 
             <div>
               <label htmlFor="referral-code" className="block text-sm font-semibold text-slate-700 mb-2">Enter Referral Code</label>
-              <div className="flex gap-3">
+              <div className="flex flex-col sm:flex-row gap-3">
                 <input
                   id="referral-code"
                   type="text"
@@ -672,7 +672,7 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
                   type="button"
                   onClick={handleReferralCheck}
                   disabled={referralState.code.length !== 5 || referralState.loading}
-                  className="px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-600 text-white font-semibold rounded-xl hover:from-amber-600 hover:to-orange-700 disabled:from-slate-300 disabled:to-slate-400 disabled:cursor-not-allowed transition-all duration-300"
+                  className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-600 text-white font-semibold rounded-xl hover:from-amber-600 hover:to-orange-700 disabled:from-slate-300 disabled:to-slate-400 disabled:cursor-not-allowed transition-all duration-300"
                 >
                   {referralState.loading ? (
                     <Loader2 className="w-4 h-4 animate-spin" />
