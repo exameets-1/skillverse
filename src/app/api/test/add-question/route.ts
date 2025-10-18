@@ -118,7 +118,7 @@ import dbConnect from '@/lib/dbConnect';
 import Question from '@/lib/models/Question';
 import TestCourse from '@/lib/models/TestCourse';
 
-const allowedOrigin = 'https://www.exameets.in';
+const allowedOrigin = 'https://admin.exameets.in';
 
 export async function POST(request: NextRequest) {
   const origin = request.headers.get('origin');

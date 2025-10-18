@@ -70,7 +70,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/dbConnect';
 import TestCourse from '@/lib/models/TestCourse';
 
-const allowedOrigin = 'https://www.exameets.in';
+const allowedOrigin = 'https://admin.exameets.in';
 
 export async function POST(request: NextRequest) {
   const headers = {
