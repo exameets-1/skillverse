@@ -183,7 +183,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Clock, CheckCircle, AlertCircle, Trophy, Gift, Award, Sparkles, ChevronRight } from 'lucide-react';
+import { CheckCircle, AlertCircle, Trophy, Gift, Award, Sparkles, ChevronRight, BookOpen } from 'lucide-react';
 import StudentRegistrationModal from '@/components/modals/StudentRegistrationModal';
 
 const instructionsArray = [
@@ -420,8 +420,8 @@ export default function TestPage() {
           <div className="grid md:grid-cols-3 gap-8">
             {[
               { icon: CheckCircle, title: "MCQ Format", desc: "Multiple choice questions covering various topics and difficulty levels", color: "from-green-500 to-emerald-600" },
-              { icon: Clock, title: "Instant Results", desc: "Get your scores and performance analysis immediately after submission", color: "from-blue-500 to-cyan-600" },
-              { icon: Trophy, title: "Compete & Win", desc: "Register for multiple tests and maximize your chances of winning prizes", color: "from-purple-500 to-pink-600" }
+              { icon: Trophy, title: "Compete & Win", desc: "Register for multiple tests and maximize your chances of winning prizes", color: "from-purple-500 to-pink-600" },
+              { icon: BookOpen, title: "Multiple Subjects", desc: "Choose from various tests covering different domains and topics", color: "from-blue-500 to-cyan-600" },
             ].map((item, index) => {
               const IconComponent = item.icon;
               return (
