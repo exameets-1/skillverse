@@ -183,7 +183,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { CheckCircle, AlertCircle, Trophy, Gift, Award, Sparkles, ChevronRight, BookOpen } from 'lucide-react';
+import { CheckCircle, AlertCircle, Trophy, Gift, Award, Sparkles, ChevronRight, BookOpen, Star } from 'lucide-react';
 import StudentRegistrationModal from '@/components/modals/StudentRegistrationModal';
 
 const instructionsArray = [
@@ -195,11 +195,32 @@ const instructionsArray = [
 ];
 
 const prizes = [
-  { rank: "1st Place", discount: "100%", gradient: "from-yellow-400 via-amber-500 to-yellow-600", icon: Trophy },
-  { rank: "2nd Place", discount: "75%", gradient: "from-gray-300 via-gray-400 to-gray-500", icon: Award },
-  { rank: "3rd Place", discount: "50%", gradient: "from-orange-400 via-amber-600 to-orange-700", icon: Award },
-  { rank: "All Participants", discount: "10%", gradient: "from-blue-400 via-indigo-500 to-purple-600", icon: Sparkles }
+  {
+    rank: "Top 3 Performers",
+    discount: "75% Off",
+    gradient: "from-yellow-400 via-amber-500 to-yellow-600",
+    icon: Trophy
+  },
+  {
+    rank: "Rank 4 & 5",
+    discount: "50% Off",
+    gradient: "from-gray-300 via-gray-400 to-gray-500",
+    icon: Award
+  },
+  {
+    rank: "All Participants",
+    discount: "15% Off",
+    gradient: "from-blue-400 via-indigo-500 to-purple-600",
+    icon: Sparkles
+  },
+  {
+    rank: "Show Your Skills!",
+    discount: "Join now !",
+    gradient: "from-pink-400 via-rose-500 to-red-600",
+    icon: Star
+  }
 ];
+
 
 export default function TestPage() {
   const [showRegistrationModal, setShowRegistrationModal] = useState(false);
@@ -302,8 +323,7 @@ export default function TestPage() {
               <div>
                 <h3 className="text-white font-semibold text-lg mb-2">Win the course you excel in!</h3>
                 <p className="text-slate-300 leading-relaxed">
-                  Secure the top position in any test to receive a <span className="text-yellow-400 font-semibold">100% discount</span> on that specific course. 
-                  For example, rank 1st in the Web Development test and get the Web Dev course completely free!
+                  Secure the top position in any test to receive a <span className="text-yellow-400 font-semibold">75% discount</span> on that specific course. 
                 </p>
               </div>
             </div>
