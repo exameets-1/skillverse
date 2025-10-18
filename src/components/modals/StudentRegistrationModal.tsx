@@ -10,7 +10,8 @@ import {
   AlertCircle,
   Loader2,
   Gift,
-  Check
+  Check,
+  Sparkles
 } from 'lucide-react';
 import {
   sendOTP,
@@ -216,55 +217,65 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
   const availableDistricts = formData.location.state ? getDistrictsForState(formData.location.state) : [];
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-white w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-sm relative">
-        {/* Loading Overlay - Higher z-index to ensure visibility */}
+    <div className="fixed inset-0 bg-gradient-to-br from-black/60 via-indigo-900/30 to-purple-900/40 backdrop-blur-md z-50 flex items-center justify-center p-4">
+      <div className="bg-white w-full max-w-3xl max-h-[95vh] overflow-y-auto rounded-3xl shadow-2xl border border-slate-200 relative">
+        {/* Loading Overlay */}
         {registrationState.loading && (
-          <div className="fixed inset-0 bg-white/98 backdrop-blur-sm z-[100] flex items-center justify-center rounded-sm">
-            <div className="flex flex-col items-center gap-4">
-              <Loader2 className="w-16 h-16 animate-spin text-blue-600" />
-              <p className="text-xl font-medium text-gray-900">Registering...</p>
-              <p className="text-sm text-gray-600">Please wait while we create your account</p>
+          <div className="fixed inset-0 bg-gradient-to-br from-indigo-600/95 to-purple-600/95 backdrop-blur-sm z-[100] flex items-center justify-center rounded-3xl">
+            <div className="flex flex-col items-center gap-6 text-center">
+              <div className="relative">
+                <Loader2 className="w-20 h-20 animate-spin text-white" />
+                <div className="absolute inset-0 rounded-full bg-white/20 animate-pulse" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-white mb-2">Creating Your Account</p>
+                <p className="text-indigo-100">Please wait while we set everything up...</p>
+              </div>
             </div>
           </div>
         )}
 
-        {/* Success Overlay - Higher z-index */}
+        {/* Success Overlay */}
         {registrationState.success && (
-          <div className="fixed inset-0 bg-white z-[100] flex items-center justify-center rounded-sm">
+          <div className="fixed inset-0 bg-gradient-to-br from-green-500/95 via-emerald-600/95 to-teal-600/95 backdrop-blur-sm z-[100] flex items-center justify-center rounded-3xl">
             <Confetti />
-            <div className="flex flex-col items-center gap-6 text-center px-8 max-w-md">
+            <div className="flex flex-col items-center gap-8 text-center px-8 max-w-lg">
               <div className="relative">
-                <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center">
-                  <Check className="w-12 h-12 text-green-600 animate-pulse" />
+                <div className="w-28 h-28 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                  <Check className="w-16 h-16 text-white animate-pulse" />
                 </div>
-                <div className="absolute -inset-3 bg-green-200 rounded-full animate-ping opacity-30"></div>
+                <div className="absolute -inset-4 bg-white/10 rounded-full animate-ping" />
+                <Sparkles className="absolute -top-2 -right-2 w-8 h-8 text-yellow-300 animate-bounce" />
               </div>
+              
               <div>
-                <h3 className="text-3xl font-bold text-green-900 mb-3">Registration Successful! 🎉</h3>
-                <p className="text-gray-700 mb-6 text-lg">
+                <h3 className="text-4xl font-bold text-white mb-4">Registration Successful! 🎉</h3>
+                <p className="text-xl text-green-100 mb-8 leading-relaxed">
                   Welcome aboard! Your account has been created successfully.
                 </p>
-                <div className="bg-green-50 border border-green-200 rounded-lg p-6 mb-6">
-                  <p className="text-base text-green-800 mb-3">
+                
+                <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 mb-8">
+                  <p className="text-lg text-green-100 mb-4 font-medium">
                     Your referral code:
                   </p>
-                  <div className="flex items-center gap-3 mb-3">
-                    <p className="font-mono font-bold text-2xl text-green-900 flex-1">
-                      {registrationState.data?.student?.referralCode}
-                    </p>
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="flex-1 bg-white/20 backdrop-blur-sm rounded-xl p-4">
+                      <p className="font-mono font-bold text-3xl text-white tracking-wider">
+                        {registrationState.data?.student?.referralCode}
+                      </p>
+                    </div>
                     <button
                       onClick={handleCopyReferralCode}
-                      className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm font-medium flex items-center gap-2"
+                      className="px-6 py-4 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white rounded-xl transition-all duration-300 font-medium flex items-center gap-3 border border-white/20"
                     >
                       {copied ? (
                         <>
-                          <Check className="w-4 h-4" />
+                          <Check className="w-5 h-5" />
                           Copied!
                         </>
                       ) : (
                         <>
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                           </svg>
                           Copy
@@ -272,36 +283,37 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
                       )}
                     </button>
                   </div>
-                  <p className="text-sm text-green-600">Share this code with friends and earn rewards!</p>
+                  <p className="text-green-200 text-sm">Share this code with friends and earn rewards!</p>
                 </div>
+                
                 <button
                   onClick={handleSuccessClose}
-                  className="px-8 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors text-lg font-medium"
+                  className="px-10 py-4 bg-white text-green-600 rounded-full text-lg font-bold shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
                 >
-                  Continue
+                  Continue to Tests
                 </button>
               </div>
             </div>
           </div>
         )}
 
-        {/* Error Overlay - Higher z-index */}
+        {/* Error Overlay */}
         {registrationState.error && !registrationState.loading && (
-          <div className="fixed inset-0 bg-white z-[100] flex items-center justify-center rounded-sm">
-            <div className="flex flex-col items-center gap-6 text-center px-8">
+          <div className="fixed inset-0 bg-gradient-to-br from-red-500/95 to-pink-600/95 backdrop-blur-sm z-[100] flex items-center justify-center rounded-3xl">
+            <div className="flex flex-col items-center gap-8 text-center px-8 max-w-md">
               <div className="relative">
-                <div className="w-24 h-24 bg-red-100 rounded-full flex items-center justify-center">
-                  <AlertCircle className="w-12 h-12 text-red-600" />
+                <div className="w-28 h-28 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                  <AlertCircle className="w-16 h-16 text-white" />
                 </div>
               </div>
               <div>
-                <h3 className="text-3xl font-bold text-red-900 mb-3">Registration Failed</h3>
-                <p className="text-gray-700 mb-6 text-lg">
+                <h3 className="text-4xl font-bold text-white mb-4">Registration Failed</h3>
+                <p className="text-xl text-red-100 mb-8 leading-relaxed">
                   {registrationState.error}
                 </p>
                 <button
                   onClick={() => dispatch(clearRegistrationError())}
-                  className="px-8 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-lg font-medium"
+                  className="px-10 py-4 bg-white text-red-600 rounded-full text-lg font-bold shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
                 >
                   Try Again
                 </button>
@@ -311,64 +323,69 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
         )}
 
         {/* Header */}
-        <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between z-10">
+        <div className="sticky top-0 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 px-8 py-6 flex items-center justify-between z-10 rounded-t-3xl">
           <div>
-            <h2 className="text-xl font-medium text-black">Student Registration</h2>
-            <p className="text-sm text-gray-500 mt-0.5">Complete all steps to register for the test</p>
+            <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+              <Sparkles className="w-6 h-6" />
+              Student Registration
+            </h2>
+            <p className="text-indigo-100 mt-1">Complete all steps to join the test</p>
           </div>
           <button
             type="button"
             onClick={handleClose}
-            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+            className="p-3 hover:bg-white/20 rounded-full transition-all duration-300 group"
             aria-label="Close registration modal"
             disabled={registrationState.loading}
           >
-            <X className="w-5 h-5 text-gray-500" />
+            <X className="w-6 h-6 text-white group-hover:rotate-90 transition-transform" />
           </button>
         </div>
 
-        {/* Form - Add opacity when loading */}
-        <div className={`p-6 space-y-6 ${registrationState.loading ? 'opacity-50 pointer-events-none' : ''}`}>
+        {/* Form */}
+        <div className={`p-8 space-y-8 ${registrationState.loading ? 'opacity-50 pointer-events-none' : ''}`}>
           {/* Personal Information */}
-          <div className="space-y-4">
-            <h3 className="font-medium text-black flex items-center gap-2">
-              <User className="w-4 h-4" />
-              Personal Information
-            </h3>
+          <div className="space-y-6">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
+                <User className="w-5 h-5 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900">Personal Information</h3>
+            </div>
 
             <div>
-              <label htmlFor="full-name" className="block text-sm font-medium text-gray-700 mb-1.5">Full Name</label>
+              <label htmlFor="full-name" className="block text-sm font-semibold text-slate-700 mb-2">Full Name</label>
               <input
                 id="full-name"
                 type="text"
                 value={formData.name}
                 onChange={(e) => handleInputChange('name', e.target.value)}
-                className="text-black w-full px-4 py-2.5 border border-gray-300 focus:border-black focus:ring-1 focus:ring-black outline-none text-sm"
+                className="w-full px-5 py-4 border-2 border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none text-slate-900 rounded-xl transition-all text-lg"
                 placeholder="Enter your full name"
                 required
               />
             </div>
 
             <div>
-              <label htmlFor="dob" className="block text-sm font-medium text-gray-700 mb-1.5">Date of Birth</label>
+              <label htmlFor="dob" className="block text-sm font-semibold text-slate-700 mb-2">Date of Birth</label>
               <input
                 id="dob"
                 type="date"
                 value={formData.studentDOB}
                 onChange={(e) => handleInputChange('studentDOB', e.target.value)}
-                className="text-black w-full px-4 py-2.5 border border-gray-300 focus:border-black focus:ring-1 focus:ring-black outline-none text-sm"
+                className="w-full px-5 py-4 border-2 border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none text-slate-900 rounded-xl transition-all text-lg"
                 required
               />
             </div>
 
             <div>
-              <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1.5">Phone Number</label>
+              <label htmlFor="phone" className="block text-sm font-semibold text-slate-700 mb-2">Phone Number</label>
               <input
                 id="phone"
                 type="tel"
                 value={formData.studentNumber}
                 onChange={(e) => handleInputChange('studentNumber', e.target.value)}
-                className="text-black w-full px-4 py-2.5 border border-gray-300 focus:border-black focus:ring-1 focus:ring-black outline-none text-sm"
+                className="w-full px-5 py-4 border-2 border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none text-slate-900 rounded-xl transition-all text-lg"
                 placeholder="Enter your phone number"
                 pattern="[0-9]{10}"
                 required
@@ -377,21 +394,23 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
           </div>
 
           {/* Email Verification */}
-          <div className="space-y-4 pt-4 border-t border-gray-200">
-            <h3 className="font-medium text-black flex items-center gap-2">
-              <Mail className="w-4 h-4" />
-              Email Verification
-            </h3>
+          <div className="space-y-6 pt-6 border-t border-slate-200">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center">
+                <Mail className="w-5 h-5 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900">Email Verification</h3>
+            </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1.5">Email Address</label>
-              <div className="flex gap-2">
+              <label htmlFor="email" className="block text-sm font-semibold text-slate-700 mb-2">Email Address</label>
+              <div className="flex gap-3">
                 <input
                   id="email"
                   type="email"
                   value={formData.studentEmail}
                   onChange={(e) => handleInputChange('studentEmail', e.target.value)}
-                  className="text-black flex-1 px-4 py-2.5 border border-gray-300 focus:border-black focus:ring-1 focus:ring-black outline-none text-sm"
+                  className="flex-1 px-5 py-4 border-2 border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none text-slate-900 rounded-xl transition-all text-lg"
                   placeholder="Enter your email"
                   required
                   disabled={otpState.verified}
@@ -401,10 +420,10 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
                     type="button"
                     onClick={handleSendOTP}
                     disabled={!formData.studentEmail || otpState.loading || otpState.sent}
-                    className="px-6 py-2.5 bg-black text-white text-sm font-medium hover:bg-gray-800 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors whitespace-nowrap"
+                    className="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-xl hover:from-indigo-700 hover:to-purple-700 disabled:from-slate-300 disabled:to-slate-400 disabled:cursor-not-allowed transition-all duration-300 flex items-center gap-2 shadow-lg"
                   >
                     {otpState.loading ? (
-                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <Loader2 className="w-5 h-5 animate-spin" />
                     ) : otpState.sent ? (
                       'OTP Sent'
                     ) : (
@@ -413,14 +432,14 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
                   </button>
                 )}
                 {otpState.verified && (
-                  <div className="px-4 py-2.5 bg-green-50 border border-green-200 flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-600" />
-                    <span className="text-sm text-green-700 font-medium">Verified</span>
+                  <div className="px-6 py-4 bg-green-50 border-2 border-green-200 flex items-center gap-3 rounded-xl">
+                    <CheckCircle className="w-5 h-5 text-green-600" />
+                    <span className="font-semibold text-green-700">Verified</span>
                   </div>
                 )}
               </div>
               {otpState.error && (
-                <p className="text-sm text-red-600 mt-1.5 flex items-center gap-1">
+                <p className="text-sm text-red-600 mt-2 flex items-center gap-2 bg-red-50 p-3 rounded-lg">
                   <AlertCircle className="w-4 h-4" />
                   {otpState.error}
                 </p>
@@ -429,9 +448,9 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
 
             {/* OTP Input */}
             {otpState.sent && !otpState.verified && (
-              <div className="space-y-3">
-                <label className="block text-sm font-medium text-gray-700">Enter OTP</label>
-                <div className="flex gap-2 justify-center">
+              <div className="space-y-4 bg-gradient-to-br from-indigo-50 to-purple-50 p-6 rounded-2xl border border-indigo-200">
+                <label className="block text-sm font-semibold text-slate-700">Enter OTP</label>
+                <div className="flex gap-3 justify-center">
                   {otpDigits.map((digit, index) => (
                     <input
                       key={`otp-input-${index}`}
@@ -442,22 +461,22 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
                       value={digit}
                       onChange={(e) => handleOTPChange(index, e.target.value)}
                       onKeyDown={(e) => handleOTPKeyDown(index, e)}
-                      className="text-black w-12 h-12 text-center text-lg font-semibold border-2 border-gray-300 focus:border-black focus:ring-0 outline-none"
+                      className="w-14 h-14 text-center text-2xl font-bold border-2 border-indigo-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none rounded-xl bg-white transition-all"
                       aria-label={`OTP digit ${index + 1}`}
                     />
                   ))}
                 </div>
                 <div className="flex items-center justify-between">
-                  <p className="text-xs text-gray-500">
+                  <p className="text-sm text-slate-600">
                     {otpState.remainingAttempts < 5 && (
-                      <span>Remaining attempts: {otpState.remainingAttempts}</span>
+                      <span className="text-orange-600 font-medium">Remaining attempts: {otpState.remainingAttempts}</span>
                     )}
                   </p>
                   <button
                     type="button"
                     onClick={handleVerifyOTP}
                     disabled={otpDigits.join('').length !== 6 || otpState.loading}
-                    className="px-6 py-2 bg-black text-white text-sm font-medium hover:bg-gray-800 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+                    className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-xl hover:from-indigo-700 hover:to-purple-700 disabled:from-slate-300 disabled:to-slate-400 disabled:cursor-not-allowed transition-all duration-300 flex items-center gap-2"
                   >
                     {otpState.loading ? (
                       <Loader2 className="w-4 h-4 animate-spin" />
@@ -471,30 +490,30 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
           </div>
 
           {/* Guardian Information */}
-          <div className="space-y-4 pt-4 border-t border-gray-200">
-            <h3 className="font-medium text-black">Guardian Information</h3>
+          <div className="space-y-6 pt-6 border-t border-slate-200">
+            <h3 className="text-xl font-bold text-slate-900">Guardian Information</h3>
 
             <div>
-              <label htmlFor="guardian-name" className="block text-sm font-medium text-gray-700 mb-1.5">Guardian Name</label>
+              <label htmlFor="guardian-name" className="block text-sm font-semibold text-slate-700 mb-2">Guardian Name</label>
               <input
                 id="guardian-name"
                 type="text"
                 value={formData.studentGuardianName}
                 onChange={(e) => handleInputChange('studentGuardianName', e.target.value)}
-                className="text-black w-full px-4 py-2.5 border border-gray-300 focus:border-black focus:ring-1 focus:ring-black outline-none text-sm"
+                className="w-full px-5 py-4 border-2 border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none text-slate-900 rounded-xl transition-all text-lg"
                 placeholder="Enter guardian's name"
                 required
               />
             </div>
 
             <div>
-              <label htmlFor="guardian-phone" className="block text-sm font-medium text-gray-700 mb-1.5">Guardian Phone Number</label>
+              <label htmlFor="guardian-phone" className="block text-sm font-semibold text-slate-700 mb-2">Guardian Phone Number</label>
               <input
                 id="guardian-phone"
                 type="tel"
                 value={formData.studentGuardianNumber}
                 onChange={(e) => handleInputChange('studentGuardianNumber', e.target.value)}
-                className="text-black w-full px-4 py-2.5 border border-gray-300 focus:border-black focus:ring-1 focus:ring-black outline-none text-sm"
+                className="w-full px-5 py-4 border-2 border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none text-slate-900 rounded-xl transition-all text-lg"
                 placeholder="Enter guardian's phone number"
                 pattern="[0-9]{10}"
                 required
@@ -503,20 +522,22 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
           </div>
 
           {/* Location */}
-          <div className="space-y-4 pt-4 border-t border-gray-200">
-            <h3 className="font-medium text-black flex items-center gap-2">
-              <MapPin className="w-4 h-4" />
-              Location
-            </h3>
+          <div className="space-y-6 pt-6 border-t border-slate-200">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center">
+                <MapPin className="w-5 h-5 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900">Location</h3>
+            </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label htmlFor="state" className="block text-sm font-medium text-gray-700 mb-1.5">State</label>
+                <label htmlFor="state" className="block text-sm font-semibold text-slate-700 mb-2">State</label>
                 <select
                   id="state"
                   value={formData.location.state}
                   onChange={(e) => handleInputChange('location.state', e.target.value)}
-                  className="text-black w-full px-4 py-2.5 border border-gray-300 focus:border-black focus:ring-1 focus:ring-black outline-none text-sm bg-white"
+                  className="w-full px-5 py-4 border-2 border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none text-slate-900 rounded-xl transition-all text-lg bg-white"
                   required
                   disabled={stateDistrictsLoading}
                 >
@@ -529,12 +550,12 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
                 </select>
               </div>
               <div>
-                <label htmlFor="district" className="block text-sm font-medium text-gray-700 mb-1.5">District</label>
+                <label htmlFor="district" className="block text-sm font-semibold text-slate-700 mb-2">District</label>
                 <select
                   id="district"
                   value={formData.location.district}
                   onChange={(e) => handleInputChange('location.district', e.target.value)}
-                  className="text-black w-full px-4 py-2.5 border border-gray-300 focus:border-black focus:ring-1 focus:ring-black outline-none text-sm bg-white"
+                  className="w-full px-5 py-4 border-2 border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none text-slate-900 rounded-xl transition-all text-lg bg-white"
                   required
                   disabled={!formData.location.state || stateDistrictsLoading}
                 >
@@ -549,39 +570,39 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
             </div>
 
             {stateDistrictsLoading && (
-              <p className="text-xs text-gray-500 flex items-center gap-1">
-                <Loader2 className="w-3 h-3 animate-spin" />
+              <p className="text-sm text-slate-600 flex items-center gap-2 bg-slate-50 p-3 rounded-lg">
+                <Loader2 className="w-4 h-4 animate-spin" />
                 Loading location data...
               </p>
             )}
           </div>
 
           {/* Test Selection */}
-          <div className="space-y-4 pt-4 border-t border-gray-200">
+          <div className="space-y-6 pt-6 border-t border-slate-200">
             <div className="flex items-center justify-between">
-              <h3 className="font-medium text-black">Select Tests</h3>
+              <h3 className="text-xl font-bold text-slate-900">Select Tests</h3>
               {validation.isCoursesSelected && (
-                <div className="flex items-center gap-1.5 text-sm text-green-600">
-                  <CheckCircle className="w-4 h-4" />
-                  <span>{formData.registeredCourses.length} selected</span>
+                <div className="flex items-center gap-2 px-4 py-2 bg-green-50 border border-green-200 rounded-full">
+                  <CheckCircle className="w-4 h-4 text-green-600" />
+                  <span className="text-sm font-semibold text-green-700">{formData.registeredCourses.length} selected</span>
                 </div>
               )}
             </div>
 
             {activeTests.loading && (
-              <div className="flex items-center justify-center py-8">
-                <Loader2 className="w-6 h-6 animate-spin text-gray-400" />
+              <div className="flex items-center justify-center py-12">
+                <Loader2 className="w-8 h-8 animate-spin text-indigo-600" />
               </div>
             )}
 
             {activeTests.error && (
-              <div className="p-4 bg-red-50 border border-red-200 text-sm text-red-700">
+              <div className="p-6 bg-red-50 border-2 border-red-200 text-red-700 rounded-2xl">
                 {activeTests.error}
               </div>
             )}
 
             {!activeTests.loading && !activeTests.error && (
-              <div className="grid gap-3" role="group" aria-label="Test selection">
+              <div className="grid gap-4" role="group" aria-label="Test selection">
                 {(activeTests.data as Test[]).map((test, index) => {
                   const isSelected = formData.registeredCourses.includes(test.id);
                   
@@ -591,10 +612,10 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
                       onClick={() => {
                         dispatch(toggleCourseSelection(test.id));
                       }}
-                      className={`p-4 border-2 cursor-pointer transition-all ${
+                      className={`group p-6 border-2 cursor-pointer transition-all duration-300 rounded-2xl ${
                         isSelected
-                          ? 'border-black bg-gray-50'
-                          : 'border-gray-200 hover:border-gray-400'
+                          ? 'border-indigo-500 bg-gradient-to-br from-indigo-50 to-purple-50 shadow-lg'
+                          : 'border-slate-200 hover:border-indigo-300 hover:bg-slate-50'
                       }`}
                       role="button"
                       tabIndex={0}
@@ -604,15 +625,17 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
                           dispatch(toggleCourseSelection(test.id));
                         }
                       }}
-                      aria-pressed={isSelected}
+                      aria-pressed={isSelected.toString()}
                     >
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
-                          <h4 className="font-medium text-black mb-1">{test.name || 'No Title'}</h4>
-                          <p className="text-sm text-gray-600">{test.description || 'No Description'}</p>
+                          <h4 className="font-bold text-slate-900 mb-2 text-lg">{test.name || 'No Title'}</h4>
+                          <p className="text-slate-600">{test.description || 'No Description'}</p>
                         </div>
                         {isSelected && (
-                          <CheckCircle className="w-5 h-5 text-black flex-shrink-0 ml-3" />
+                          <div className="w-8 h-8 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-full flex items-center justify-center ml-4">
+                            <CheckCircle className="w-5 h-5 text-white" />
+                          </div>
                         )}
                       </div>
                     </div>
@@ -623,21 +646,25 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
           </div>
 
           {/* Referral Code */}
-          <div className="space-y-4 pt-4 border-t border-gray-200">
-            <h3 className="font-medium text-black flex items-center gap-2">
-              <Gift className="w-4 h-4" />
-              Referral Code <span className="text-sm font-normal text-gray-500">(Optional)</span>
-            </h3>
+          <div className="space-y-6 pt-6 border-t border-slate-200">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center">
+                <Gift className="w-5 h-5 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900">
+                Referral Code <span className="text-sm font-normal text-slate-500 ml-2">(Optional)</span>
+              </h3>
+            </div>
 
             <div>
-              <label htmlFor="referral-code" className="block text-sm font-medium text-gray-700 mb-1.5">Enter Referral Code</label>
-              <div className="flex gap-2">
+              <label htmlFor="referral-code" className="block text-sm font-semibold text-slate-700 mb-2">Enter Referral Code</label>
+              <div className="flex gap-3">
                 <input
                   id="referral-code"
                   type="text"
                   value={referralState.code}
                   onChange={(e) => dispatch(updateReferralCode(e.target.value.toUpperCase()))}
-                  className="text-black flex-1 px-4 py-2.5 border border-gray-300 focus:border-black focus:ring-1 focus:ring-black outline-none text-sm uppercase font-mono"
+                  className="flex-1 px-5 py-4 border-2 border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none text-slate-900 rounded-xl transition-all text-lg uppercase font-mono tracking-widest"
                   placeholder="XXXXX"
                   maxLength={5}
                 />
@@ -645,7 +672,7 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
                   type="button"
                   onClick={handleReferralCheck}
                   disabled={referralState.code.length !== 5 || referralState.loading}
-                  className="px-6 py-2.5 bg-black text-white text-sm font-medium hover:bg-gray-800 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+                  className="px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-600 text-white font-semibold rounded-xl hover:from-amber-600 hover:to-orange-700 disabled:from-slate-300 disabled:to-slate-400 disabled:cursor-not-allowed transition-all duration-300"
                 >
                   {referralState.loading ? (
                     <Loader2 className="w-4 h-4 animate-spin" />
@@ -656,32 +683,42 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
               </div>
               
               {referralState.checked && referralState.isValid && (
-                <div className="mt-2 flex items-center gap-2 text-sm text-green-600">
-                  <CheckCircle className="w-4 h-4" />
-                  <span>Referred by: <span className="font-medium">{referralState.referrerName}</span></span>
+                <div className="mt-3 flex items-center gap-3 p-4 bg-green-50 border border-green-200 rounded-xl">
+                  <CheckCircle className="w-5 h-5 text-green-600" />
+                  <span className="text-green-700 font-medium">Referred by: <span className="font-bold">{referralState.referrerName}</span></span>
                 </div>
               )}
               
               {referralState.checked && !referralState.isValid && (
-                <div className="mt-2 flex items-center gap-2 text-sm text-red-600">
-                  <AlertCircle className="w-4 h-4" />
-                  <span>{referralState.error}</span>
+                <div className="mt-3 flex items-center gap-3 p-4 bg-red-50 border border-red-200 rounded-xl">
+                  <AlertCircle className="w-5 h-5 text-red-600" />
+                  <span className="text-red-700 font-medium">{referralState.error}</span>
                 </div>
               )}
             </div>
           </div>
 
           {/* Submit Button */}
-          <div className="pt-4 border-t border-gray-200">
+          <div className="pt-6 border-t border-slate-200">
             {!canSubmit && (
-              <div className="mb-4 p-3 bg-amber-50 border border-amber-200 text-sm text-amber-800">
-                <div className="flex items-start gap-2">
-                  <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
+              <div className="mb-6 p-6 bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-amber-200 rounded-2xl">
+                <div className="flex items-start gap-4">
+                  <AlertCircle className="w-6 h-6 text-amber-600 flex-shrink-0 mt-1" />
                   <div>
-                    <p className="font-medium mb-1">Complete these steps to register:</p>
-                    <ul className="list-disc list-inside space-y-1 text-xs">
-                      {!validation.isEmailVerified && <li>Verify your email address</li>}
-                      {!validation.isCoursesSelected && <li>Select at least one test</li>}
+                    <p className="font-bold text-amber-900 mb-3 text-lg">Complete these steps to register:</p>
+                    <ul className="space-y-2 text-amber-800">
+                      {!validation.isEmailVerified && (
+                        <li className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
+                          Verify your email address
+                        </li>
+                      )}
+                      {!validation.isCoursesSelected && (
+                        <li className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
+                          Select at least one test
+                        </li>
+                      )}
                     </ul>
                   </div>
                 </div>
@@ -692,16 +729,16 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
               type="button"
               onClick={handleSubmit}
               disabled={!canSubmit || registrationState.loading}
-              className="w-full py-3.5 bg-black text-white font-medium hover:bg-gray-800 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
+              className="w-full py-5 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-bold text-lg rounded-2xl hover:from-indigo-700 hover:via-purple-700 hover:to-pink-700 disabled:from-slate-300 disabled:to-slate-400 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-3 shadow-xl hover:shadow-2xl hover:scale-105"
             >
               <span>Complete Registration</span>
-              <CheckCircle className="w-4 h-4" />
+              <CheckCircle className="w-6 h-6" />
             </button>
 
             {registrationState.error && (
-              <div className="mt-3 p-3 bg-red-50 border border-red-200 text-sm text-red-700 flex items-start gap-2">
-                <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
-                <span>{registrationState.error}</span>
+              <div className="mt-4 p-4 bg-red-50 border-2 border-red-200 rounded-xl flex items-start gap-3">
+                <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                <span className="text-red-700 font-medium">{registrationState.error}</span>
               </div>
             )}
           </div>
