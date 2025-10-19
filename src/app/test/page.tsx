@@ -204,7 +204,7 @@ const prizes = [
   {
     rank: "Rank 4 & 5",
     discount: "50% Off",
-    gradient: "from-gray-300 via-gray-400 to-gray-500",
+    gradient: "from-violet-300 via-violet-400 to-violet-500",
     icon: Award
   },
   {
