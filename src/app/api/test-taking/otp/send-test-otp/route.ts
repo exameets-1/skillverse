@@ -9,27 +9,29 @@ function generateOTP(): number {
   return Math.floor(100000 + Math.random() * 900000);
 }
 
-// HTML template for OTP email
-function getOTPEmailTemplate(otp: number): string {
+// HTML template for test proceed OTP email
+function getTestProceedOTPEmailTemplate(otp: number, studentName?: string): string {
   return `
     <!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Email Verification - Exameets Skillverse</title>
+        <title>Test Verification - Exameets Skillverse</title>
     </head>
     <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f4f4f4;">
         <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 10px 10px 0 0; text-align: center;">
             <h1 style="color: white; margin: 0; font-size: 28px; font-weight: bold;">Exameets Skillverse</h1>
-            <p style="color: #f0f0f0; margin: 10px 0 0 0; font-size: 16px;">Your Learning Journey Starts Here</p>
+            <p style="color: #f0f0f0; margin: 10px 0 0 0; font-size: 16px;">Ready to Begin Your Test</p>
         </div>
         
         <div style="background: white; padding: 40px 30px; border-radius: 0 0 10px 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-            <h2 style="color: #333; margin-bottom: 20px; font-size: 24px;">Email Verification Required</h2>
+            ${studentName ? `<p style="font-size: 16px; margin-bottom: 20px; color: #555;">Hello <strong>${studentName}</strong>,</p>` : ''}
+            
+            <h2 style="color: #333; margin-bottom: 20px; font-size: 24px;">Test Access Verification</h2>
             
             <p style="font-size: 16px; margin-bottom: 25px; color: #555;">
-                Thank you for choosing Exameets Skillverse! To complete your registration, please use the verification code below:
+                You're about to begin your test. Please use the verification code below to proceed:
             </p>
             
             <div style="background: #f8f9fa; border: 2px dashed #667eea; border-radius: 8px; padding: 25px; text-align: center; margin: 30px 0;">
@@ -45,8 +47,14 @@ function getOTPEmailTemplate(otp: number): string {
                 </p>
             </div>
             
+            <div style="background: #e7f3ff; border-left: 4px solid #2196F3; padding: 15px; margin: 25px 0; border-radius: 4px;">
+                <p style="margin: 0; font-size: 14px; color: #1565C0;">
+                    <strong>📝 Test Tips:</strong> Ensure you have a stable internet connection and a quiet environment before starting.
+                </p>
+            </div>
+            
             <p style="font-size: 14px; color: #666; margin-top: 25px;">
-                If you didn't request this verification code, please ignore this email or contact our support team.
+                If you didn't request this code or aren't planning to take a test, please ignore this email or contact our support team immediately.
             </p>
             
             <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;">
@@ -85,26 +93,28 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check if student already exists with this email
+    // Check if student exists with this email
     const existingStudent = await Student.findOne({ studentEmail: email });
-    if (existingStudent) {
+    if (!existingStudent) {
       return NextResponse.json(
-        { error: 'Student already exists with this email' },
-        { status: 409 }
+        { error: 'No student found with this email. Please register first.' },
+        { status: 404 }
       );
     }
 
-    // Check if there's an existing OTP for this email (not expired)
-    const existingOtp = await Otp.findOne({ 
+    // Check if there's a recent OTP for this email (within last 1 minute)
+    const recentOtp = await Otp.findOne({ 
       email, 
-      createdAt: { $gt: new Date(Date.now() - 5 * 60 * 1000) } // Within last 5 minutes
+      createdAt: { $gt: new Date(Date.now() - 1 * 60 * 1000) } // Within last 1 minute
     });
 
-    if (existingOtp && !existingOtp.verified) {
+    if (recentOtp) {
+      const secondsRemaining = Math.ceil((recentOtp.createdAt.getTime() + 1 * 60 * 1000 - Date.now()) / 1000);
       return NextResponse.json(
         { 
-          error: 'An OTP has already been sent to this email. Please wait 1 minute before requesting a new one.',
-          canRetryAfter: Math.ceil((existingOtp.createdAt.getTime() + 1 * 60 * 1000 - Date.now()) / 1000)
+          error: 'Please wait before requesting a new OTP.',
+          canRetryAfter: secondsRemaining,
+          message: `You can request a new OTP in ${secondsRemaining} seconds`
         },
         { status: 429 }
       );
@@ -126,22 +136,24 @@ export async function POST(request: NextRequest) {
     await newOtp.save();
 
     // Send email with OTP
-    const emailTemplate = getOTPEmailTemplate(otp);
+    const emailTemplate = getTestProceedOTPEmailTemplate(otp, existingStudent.studentName);
     
     await sendEmail({
       to: email,
-      subject: 'Email Verification - Exameets Skillverse',
+      subject: 'Test Verification Code - Exameets Skillverse',
       message: emailTemplate
     });
 
     return NextResponse.json({
       message: 'OTP sent successfully to your email address',
       email: email,
-      expiresIn: '5 minutes'
+      expiresIn: '5 minutes',
+      studentName: existingStudent.studentName
     }, { status: 200 });
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    console.error('Send OTP error:', error);
+    //console.error('Send test proceed OTP error:', error);
     return NextResponse.json(
       { error: 'Failed to send OTP. Please try again later.' },
       { status: 500 }
