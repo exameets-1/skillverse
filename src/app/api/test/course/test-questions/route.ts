@@ -25,7 +25,7 @@ export async function POST(request: Request) {
     // Fetch and populate in a single query
     const course = await TestCourse.findById(courseId)
       .populate('questions', 'questionText options') // populate only required fields
-      .select('title description questions durationMinutes totalMarks isActive');
+      .select('title description questions durationMinutes totalMarks isActive questionsPerTest instructions');
 
     if (!course) {
       return NextResponse.json({ error: 'Course not found' }, { status: 404, headers });
@@ -35,15 +35,28 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Course is not active' }, { status: 403, headers });
     }
 
+    // Get all questions
+    const allQuestions = course.questions || [];
+    
+    // Randomly select questions based on questionsPerTest
+    let selectedQuestions = allQuestions;
+    if (course.questionsPerTest && course.questionsPerTest < allQuestions.length) {
+      // Shuffle and select
+      const shuffled = [...allQuestions].sort(() => Math.random() - 0.5);
+      selectedQuestions = shuffled.slice(0, course.questionsPerTest);
+    }
+
     const formattedCourse = {
       id: course._id,
       title: course.title,
       description: course.description,
       durationMinutes: course.durationMinutes,
       totalMarks: course.totalMarks,
-      totalQuestions: course.questions?.length || 0,
+      totalQuestions: allQuestions.length,
+      questionsPerTest: course.questionsPerTest,
+      instructions: course.instructions,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      questions: (course.questions || []).map((q: any) => ({
+      questions: selectedQuestions.map((q: any) => ({
         id: q._id,
         questionText: q.questionText,
         options: q.options.map((o: { text: string }) => ({ text: o.text })),
@@ -70,6 +83,82 @@ export async function OPTIONS() {
     },
   });
 }
+
+// import { NextResponse } from 'next/server';
+// import dbConnect from '@/lib/dbConnect';
+// import TestCourse from '@/lib/models/TestCourse';
+// import '@/lib/models/Question'; // Ensure model is registered
+
+// const allowedOrigin = 'https://admin.exameets.in';
+
+// export async function POST(request: Request) {
+//   const headers = {
+//     'Access-Control-Allow-Origin': allowedOrigin,
+//     'Access-Control-Allow-Methods': 'POST, OPTIONS',
+//     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+//   };
+
+//   try {
+//     await dbConnect();
+
+//     const body = await request.json();
+//     const { courseId } = body;
+
+//     if (!courseId) {
+//       return NextResponse.json({ error: 'Course ID is required' }, { status: 400, headers });
+//     }
+
+//     // Fetch and populate in a single query
+//     const course = await TestCourse.findById(courseId)
+//       .populate('questions', 'questionText options') // populate only required fields
+//       .select('title description questions durationMinutes totalMarks isActive questionsPerTest instructions');
+
+//     if (!course) {
+//       return NextResponse.json({ error: 'Course not found' }, { status: 404, headers });
+//     }
+
+//     if (!course.isActive) {
+//       return NextResponse.json({ error: 'Course is not active' }, { status: 403, headers });
+//     }
+
+//     const formattedCourse = {
+//       id: course._id,
+//       title: course.title,
+//       description: course.description,
+//       durationMinutes: course.durationMinutes,
+//       totalMarks: course.totalMarks,
+//       totalQuestions: course.questions?.length || 0,
+//       questionsPerTest: course.questionsPerTest,
+//       instructions: course.instructions,
+//       // eslint-disable-next-line @typescript-eslint/no-explicit-any
+//       questions: (course.questions || []).map((q: any) => ({
+//         id: q._id,
+//         questionText: q.questionText,
+//         options: q.options.map((o: { text: string }) => ({ text: o.text })),
+//       })),
+//     };
+
+//     return NextResponse.json({ success: true, course: formattedCourse }, { status: 200, headers });
+//   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+//   } catch (error: any) {
+//     return NextResponse.json(
+//       { error: 'Internal server error', details: process.env.NODE_ENV === 'development' ? error.message : undefined },
+//       { status: 500, headers }
+//     );
+//   }
+// }
+
+// export async function OPTIONS() {
+//   return new NextResponse(null, {
+//     status: 204,
+//     headers: {
+//       'Access-Control-Allow-Origin': allowedOrigin,
+//       'Access-Control-Allow-Methods': 'POST, OPTIONS',
+//       'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+//     },
+//   });
+// }
+
 
 // import { NextResponse } from 'next/server';
 // import dbConnect from '@/lib/dbConnect';
