@@ -136,7 +136,8 @@ export async function POST(request: NextRequest) {
       questionText,
       options,
       correctOptionIndex,
-      testCourseIds
+      testCourseIds,
+      minTimeToSolve,
     } = body;
 
     // Validate required fields
@@ -185,7 +186,8 @@ export async function POST(request: NextRequest) {
     const newQuestion = new Question({
       questionText,
       options,
-      correctOptionIndex
+      correctOptionIndex,
+      minTimeToSolve: minTimeToSolve || 30,
     });
 
     const savedQuestion = await newQuestion.save();

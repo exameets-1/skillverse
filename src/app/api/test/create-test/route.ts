@@ -86,6 +86,8 @@ export async function POST(request: NextRequest) {
     const {
       title,
       description,
+      instructions,
+      questionsPerTest,
       questions,
       durationMinutes,
       totalMarks,
@@ -93,9 +95,9 @@ export async function POST(request: NextRequest) {
     } = body;
 
     // Validate required fields
-    if (!title || !description || !durationMinutes || !totalMarks) {
+    if (!title || !description || !durationMinutes || !totalMarks || !instructions || !questionsPerTest) {
       return NextResponse.json(
-        { error: 'Title, description, duration, and total marks are required' },
+        { error: 'Title, description, duration, total marks, instructions, and questions per test are required' },
         { status: 400, headers }
       );
     }
@@ -115,6 +117,8 @@ export async function POST(request: NextRequest) {
       questions: questions || [],
       durationMinutes,
       totalMarks,
+      instructions : instructions || [],
+      questionsPerTest,
       isActive: isActive !== undefined ? isActive : true
     });
 
@@ -130,6 +134,8 @@ export async function POST(request: NextRequest) {
           durationMinutes: savedTestCourse.durationMinutes,
           totalMarks: savedTestCourse.totalMarks,
           isActive: savedTestCourse.isActive,
+          instructions: savedTestCourse.instructions,
+          questionsPerTest: savedTestCourse.questionsPerTest,
           questionsCount: savedTestCourse.questions.length
         }
       },

@@ -10,6 +10,14 @@ const testCourseSchema = new mongoose.Schema(
       type: String,
       required: true
     },
+    instructions : {
+      type: [String],
+      required: true
+    },
+    questionsPerTest: {
+      type: Number,
+      required: true
+    },
     questions : [{
     //we refer to question documents
       type: mongoose.Schema.Types.ObjectId,
