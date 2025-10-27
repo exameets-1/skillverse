@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { ArrowRight, Phone, X, Loader2 } from 'lucide-react';
+import CardSwap, { Card } from "@/components/CardSwap/CardSwap";
 
 export default function CallToAction() {
   const [showEnrollModal, setShowEnrollModal] = useState(false);
@@ -72,32 +73,73 @@ export default function CallToAction() {
   return (
     <>
       {/* Desktop Section */}
-      <section className="hidden lg:block py-20 lg:py-32 bg-black">
-        <div className="max-w-6xl mx-auto px-6 lg:px-8 text-center">
-          <h2 className="text-3xl lg:text-4xl font-light text-white mb-8 tracking-tight">
-            Start Your Learning <span className="font-medium">Journey Today!</span>
-          </h2>
+      <section className="hidden lg:block bg-black overflow-hidden">
+        <div className="mx-auto flex items-center justify-between relative">
+          {/* Left Content */}
+          <div className="px-20 max-w-2xl">
+            <h2 className="text-3xl lg:text-4xl font-light text-white mb-8 tracking-tight">
+              Start Your Learning <span className="font-medium">Journey Today!</span>
+            </h2>
 
-          <p className="text-lg lg:text-xl text-gray-300 font-light leading-relaxed max-w-4xl mx-auto mb-12">
-            Don&apos;t just learn, become a master. Exameets Skillverse Academy is your gateway
-            to a rewarding career in technology. Take the first step towards a brighter future now!
-          </p>
+            <p className="text-lg lg:text-xl text-gray-300 font-light leading-relaxed mb-12">
+              Don&apos;t just learn, become a master. Exameets Skillverse Academy is your gateway
+              to a rewarding career in technology. Take the first step towards a brighter future now!
+            </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button
-              onClick={() => setShowEnrollModal(true)}
-              className="group bg-white text-black px-8 py-4 text-lg font-medium transition-all duration-300 hover:bg-gray-100 tracking-wide flex items-center justify-center"
+            <div className="flex flex-col sm:flex-row gap-4">
+              <button
+                onClick={() => setShowEnrollModal(true)}
+                className="group bg-white text-black px-8 py-4 text-lg font-medium transition-all duration-300 hover:bg-gray-100 tracking-wide flex items-center justify-center"
+              >
+                Enroll Now
+                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+              </button>
+              <button
+                onClick={() => setShowCallbackModal(true)}
+                className="group border border-white text-white hover:bg-white hover:text-black px-8 py-4 text-lg font-medium transition-all duration-300 tracking-wide flex items-center justify-center"
+              >
+                <Phone className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform duration-300" />
+                Request a Call Back
+              </button>
+            </div>
+          </div>
+
+          {/* Right CardSwap */}
+          <div className="relative h-[600px] w-[600px] overflow-hidden">
+            <CardSwap
+              width={500}
+              height={400}
+              cardDistance={60}     // Reduced for tighter stacking
+              verticalDistance={70} // Reduced for better vertical alignment
+              delay={4000}         // Faster transitions
+              pauseOnHover={false}
+              skewAmount={6}       // Increased skew for more dramatic effect
+              easing="elastic"
+              onCardClick={(idx) => {
+                // Optional: Handle card clicks
+                setShowEnrollModal(true);
+              }}
             >
-              Enroll Now
-              <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
-            </button>
-            <button
-              onClick={() => setShowCallbackModal(true)}
-              className="group border border-white text-white hover:bg-white hover:text-black px-8 py-4 text-lg font-medium transition-all duration-300 tracking-wide flex items-center justify-center"
-            >
-              <Phone className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform duration-300" />
-              Request a Call Back
-            </button>
+              <Card className='p-7' >
+                <h3 className="text-2xl font-bold text-white mb-4">Live Classes</h3>
+                <p className="text-zinc-300">Interactive sessions with industry experts</p>
+                <div className="absolute bottom-4 right-4 text-white/50">01</div>
+              </Card>
+              <Card className='p-7'>
+                <h3 className="text-2xl font-bold text-white mb-4">1:1 Mentoring</h3>
+                <p className="text-zinc-300">Personalized guidance for your growth</p>
+                <div className="absolute bottom-4 right-4 text-white/50">02</div>
+              </Card>
+              <Card className='p-7'>
+                <h3 className="text-2xl font-bold text-white mb-4">Job Ready</h3>
+                <p className="text-zinc-300">Industry aligned curriculum</p>
+                <div className="absolute bottom-4 right-4 text-white/50">03</div>
+              </Card>
+            </CardSwap>
+
+            {/* Add decorative elements */}
+            <div className="absolute -bottom-20 -right-20 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl"></div>
+            <div className="absolute -top-10 -right-10 w-60 h-60 bg-purple-500/20 rounded-full blur-3xl"></div>
           </div>
         </div>
       </section>

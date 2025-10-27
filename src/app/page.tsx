@@ -11,30 +11,29 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <>
-    <section id="home">
-      <Hero />
-    </section>
-    <section id="about">
-      <About />
-    </section>
-    <section id="why-choose">
-      <WhyChoose />
-    </section>    
-    <section id="courses">
-      <Courses />
-    </section>
-    {/* <section id="success-stories">
-      <SuccessStories />
-    </section> */}
-    <section id="visit-us">
-      <VisitUs />
-    </section>
-    <section id="call-to-action">
-      <CallToAction />
-    </section>
-
-    <Footer />
-    <AIModal courseData={undefined} quickQuestions={undefined} />
+      <section id="home">
+        <Hero />
+      </section>
+      <section id="about">
+        <About />
+      </section>
+      <section id="why-choose">
+        <WhyChoose />
+      </section>    
+      <section id="courses">
+        <Courses />
+      </section>
+      {/* <section id="features">
+        <Features />
+      </section> */}
+      <section id="visit-us">
+        <VisitUs />
+      </section>
+      <section id="call-to-action">
+        <CallToAction />
+      </section>
+      <Footer />
+      <AIModal courseData={undefined} quickQuestions={undefined} />
     </>
   );
 }
