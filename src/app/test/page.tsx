@@ -83,7 +83,7 @@ export default function TestPage() {
     const storedStudentInfo = sessionStorage.getItem('currentStudentInfo');
     
     if (!storedCourseId || !storedStudentInfo) {
-      router.push('/test-setup');
+      router.push('/test/setup');
       return;
     }
     
@@ -614,7 +614,7 @@ export default function TestPage() {
           <h1 className="text-2xl font-bold text-slate-900 mb-2">Test Not Found</h1>
           <p className="text-slate-600 mb-6">{error}</p>
           <button
-            onClick={() => router.push('/test-setup')}
+            onClick={() => router.push('/test/setup')}
             className="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
           >
             Back to Tests
@@ -651,7 +651,7 @@ export default function TestPage() {
             </div>
           </div>
           <button
-            onClick={() => router.push('/test-setup')}
+            onClick={() => router.push('/test/setup')}
             className="px-8 py-3 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition-colors font-medium"
           >
             Back to Tests
@@ -981,7 +981,7 @@ export default function TestPage() {
             onSubmitAndLeave={() => {
               setShowExitModal(false);
               handleSubmitTest();
-              router.push('/test-setup');
+              router.push('/test/setup');
             }}
             onStay={() => setShowExitModal(false)}
           />
