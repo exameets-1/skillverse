@@ -150,7 +150,7 @@ export default function Courses() {
                     <div className="space-y-2">
                       {course.highlights.map((highlight, idx) => (
                         <div key={idx} className="flex items-center text-sm text-gray-700">
-                          <div className="w-1.5 h-1.5 bg-black rounded-full mr-3 flex-shrink-0"></div>
+                          <div className="w-1.5 h-1.5 bg-black rounded-full mr-3 shrink-0"></div>
                           <span className="font-light">{highlight}</span>
                         </div>
                       ))}
@@ -195,7 +195,7 @@ export default function Courses() {
                 >
                   {/* Header */}
                   <div className="flex items-center mb-4">
-                    <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                    <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center mr-4 shrink-0">
                       <IconComponent className="w-4 h-4 text-white" />
                     </div>
                     <h3 className="text-lg font-medium text-black tracking-tight mb-0">{course.title}</h3>
@@ -223,7 +223,7 @@ export default function Courses() {
                     <div className="grid grid-cols-2 gap-2">
                       {course.highlights.map((highlight, idx) => (
                         <div key={idx} className="flex items-center text-xs text-gray-700">
-                          <div className="w-1 h-1 bg-black rounded-full mr-2 flex-shrink-0"></div>
+                          <div className="w-1 h-1 bg-black rounded-full mr-2 shrink-0"></div>
                           <span className="font-light">{highlight}</span>
                         </div>
                       ))}

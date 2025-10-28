@@ -597,7 +597,7 @@ export default function TestPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50 flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-br from-slate-50 to-indigo-50 flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-lg text-slate-600">Loading test...</p>
@@ -608,7 +608,7 @@ export default function TestPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-red-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-linear-to-br from-slate-50 to-red-50 flex items-center justify-center p-4">
         <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center">
           <AlertTriangle className="w-16 h-16 text-red-500 mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-slate-900 mb-2">Test Not Found</h1>
@@ -631,7 +631,7 @@ export default function TestPage() {
   // Test completed screen
   if (testSubmitted) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-linear-to-br from-green-50 to-emerald-50 flex items-center justify-center p-4">
         <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-lg w-full text-center">
           <CheckCircle className="w-20 h-20 text-green-500 mx-auto mb-6" />
           <h1 className="text-3xl font-bold text-slate-900 mb-4">Test Completed!</h1>
@@ -664,11 +664,11 @@ export default function TestPage() {
   // Pre-test screen
   if (!testStarted) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-linear-to-br from-slate-50 to-indigo-50 flex items-center justify-center p-4">
         <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-2xl w-full">
           {/* Student Information Header */}
           {studentInfo && (
-            <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-6 mb-8 border border-indigo-200">
+            <div className="bg-linear-to-r from-indigo-50 to-purple-50 rounded-2xl p-6 mb-8 border border-indigo-200">
               <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
                 <User className="w-5 h-5 text-indigo-600" />
                 Test Taker Information
@@ -700,13 +700,13 @@ export default function TestPage() {
           <p className="text-slate-600 mb-8">{course?.description}</p>
           
           <div className="grid md:grid-cols-2 gap-6 mb-8">
-            <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl p-6">
+            <div className="bg-linear-to-br from-indigo-50 to-purple-50 rounded-xl p-6">
               <Clock className="w-8 h-8 text-indigo-600 mb-3" />
               <h3 className="font-semibold text-slate-900 mb-1">Duration</h3>
               <p className="text-slate-600">{course.durationMinutes} minutes</p>
             </div>
-            
-            <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6">
+
+            <div className="bg-linear-to-br from-green-50 to-emerald-50 rounded-xl p-6">
               <CheckCircle className="w-8 h-8 text-green-600 mb-3" />
               <h3 className="font-semibold text-slate-900 mb-1">Questions</h3>
               <p className="text-slate-600">{course.totalQuestions} questions ({course.totalMarks} marks)</p>
@@ -749,7 +749,7 @@ export default function TestPage() {
           <button
             onClick={handleStartTest}
             disabled={testTakingState.status === 'loading'}
-            className="w-full py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-semibold text-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full py-4 bg-linear-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-semibold text-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {testTakingState.status === 'loading' ? 'Starting Test...' : 'Start Test'}
           </button>
@@ -764,13 +764,13 @@ export default function TestPage() {
     const selectedAnswer = answers[currentQuestion.id];
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50">
+      <div className="min-h-screen bg-linear-to-br from-slate-50 to-indigo-50">
         {/* Header with enhanced timer */}
         <div className="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-10">
           <div className="max-w-7xl mx-auto px-4 py-4">
             {/* Student Info Bar */}
             {studentInfo && (
-              <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-lg p-3 mb-4 border border-indigo-200">
+              <div className="bg-linear-to-r from-indigo-50 to-purple-50 rounded-lg p-3 mb-4 border border-indigo-200">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
                     <div className="flex items-center gap-2">
