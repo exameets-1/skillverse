@@ -584,7 +584,7 @@ export default function BeforeTestPage() {
           </div>
           
           <h1 className="text-5xl lg:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-indigo-900 to-slate-900 mb-6 tracking-tight leading-tight">
-            {currentStep === 'courses' ? `Welcome, ${student?.name}!` : 'Test Portal'}
+            {currentStep === 'courses' ? `Welcome, ${student?.name}!` : 'Talent Hunt - 1'}
           </h1>
           <p className="text-xl lg:text-2xl text-slate-600 mb-12 leading-relaxed max-w-3xl mx-auto font-light">
             {currentStep === 'email' && 'Verify your identity to access your tests'}
