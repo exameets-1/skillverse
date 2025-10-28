@@ -122,14 +122,14 @@
 //   const getStatusBadgeColor = (status: Course['status']) => {
 //     switch (status) {
 //       case 'not_started':
-//         return 'bg-gradient-to-r from-green-500 to-emerald-600';
+//         return 'bg-linear-to-r from-green-500 to-emerald-600';
 //       case 'in_progress':
-//         return 'bg-gradient-to-r from-yellow-500 to-orange-500';
+//         return 'bg-linear-to-r from-yellow-500 to-orange-500';
 //       case 'submitted':
 //       case 'auto_submitted':
-//         return 'bg-gradient-to-r from-slate-400 to-slate-500';
+//         return 'bg-linear-to-r from-slate-400 to-slate-500';
 //       default:
-//         return 'bg-gradient-to-r from-slate-400 to-slate-500';
+//         return 'bg-linear-to-r from-slate-400 to-slate-500';
 //     }
 //   };
 
@@ -149,7 +149,7 @@
 //   };
 
 //   return (
-//     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
+//     <div className="min-h-screen bg-linear-to-br from-slate-50 via-white to-slate-100">
 //       {/* Hero Section with Dynamic Gradient */}
 //       <section className="relative pt-32 pb-24 px-6 overflow-hidden">
 //         {/* Animated Background Elements */}
@@ -159,16 +159,16 @@
 //             background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(79, 70, 229, 0.15) 0%, transparent 50%)`
 //           }}
 //         />
-//         <div className="absolute top-20 right-10 w-72 h-72 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full blur-3xl opacity-20 animate-pulse" />
-//         <div className="absolute bottom-0 left-10 w-96 h-96 bg-gradient-to-tr from-blue-500 to-cyan-400 rounded-full blur-3xl opacity-15 animate-pulse" style={{ animationDelay: '1s' }} />
+//         <div className="absolute top-20 right-10 w-72 h-72 bg-linear-to-br from-indigo-500 to-purple-600 rounded-full blur-3xl opacity-20 animate-pulse" />
+//         <div className="absolute bottom-0 left-10 w-96 h-96 bg-linear-to-tr from-blue-500 to-cyan-400 rounded-full blur-3xl opacity-15 animate-pulse" style={{ animationDelay: '1s' }} />
         
 //         <div className="max-w-5xl mx-auto text-center relative z-10">
-//           <div className="inline-flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full mb-8 shadow-lg shadow-indigo-500/30">
+//           <div className="inline-flex items-center gap-2 px-5 py-2 bg-linear-to-r from-indigo-500 to-purple-600 rounded-full mb-8 shadow-lg shadow-indigo-500/30">
 //             <Sparkles className="w-4 h-4 text-white animate-pulse" />
 //             <span className="text-sm text-white font-medium tracking-wide">EXAMEETS SKILLVERSE</span>
 //           </div>
           
-//           <h1 className="text-5xl lg:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-indigo-900 to-slate-900 mb-6 tracking-tight leading-tight">
+//           <h1 className="text-5xl lg:text-7xl font-bold text-transparent bg-clip-text bg-linear-to-r from-slate-900 via-indigo-900 to-slate-900 mb-6 tracking-tight leading-tight">
 //             {currentStep === 'courses' ? `Welcome, ${student?.name}!` : 'Test Portal'}
 //           </h1>
 //           <p className="text-xl lg:text-2xl text-slate-600 mb-12 leading-relaxed max-w-3xl mx-auto font-light">
@@ -185,7 +185,7 @@
 //           {/* Email Step */}
 //           {currentStep === 'email' && (
 //             <div className="bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden">
-//               <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-8 text-white">
+//               <div className="bg-linear-to-r from-indigo-600 to-purple-600 p-8 text-white">
 //                 <div className="flex items-center gap-3 mb-3">
 //                   <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center">
 //                     <Mail className="w-6 h-6 text-white" />
@@ -218,7 +218,7 @@
 //                 </div>
 
 //                 {sendOTPError && (
-//                   <div className="bg-gradient-to-br from-red-50 to-orange-50 border-l-4 border-red-500 rounded-2xl p-6">
+//                   <div className="bg-linear-to-br from-red-50 to-orange-50 border-l-4 border-red-500 rounded-2xl p-6">
 //                     <div className="flex items-start gap-3">
 //                       <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
 //                       <div>
@@ -236,7 +236,7 @@
 //                 <button
 //                   type="submit"
 //                   disabled={sendingOTP || canRetryAfter > 0}
-//                   className="group relative w-full px-10 py-5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-2xl text-lg font-semibold shadow-2xl shadow-indigo-500/40 hover:shadow-indigo-500/60 transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+//                   className="group relative w-full px-10 py-5 bg-linear-to-r from-indigo-600 to-purple-600 text-white rounded-2xl text-lg font-semibold shadow-2xl shadow-indigo-500/40 hover:shadow-indigo-500/60 transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
 //                 >
 //                   <span className="relative z-10 flex items-center justify-center gap-3">
 //                     {sendingOTP ? 'Sending Code...' : 'Send Code'}
@@ -250,7 +250,7 @@
 //           {/* OTP Verification Step */}
 //           {currentStep === 'otp' && (
 //             <div className="bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden">
-//               <div className="bg-gradient-to-r from-purple-600 to-pink-600 p-8 text-white">
+//               <div className="bg-linear-to-r from-purple-600 to-pink-600 p-8 text-white">
 //                 <div className="flex items-center gap-3 mb-3">
 //                   <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center">
 //                     <Lock className="w-6 h-6 text-white" />
@@ -281,7 +281,7 @@
 //                 </div>
 
 //                 {verifyOTPError && (
-//                   <div className="bg-gradient-to-br from-red-50 to-orange-50 border-l-4 border-red-500 rounded-2xl p-6">
+//                   <div className="bg-linear-to-br from-red-50 to-orange-50 border-l-4 border-red-500 rounded-2xl p-6">
 //                     <div className="flex items-start gap-3">
 //                       <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
 //                       <div>
@@ -296,7 +296,7 @@
 //                   </div>
 //                 )}
 
-//                 <div className="bg-gradient-to-br from-amber-50 to-orange-50 border-l-4 border-amber-500 rounded-2xl p-6">
+//                 <div className="bg-linear-to-br from-amber-50 to-orange-50 border-l-4 border-amber-500 rounded-2xl p-6">
 //                   <div className="flex items-start gap-3">
 //                     <Clock className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
 //                     <p className="text-amber-800 font-medium">
@@ -308,7 +308,7 @@
 //                 <button
 //                   type="submit"
 //                   disabled={verifyingOTP || otpInput.length !== 6}
-//                   className="group relative w-full px-10 py-5 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-2xl text-lg font-semibold shadow-2xl shadow-purple-500/40 hover:shadow-purple-500/60 transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+//                   className="group relative w-full px-10 py-5 bg-linear-to-r from-purple-600 to-pink-600 text-white rounded-2xl text-lg font-semibold shadow-2xl shadow-purple-500/40 hover:shadow-purple-500/60 transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
 //                 >
 //                   <span className="relative z-10 flex items-center justify-center gap-3">
 //                     {verifyingOTP ? 'Verifying...' : 'Verify & Continue'}
@@ -381,7 +381,7 @@
 //                           {course.status === 'not_started' && (
 //                             <button
 //                               onClick={() => handleStartTest(course.testCourseId)}
-//                               className="group/btn relative w-full px-8 py-5 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-2xl text-lg font-bold shadow-xl shadow-green-500/40 hover:shadow-green-500/60 transition-all duration-300 hover:scale-105"
+//                               className="group/btn relative w-full px-8 py-5 bg-linear-to-r from-green-500 to-emerald-600 text-white rounded-2xl text-lg font-bold shadow-xl shadow-green-500/40 hover:shadow-green-500/60 transition-all duration-300 hover:scale-105"
 //                             >
 //                               <span className="relative z-10 flex items-center justify-center gap-3">
 //                                 🚀 Start Test
@@ -393,7 +393,7 @@
 //                           {course.status === 'in_progress' && (
 //                             <button
 //                               onClick={() => handleStartTest(course.testCourseId)}
-//                               className="group/btn relative w-full px-8 py-5 bg-gradient-to-r from-yellow-500 to-orange-500 text-white rounded-2xl text-lg font-bold shadow-xl shadow-yellow-500/40 hover:shadow-yellow-500/60 transition-all duration-300 hover:scale-105"
+//                               className="group/btn relative w-full px-8 py-5 bg-linear-to-r from-yellow-500 to-orange-500 text-white rounded-2xl text-lg font-bold shadow-xl shadow-yellow-500/40 hover:shadow-yellow-500/60 transition-all duration-300 hover:scale-105"
 //                             >
 //                               <span className="relative z-10 flex items-center justify-center gap-3">
 //                                 ▶️ Resume Test
@@ -405,7 +405,7 @@
 //                           {(course.status === 'submitted' || course.status === 'auto_submitted') && (
 //                             <button
 //                               disabled
-//                               className="w-full px-8 py-5 bg-gradient-to-r from-slate-300 to-slate-400 text-slate-600 rounded-2xl text-lg font-bold cursor-not-allowed"
+//                               className="w-full px-8 py-5 bg-linear-to-r from-slate-300 to-slate-400 text-slate-600 rounded-2xl text-lg font-bold cursor-not-allowed"
 //                             >
 //                               ✅ Submitted
 //                             </button>
@@ -540,13 +540,13 @@ export default function BeforeTestPage() {
   const getStatusBadgeColor = (status: Course['status']) => {
     switch (status) {
       case 'not_started':
-        return 'bg-gradient-to-r from-blue-500 to-indigo-600';
+        return 'bg-linear-to-r from-blue-500 to-indigo-600';
       case 'in_progress':
       case 'submitted':
       case 'auto_submitted':
-        return 'bg-gradient-to-r from-slate-400 to-slate-500';
+        return 'bg-linear-to-r from-slate-400 to-slate-500';
       default:
-        return 'bg-gradient-to-r from-slate-400 to-slate-500';
+        return 'bg-linear-to-r from-slate-400 to-slate-500';
     }
   };
 

@@ -217,11 +217,11 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
   const availableDistricts = formData.location.state ? getDistrictsForState(formData.location.state) : [];
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-br from-black/60 via-indigo-900/30 to-purple-900/40 backdrop-blur-md z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 bg-linear-to-br from-black/60 via-indigo-900/30 to-purple-900/40 backdrop-blur-md z-50 flex items-center justify-center p-4">
       <div className="bg-white w-full max-w-3xl max-h-[95vh] overflow-y-auto rounded-3xl shadow-2xl border border-slate-200 relative">
         {/* Loading Overlay */}
         {registrationState.loading && (
-          <div className="fixed inset-0 bg-gradient-to-br from-indigo-600/95 to-purple-600/95 backdrop-blur-sm z-[100] flex items-center justify-center rounded-3xl">
+          <div className="fixed inset-0 bg-linear-to-br from-indigo-600/95 to-purple-600/95 backdrop-blur-sm z-[100] flex items-center justify-center rounded-3xl">
             <div className="flex flex-col items-center gap-6 text-center">
               <div className="relative">
                 <Loader2 className="w-20 h-20 animate-spin text-white" />
@@ -237,7 +237,7 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
 
         {/* Success Overlay */}
         {registrationState.success && (
-          <div className="fixed inset-0 bg-gradient-to-br from-green-500/95 via-emerald-600/95 to-teal-600/95 backdrop-blur-sm z-[100] flex items-center justify-center rounded-3xl">
+          <div className="fixed inset-0 bg-linear-to-br from-green-500/95 via-emerald-600/95 to-teal-600/95 backdrop-blur-sm z-[100] flex items-center justify-center rounded-3xl">
             <Confetti />
             <div className="flex flex-col items-center gap-8 text-center px-8 max-w-lg">
               <div className="relative">
@@ -299,7 +299,7 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
 
         {/* Error Overlay */}
         {registrationState.error && !registrationState.loading && (
-          <div className="fixed inset-0 bg-gradient-to-br from-red-500/95 to-pink-600/95 backdrop-blur-sm z-[100] flex items-center justify-center rounded-3xl">
+          <div className="fixed inset-0 bg-linear-to-br from-red-500/95 to-pink-600/95 backdrop-blur-sm z-[100] flex items-center justify-center rounded-3xl">
             <div className="flex flex-col items-center gap-8 text-center px-8 max-w-md">
               <div className="relative">
                 <div className="w-28 h-28 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
@@ -323,7 +323,7 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
         )}
 
         {/* Header */}
-        <div className="sticky top-0 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 px-8 py-6 flex items-center justify-between z-10 rounded-t-3xl">
+        <div className="sticky top-0 bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600 px-8 py-6 flex items-center justify-between z-10 rounded-t-3xl">
           <div>
             <h2 className="text-2xl font-bold text-white flex items-center gap-3">
               <Sparkles className="w-6 h-6" />
@@ -347,7 +347,7 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
           {/* Personal Information */}
           <div className="space-y-6">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
+              <div className="w-10 h-10 bg-linear-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
                 <User className="w-5 h-5 text-white" />
               </div>
               <h3 className="text-xl font-bold text-slate-900">Personal Information</h3>
@@ -396,7 +396,7 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
           {/* Email Verification */}
           <div className="space-y-6 pt-6 border-t border-slate-200">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center">
+              <div className="w-10 h-10 bg-linear-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center">
                 <Mail className="w-5 h-5 text-white" />
               </div>
               <h3 className="text-xl font-bold text-slate-900">Email Verification</h3>
@@ -420,7 +420,7 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
                     type="button"
                     onClick={handleSendOTP}
                     disabled={!formData.studentEmail || otpState.loading || otpState.sent}
-                    className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-xl hover:from-indigo-700 hover:to-purple-700 disabled:from-slate-300 disabled:to-slate-400 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-2 shadow-lg"
+                    className="w-full sm:w-auto px-8 py-4 bg-linear-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-xl hover:from-indigo-700 hover:to-purple-700 disabled:from-slate-300 disabled:to-slate-400 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-2 shadow-lg"
                   >
                     {otpState.loading ? (
                       <Loader2 className="w-5 h-5 animate-spin" />
@@ -448,7 +448,7 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
 
             {/* OTP Input */}
             {otpState.sent && !otpState.verified && (
-              <div className="space-y-4 bg-gradient-to-br from-indigo-50 to-purple-50 p-4 sm:p-6 rounded-2xl border border-indigo-200">
+              <div className="space-y-4 bg-linear-to-br from-indigo-50 to-purple-50 p-4 sm:p-6 rounded-2xl border border-indigo-200">
                 <label className="block text-sm font-semibold text-slate-700">Enter OTP</label>
                 <div className="flex gap-2 sm:gap-3 justify-center">
                   {otpDigits.map((digit, index) => (
@@ -476,7 +476,7 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
                     type="button"
                     onClick={handleVerifyOTP}
                     disabled={otpDigits.join('').length !== 6 || otpState.loading}
-                    className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-xl hover:from-indigo-700 hover:to-purple-700 disabled:from-slate-300 disabled:to-slate-400 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-2"
+                    className="w-full sm:w-auto px-6 py-3 bg-linear-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-xl hover:from-indigo-700 hover:to-purple-700 disabled:from-slate-300 disabled:to-slate-400 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-2"
                   >
                     {otpState.loading ? (
                       <Loader2 className="w-4 h-4 animate-spin" />
@@ -524,7 +524,7 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
           {/* Location */}
           <div className="space-y-6 pt-6 border-t border-slate-200">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center">
+              <div className="w-10 h-10 bg-linear-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center">
                 <MapPin className="w-5 h-5 text-white" />
               </div>
               <h3 className="text-xl font-bold text-slate-900">Location</h3>
@@ -614,7 +614,7 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
                       }}
                       className={`group p-6 border-2 cursor-pointer transition-all duration-300 rounded-2xl ${
                         isSelected
-                          ? 'border-indigo-500 bg-gradient-to-br from-indigo-50 to-purple-50 shadow-lg'
+                          ? 'border-indigo-500 bg-linear-to-br from-indigo-50 to-purple-50 shadow-lg'
                           : 'border-slate-200 hover:border-indigo-300 hover:bg-slate-50'
                       }`}
                       role="button"
@@ -633,7 +633,7 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
                           <p className="text-slate-600">{test.description || 'No Description'}</p>
                         </div>
                         {isSelected && (
-                          <div className="w-8 h-8 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-full flex items-center justify-center ml-4">
+                          <div className="w-8 h-8 bg-linear-to-br from-indigo-600 to-purple-600 rounded-full flex items-center justify-center ml-4">
                             <CheckCircle className="w-5 h-5 text-white" />
                           </div>
                         )}
@@ -648,7 +648,7 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
           {/* Referral Code */}
           <div className="space-y-6 pt-6 border-t border-slate-200">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center">
+              <div className="w-10 h-10 bg-linear-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center">
                 <Gift className="w-5 h-5 text-white" />
               </div>
               <h3 className="text-xl font-bold text-slate-900">
@@ -672,7 +672,7 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
                   type="button"
                   onClick={handleReferralCheck}
                   disabled={referralState.code.length !== 5 || referralState.loading}
-                  className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-600 text-white font-semibold rounded-xl hover:from-amber-600 hover:to-orange-700 disabled:from-slate-300 disabled:to-slate-400 disabled:cursor-not-allowed transition-all duration-300"
+                  className="w-full sm:w-auto px-8 py-4 bg-linear-to-r from-amber-500 to-orange-600 text-white font-semibold rounded-xl hover:from-amber-600 hover:to-orange-700 disabled:from-slate-300 disabled:to-slate-400 disabled:cursor-not-allowed transition-all duration-300"
                 >
                   {referralState.loading ? (
                     <Loader2 className="w-4 h-4 animate-spin" />
@@ -701,7 +701,7 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
           {/* Submit Button */}
           <div className="pt-6 border-t border-slate-200">
             {!canSubmit && (
-              <div className="mb-6 p-6 bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-amber-200 rounded-2xl">
+              <div className="mb-6 p-6 bg-linear-to-br from-amber-50 to-orange-50 border-2 border-amber-200 rounded-2xl">
                 <div className="flex items-start gap-4">
                   <AlertCircle className="w-6 h-6 text-amber-600 flex-shrink-0 mt-1" />
                   <div>
@@ -729,7 +729,7 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
               type="button"
               onClick={handleSubmit}
               disabled={!canSubmit || registrationState.loading}
-              className="w-full py-5 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-bold text-lg rounded-2xl hover:from-indigo-700 hover:via-purple-700 hover:to-pink-700 disabled:from-slate-300 disabled:to-slate-400 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-3 shadow-xl hover:shadow-2xl hover:scale-105"
+              className="w-full py-5 bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-bold text-lg rounded-2xl hover:from-indigo-700 hover:via-purple-700 hover:to-pink-700 disabled:from-slate-300 disabled:to-slate-400 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-3 shadow-xl hover:shadow-2xl hover:scale-105"
             >
               <span>Complete Registration</span>
               <CheckCircle className="w-6 h-6" />

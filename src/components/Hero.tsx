@@ -17,7 +17,7 @@
 //         />
 
 //         {/* Black Gradient Overlay - Half Screen */}
-//         <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/50 to-transparent w-1/2" />
+//         <div className="absolute inset-0 bg-linear-to-r from-black/75 via-black/50 to-transparent w-1/2" />
         
 //         {/* Content Container */}
 //         <div className="relative z-10 h-full flex items-center">
@@ -61,7 +61,7 @@
 //         />
 
 //         {/* Gradient overlay for text readability */}
-//         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
+//         <div className="absolute inset-0 bg-linear-to-r from-black/70 via-black/40 to-transparent" />
         
 //         {/* Content Container - Text from 2/8 of screen */}
 //         <div className="relative z-10 min-h-screen flex flex-col px-6">
