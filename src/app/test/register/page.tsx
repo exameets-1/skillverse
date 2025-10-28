@@ -379,7 +379,7 @@ export default function TestPage() {
                       The top three students with the most valid referrals by the end of the test will receive exciting gifts. 
                     </p>
                     <p className="text-sm text-amber-800 font-medium">
-                      ⚡ Only valid registrations count — we verify every participant to ensure fairness!
+                      ⚡ Only valid registrations count ! We verify every participant to ensure fairness!
                     </p>
                   </div>
                 </div>

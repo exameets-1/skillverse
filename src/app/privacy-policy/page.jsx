@@ -104,7 +104,7 @@ export default function PrivacyPolicy() {
                 <h2 className="text-2xl font-semibold mt-8 text-black mb-4">Transfer of Your Personal Data</h2>
                 <ul className="list-disc pl-6 space-y-3 text-gray-700">
                     <li>Your information, including Personal Data, is processed at the Company's operating offices and in any other places where the parties involved in the processing are located</li>
-                    <li>This information may be transferred to — and maintained on — computers located outside of Your state, province, country or other governmental jurisdiction</li>
+                    <li>This information may be transferred to - and maintained on - computers located outside of Your state, province, country or other governmental jurisdiction</li>
                     <li>Your consent to this Privacy Policy followed by Your submission of such information represents Your agreement to that transfer</li>
                     <li>The Company will take all steps reasonably necessary to ensure that Your data is treated securely and in accordance with this Privacy Policy</li>
                 </ul>

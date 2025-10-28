@@ -10,7 +10,7 @@ Every year, thousands of students from tier-2 and tier-3 cities make the expensi
 
 But here's the uncomfortable truth: most of these students could have achieved the same career outcomes without leaving home, if only quality education infrastructure existed locally.
 
-The numbers are staggering. A student moving to Bangalore for a 6-month coding bootcamp doesn't just pay the course fee—they're looking at ₹15,000-25,000 per month for basic accommodation, ₹8,000-12,000 for food, and thousands more for transportation and other expenses. That's easily ₹1.5-2 lakhs in living costs alone, on top of course fees that can range from ₹50,000 to ₹2 lakhs.
+The numbers are staggering. A student moving to Bangalore for a 6-month coding bootcamp doesn't just pay the course fee-they're looking at ₹15,000-25,000 per month for basic accommodation, ₹8,000-12,000 for food, and thousands more for transportation and other expenses. That's easily ₹1.5-2 lakhs in living costs alone, on top of course fees that can range from ₹50,000 to ₹2 lakhs.
 
 For a middle-class family in a smaller city, this represents a significant financial burden. Many talented students simply can't afford this route, leading to a brain drain from smaller cities and limiting opportunities for local economic growth.
 
@@ -19,7 +19,7 @@ For a middle-class family in a smaller city, this represents a significant finan
 Enter the local tech education revolution. Across India, innovative educators are proving that world-class tech training doesn't require a metro zip code. These local academies offer several advantages that traditional metro coaching centers simply can't match:
 
 ### Cultural and Linguistic Comfort
-Students learn better when they're comfortable. Local academies often conduct classes in a mix of English and regional languages—what many call "Tinglish" in Telugu-speaking regions. This removes language barriers that might exist in purely English metro environments.
+Students learn better when they're comfortable. Local academies often conduct classes in a mix of English and regional languages-what many call "Tinglish" in Telugu-speaking regions. This removes language barriers that might exist in purely English metro environments.
 
 ### Personalized Attention
 Without the pressure to scale to hundreds of students, local academies can maintain smaller batch sizes. This means more individual attention, personalized career guidance, and the flexibility to adapt teaching methods to individual learning styles.
@@ -32,13 +32,13 @@ The most obvious advantage is cost. When you remove accommodation, food, and tra
 
 ## Case Study: Exameets Skillverse Academy in Kadapa
 
-To understand how this model works in practice, let's examine Exameets Skillverse Academy in Kadapa, Andhra Pradesh. Founded by four tech industry veterans—Likith Sarma Jandyala, Santhosh Kumar Anantha, Veera Prasad Kommisetty, and Venkata Sivaram Krishna Macha—the academy represents everything that's right about the local education revolution.
+To understand how this model works in practice, let's examine Exameets Skillverse Academy in Kadapa, Andhra Pradesh. Founded by four tech industry veterans-Likith Sarma Jandyala, Santhosh Kumar Anantha, Veera Prasad Kommisetty, and Venkata Sivaram Krishna Macha-the academy represents everything that's right about the local education revolution.
 
 ### The Problem They Solved
 
 Kadapa, like many tier-3 cities, had a significant gap in quality tech education. Local colleges provided theoretical knowledge, but graduates lacked the practical skills that employers demanded. The choice was stark: accept lower-paying local jobs or spend lakhs migrating to metros for better training.
 
-The founders, all having worked in the tech industry, recognized that the skills gap wasn't about location—it was about pedagogy and industry alignment.
+The founders, all having worked in the tech industry, recognized that the skills gap wasn't about location-it was about pedagogy and industry alignment.
 
 ### Their Approach: Industry-First Education
 
@@ -46,7 +46,7 @@ Instead of following traditional academic models, Exameets built their curriculu
 
 **Modular Learning with Real Assessments**: Rather than semester-long theoretical courses, they created focused modules with practical assessments at each stage. Students can't progress until they've mastered current concepts, ensuring solid fundamentals.
 
-**Project-Based Learning**: Every course includes a minimum of three hands-on projects, culminating in a capstone project that students can showcase to employers. This isn't just about learning syntax—it's about building portfolios.
+**Project-Based Learning**: Every course includes a minimum of three hands-on projects, culminating in a capstone project that students can showcase to employers. This isn't just about learning syntax-it's about building portfolios.
 
 **Small Batch Sizes**: With a maximum of 15 students per batch, instructors can provide personalized attention and adapt to different learning paces.
 
@@ -180,7 +180,7 @@ As this model matures, we can expect to see:
 
 ## Conclusion: Democratizing Opportunity
 
-The rise of local tech education represents more than just an alternative to metro coaching centers—it represents the democratization of opportunity. When quality education becomes geographically and economically accessible, it breaks down barriers that have historically limited who can participate in the tech economy.
+The rise of local tech education represents more than just an alternative to metro coaching centers-it represents the democratization of opportunity. When quality education becomes geographically and economically accessible, it breaks down barriers that have historically limited who can participate in the tech economy.
 
 For students in cities like Kadapa, Nashik, Coimbatore, and hundreds of others, the choice is no longer between compromising on quality or emptying bank accounts. Local academies like Exameets Skillverse are proving that with the right approach, world-class tech education can happen anywhere.
 

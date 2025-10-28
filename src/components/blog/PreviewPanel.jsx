@@ -81,7 +81,7 @@ export default function PreviewPanel({ data }) {
           <blockquote key={index} className="border-l-4 border-blue-500 pl-4 py-2 mb-4 italic">
             <p className="mb-2">{block.data.text}</p>
             {block.data.caption && (
-              <cite className="text-sm text-gray-600">— {block.data.caption}</cite>
+              <cite className="text-sm text-gray-600">- {block.data.caption}</cite>
             )}
           </blockquote>
         );

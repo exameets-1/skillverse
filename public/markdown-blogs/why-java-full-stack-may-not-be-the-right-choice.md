@@ -197,7 +197,7 @@ These skills develop faster when you're not overwhelmed by Java's complexity as 
 
 ## The Bottom Line
 
-Java Full Stack isn't inherently bad—it's just **not the optimal path for most beginners**. The combination of:
+Java Full Stack isn't inherently bad-it's just **not the optimal path for most beginners**. The combination of:
 - Steeper learning curve
 - Longer time to proficiency  
 - More competitive job market for freshers
@@ -225,13 +225,13 @@ Quality tech education should offer:
 - **Career support** including resume and interview prep
 - **Honest timeline expectations** (45-90 days for fundamentals, not "complete full-stack")
 
-Many learners succeed better when they focus on web fundamentals first—building a strong foundation in HTML, CSS, and JavaScript before diving into complex frameworks. This approach builds confidence and ensures you understand why things work, not just how to copy code.
+Many learners succeed better when they focus on web fundamentals first-building a strong foundation in HTML, CSS, and JavaScript before diving into complex frameworks. This approach builds confidence and ensures you understand why things work, not just how to copy code.
 
 ---
 
 ## Final Thoughts
 
-The goal isn't to bash Java—it's a powerful, established language with excellent career prospects **for the right person at the right time**. However, the aggressive marketing of Java Full Stack courses to complete beginners often sets them up for frustration and failure.
+The goal isn't to bash Java-it's a powerful, established language with excellent career prospects **for the right person at the right time**. However, the aggressive marketing of Java Full Stack courses to complete beginners often sets them up for frustration and failure.
 
 **Choose wisely. Choose based on data, not hype.**
 
@@ -239,6 +239,6 @@ Your first programming language should build your confidence, not break it. Star
 
 ---
 
-*Looking to start your web development journey the smart way? Consider beginning with foundational web technologies through structured, hands-on courses. For students in Kadapa, [Exameets Skillverse Academy](mailto:management@exameets.in) offers an Intro Web Development course (45 days) focused on HTML, CSS, and JavaScript fundamentals with real projects—a solid foundation before tackling any full-stack path. Small batches (max 15 students), practical learning, and honest career guidance. Visit Vasavee Towers, Sankarapuram, or call 6302189118.*
+*Looking to start your web development journey the smart way? Consider beginning with foundational web technologies through structured, hands-on courses. For students in Kadapa, [Exameets Skillverse Academy](mailto:management@exameets.in) offers an Intro Web Development course (45 days) focused on HTML, CSS, and JavaScript fundamentals with real projects-a solid foundation before tackling any full-stack path. Small batches (max 15 students), practical learning, and honest career guidance. Visit Vasavee Towers, Sankarapuram, or call 6302189118.*
 
 **Remember: The best technology to learn is the one you'll actually master.** 🎯
