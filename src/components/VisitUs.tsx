@@ -67,7 +67,7 @@ export default function VisitUs() {
                 <div className="space-y-4">
                   {/* Phone */}
                   <div className="flex items-center">
-                    <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                    <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center mr-4 shrink-0">
                       <Phone className="w-3 h-3 text-black" />
                     </div>
                     <div>
@@ -77,7 +77,7 @@ export default function VisitUs() {
                   </div>
 
                   <div className="flex items-center">
-                    <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                    <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center mr-4 shrink-0">
                       <User className="w-3 h-3 text-black" />
                     </div>
                     <div>
@@ -88,7 +88,7 @@ export default function VisitUs() {
 
                   {/* Email */}
                   <div className="flex items-center">
-                    <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                    <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center mr-4 shrink-0">
                       <Mail className="w-3 h-3 text-black" />
                     </div>
                     <div>
@@ -99,7 +99,7 @@ export default function VisitUs() {
 
                   {/* Hours */}
                   <div className="flex items-center">
-                    <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                    <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center mr-4 shrink-0">
                       <Clock className="w-3 h-3 text-black" />
                     </div>
                     <div>
@@ -170,7 +170,7 @@ export default function VisitUs() {
               <div className="space-y-3">
                 {/* Phone */}
                 <div className="flex items-center">
-                  <div className="w-6 h-6 bg-gray-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                  <div className="w-6 h-6 bg-gray-100 rounded-full flex items-center justify-center mr-3 shrink-0">
                     <Phone className="w-2.5 h-2.5 text-black" />
                   </div>
                   <div>
@@ -181,7 +181,7 @@ export default function VisitUs() {
 
                 {/* User */}
                 <div className="flex items-center">
-                  <div className="w-6 h-6 bg-gray-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                  <div className="w-6 h-6 bg-gray-100 rounded-full flex items-center justify-center mr-3 shrink-0">
                     <User className="w-2.5 h-2.5 text-black" />
                   </div>
                   <div>
@@ -192,7 +192,7 @@ export default function VisitUs() {
 
                 {/* Email */}
                 <div className="flex items-center">
-                  <div className="w-6 h-6 bg-gray-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                  <div className="w-6 h-6 bg-gray-100 rounded-full flex items-center justify-center mr-3 shrink-0">
                     <Mail className="w-2.5 h-2.5 text-black" />
                   </div>
                   <div>
@@ -203,7 +203,7 @@ export default function VisitUs() {
 
                 {/* Hours */}
                 <div className="flex items-center">
-                  <div className="w-6 h-6 bg-gray-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                  <div className="w-6 h-6 bg-gray-100 rounded-full flex items-center justify-center mr-3 shrink-0">
                     <Clock className="w-2.5 h-2.5 text-black" />
                   </div>
                   <div>

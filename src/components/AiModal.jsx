@@ -215,7 +215,7 @@ export default function AIModal({ courseData , quickQuestions }) {
             }
           >
             {/* Header */}
-            <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 bg-gradient-to-r from-black-50 to-slate-50 dark:from-slate-800 dark:to-slate-900 border-b border-slate-200 dark:border-slate-700">
+            <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 bg-linear-to-rrom-black-50 to-slate-50 dark:from-slate-800 dark:to-slate-900 border-b border-slate-200 dark:border-slate-700">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 sm:w-10 sm:h-10 bg-black rounded-full flex items-center justify-center shadow-lg">
                   <Bot size={16} className="sm:w-5 sm:h-5 text-white" />
@@ -240,7 +240,7 @@ export default function AIModal({ courseData , quickQuestions }) {
             </div>
 
             {/* Messages Container */}
-            <div className="flex-1 overflow-y-auto bg-gradient-to-b from-slate-50/50 to-white dark:from-slate-900/50 dark:to-slate-900">
+            <div className="flex-1 overflow-y-auto bg-linear-to-b from-slate-50/50 to-white dark:from-slate-900/50 dark:to-slate-900">
               <div className="px-3 sm:px-4 py-3 sm:py-4 space-y-3 sm:space-y-4">
                 {/* Welcome Message */}
                 {messages.length === 0 && (
@@ -272,10 +272,10 @@ export default function AIModal({ courseData , quickQuestions }) {
                   >
                     {/* Avatar */}
                     <div
-                      className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+                      className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center shrink-0 ${
                         msg.role === "user"
-                          ? "bg-gradient-to-br from-blue-500 to-blue-600"
-                          : "bg-gradient-to-br from-black-500 to-black-600"
+                          ? "bg-linear-to-br from-blue-500 to-blue-600"
+                          : "bg-linear-to-br from-black-500 to-black-600"
                       }`}
                     >
                       {msg.role === "user" ? (
@@ -292,7 +292,7 @@ export default function AIModal({ courseData , quickQuestions }) {
                       <div
                         className={`rounded-2xl px-3 sm:px-4 py-2 sm:py-3 shadow-sm transition-all duration-300 hover:shadow-md ${
                           msg.role === "user"
-                            ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-tr-md"
+                            ? "bg-linear-to-r from-blue-500 to-blue-600 text-white rounded-tr-md"
                             : "bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-tl-md"
                         }`}
                       >
@@ -357,7 +357,7 @@ export default function AIModal({ courseData , quickQuestions }) {
                 {/* Loading indicator */}
                 {loading && (
                   <div className="flex items-start gap-2 sm:gap-3">
-                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-black-500 to-black-600 flex items-center justify-center">
+                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-linear-to-br from-black-500 to-black-600 flex items-center justify-center">
                       <Bot size={14} className="sm:w-4 sm:h-4 text-white" />
                     </div>
                     <div className="bg-white dark:bg-slate-800 rounded-2xl rounded-tl-md px-3 sm:px-4 py-2 sm:py-3 border border-slate-200 dark:border-slate-700">
