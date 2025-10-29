@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://skillverse.exameets.in/sitemap.xml
