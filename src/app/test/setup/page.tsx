@@ -222,16 +222,29 @@ export default function BeforeTestPage() {
                   </div>
                 )}
 
-                <button
-                  type="submit"
-                  disabled={sendingOTP || canRetryAfter > 0}
-                  className="group relative w-full px-10 py-5 bg-linear-to-r from-indigo-600 to-purple-600 text-white rounded-2xl text-lg font-semibold shadow-2xl shadow-indigo-500/40 hover:shadow-indigo-500/60 transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-                >
-                  <span className="relative z-10 flex items-center justify-center gap-3">
-                    {sendingOTP ? 'Sending Code...' : 'Send Code'}
-                    {!sendingOTP && <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />}
-                  </span>
-                </button>
+                <div className="space-y-4">
+                  <button
+                    type="submit"
+                    disabled={sendingOTP || canRetryAfter > 0}
+                    className="group relative w-full px-10 py-5 bg-linear-to-r from-indigo-600 to-purple-600 text-white rounded-2xl text-lg font-semibold shadow-2xl shadow-indigo-500/40 hover:shadow-indigo-500/60 transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                  >
+                    <span className="relative z-10 flex items-center justify-center gap-3">
+                      {sendingOTP ? 'Sending Code...' : 'Send Code'}
+                      {!sendingOTP && <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />}
+                    </span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => router.push('/test/register')}
+                    className="w-full px-10 py-5 border-2 border-indigo-200 text-indigo-600 hover:bg-indigo-50 rounded-2xl text-lg font-semibold transition-all duration-300"
+                  >
+                    <span className="flex items-center justify-center gap-2">
+                      Didn&apos;t register? Register now
+                      <ChevronRight className="w-5 h-5" />
+                    </span>
+                  </button>
+                </div>
               </form>
             </div>
           )}
