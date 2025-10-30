@@ -854,37 +854,136 @@ if (showResumeModal && serverEndTime) {
 
 
   // Test completed screen
+  // if (testSubmitted) {
+  //   return (
+  //     <div className="min-h-screen bg-linear-to-br from-green-50 to-emerald-50 flex items-center justify-center p-4">
+  //       <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-lg w-full text-center">
+  //         <CheckCircle className="w-20 h-20 text-green-500 mx-auto mb-6" />
+  //         <h1 className="text-3xl font-bold text-slate-900 mb-4">Test Completed!</h1>
+  //         <p className="text-slate-600 mb-6">
+  //           You have successfully submitted your test. Your answers have been recorded.
+  //         </p>
+  //         <div className="bg-slate-50 rounded-xl p-4 mb-6">
+  //           <div className="grid grid-cols-2 gap-4 text-sm">
+  //             <div>
+  //               <span className="text-slate-500">Questions Answered:</span>
+  //               <p className="font-semibold text-slate-900">{getAnsweredQuestionsCount()} / {course.questionsPerTest}</p>
+  //             </div>
+  //             <div>
+  //               <span className="text-slate-500">Total Marks:</span>
+  //               <p className="font-semibold text-slate-900">{course.totalMarks}</p>
+  //             </div>
+  //           </div>
+  //         </div>
+  //         <button
+  //           onClick={() => router.push('/test/setup')}
+  //           className="px-8 py-3 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition-colors font-medium"
+  //         >
+  //           Back to Tests
+  //         </button>
+  //       </div>
+  //     </div>
+  //   );
+  // }
+
   if (testSubmitted) {
-    return (
-      <div className="min-h-screen bg-linear-to-br from-green-50 to-emerald-50 flex items-center justify-center p-4">
-        <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-lg w-full text-center">
-          <CheckCircle className="w-20 h-20 text-green-500 mx-auto mb-6" />
-          <h1 className="text-3xl font-bold text-slate-900 mb-4">Test Completed!</h1>
-          <p className="text-slate-600 mb-6">
-            You have successfully submitted your test. Your answers have been recorded.
+  return (
+    <div className="min-h-screen bg-linear-to-br from-purple-100 via-pink-100 to-yellow-100 flex items-center justify-center p-4 overflow-hidden">
+      {/* Animated Confetti Background */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="confetti" />
+        <div className="confetti" style={{ left: '20%', animationDelay: '0.2s' }} />
+        <div className="confetti" style={{ left: '40%', animationDelay: '0.4s' }} />
+        <div className="confetti" style={{ left: '60%', animationDelay: '0.6s' }} />
+        <div className="confetti" style={{ left: '80%', animationDelay: '0.8s' }} />
+      </div>
+
+      <div className="relative z-10 bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl p-10 max-w-2xl w-full text-center animate-bounce-in">
+        {/* Success Icon with Pulse */}
+        <div className="relative mx-auto mb-6 w-28 h-28">
+          <div className="absolute inset-0 bg-green-400 rounded-full animate-ping opacity-75" />
+          <CheckCircle className="relative w-28 h-28 text-green-600 drop-shadow-lg" />
+        </div>
+
+        <h1 className="text-5xl md:text-6xl font-extrabold bg-linear-to-r from-emerald-500 to-teal-600 bg-clip-text text-transparent mb-4 animate-fade-up">
+          Congratulations! 🎉
+        </h1>
+
+        <p className="text-xl md:text-2xl font-medium text-slate-700 mb-8 animate-fade-up animation-delay-200">
+          You&apos;ve <span className="text-emerald-600 font-bold">Successfully Completed</span> the Test!
+        </p>
+
+        <p className="text-lg text-slate-600 mb-12 animate-fade-up animation-delay-400">
+          Results will be announced shortly. Stay tuned!
+        </p>
+
+        {/* Trending Courses Spotlight */}
+        <div className="bg-linear-to-r from-indigo-500 to-purple-600 rounded-2xl p-6 mb-8 shadow-xl transform hover:scale-105 transition-transform duration-300">
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
+            See Top Courses Trending in 2025!
+          </h2>
+          <p className="text-white/90 mb-4">
+            Most demanding skills to Future-Proof Your Career!
           </p>
-          <div className="bg-slate-50 rounded-xl p-4 mb-6">
-            <div className="grid grid-cols-2 gap-4 text-sm">
-              <div>
-                <span className="text-slate-500">Questions Answered:</span>
-                <p className="font-semibold text-slate-900">{getAnsweredQuestionsCount()} / {course.questionsPerTest}</p>
-              </div>
-              <div>
-                <span className="text-slate-500">Total Marks:</span>
-                <p className="font-semibold text-slate-900">{course.totalMarks}</p>
-              </div>
-            </div>
-          </div>
           <button
-            onClick={() => router.push('/test/setup')}
-            className="px-8 py-3 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition-colors font-medium"
+            onClick={() => router.push('/#courses')}
+            className="px-8 py-3 bg-yellow-400 text-indigo-900 font-bold rounded-full hover:bg-yellow-300 transform hover:-translate-y-1 transition-all duration-200 shadow-lg text-lg"
           >
-            Back to Tests
+            Explore Now 🚀
           </button>
         </div>
+
+        {/* Back Button - Subtle */}
+        <button
+          onClick={() => router.push('/test/setup')}
+          className="text-slate-500 hover:text-slate-700 underline text-sm transition-colors"
+        >
+          ← Back to Tests
+        </button>
       </div>
-    );
-  }
+
+      {/* Tailwind Animation Styles (Add to your CSS or Tailwind config) */}
+      <style jsx>{`
+        @keyframes bounce-in {
+          0% { transform: scale(0.8); opacity: 0; }
+          60% { transform: scale(1.05); }
+          100% { transform: scale(1); opacity: 1; }
+        }
+        @keyframes fade-up {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-bounce-in {
+          animation: bounce-in 0.7s ease-out;
+        }
+        .animate-fade-up {
+          animation: fade-up 0.6s ease-out forwards;
+        }
+        .animation-delay-200 { animation-delay: 0.2s; }
+        .animation-delay-400 { animation-delay: 0.4s; }
+
+        .confetti {
+          position: absolute;
+          width: 10px;
+          height: 10px;
+          background: #f00;
+          top: -10px;
+          animation: confetti-fall 3s linear infinite;
+        }
+        .confetti:nth-child(1) { background: #ff0; left: 10%; animation-duration: 2.5s; }
+        .confetti:nth-child(2) { background: #0f0; left: 30%; animation-duration: 3s; }
+        .confetti:nth-child(3) { background: #00f; left: 50%; animation-duration: 2.8s; }
+        .confetti:nth-child(4) { background: #f0f; left: 70%; animation-duration: 3.2s; }
+        .confetti:nth-child(5) { background: #ff0; left: 90%; animation-duration: 2.7s; }
+
+        @keyframes confetti-fall {
+          0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+          100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+      `}</style>
+    </div>
+  );
+}
 
   // Pre-test instructions
   if (!testStarted) {
