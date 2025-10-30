@@ -40,6 +40,7 @@
 
 import Hero from "@/components/Hero";
 import About from "@/components/About";
+import TestInfo from "@/components/TestInfo";
 import WhyChoose from "@/components/WhyChoose";
 import Courses from "@/components/Courses";
 // import SuccessStories from "@/components/SuccessStories";
@@ -64,9 +65,12 @@ export default function Home() {
         <section id="about">
           <About />
         </section>
+        <section id="test-info">
+          <TestInfo />
+        </section>
         <section id="why-choose">
           <WhyChoose />
-        </section>    
+        </section>
         <section id="courses">
           <Courses />
         </section>

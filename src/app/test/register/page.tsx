@@ -419,8 +419,8 @@ export default function TestPage() {
               <div>
                 <h3 className="font-bold text-slate-900 mb-3 text-xl">Critical: Test Timer</h3>
                 <p className="text-slate-700 leading-relaxed text-lg">
-                  Once you start the test, the timer begins automatically and cannot be paused. Each test has its own specific duration. 
-                  Ensure you&apos;re in a distraction-free environment before clicking Register.
+                  There is no option to resume the test. Once you start the test, the timer begins automatically and cannot be paused. Each test has its own specific duration. 
+                  Ensure you&apos;re in a distraction-free environment before starting the registered test.
                 </p>
               </div>
             </div>
@@ -441,7 +441,7 @@ export default function TestPage() {
             {[
               { icon: CheckCircle, title: "MCQ Format", desc: "Multiple choice questions covering various topics and difficulty levels", color: "from-green-500 to-emerald-600" },
               { icon: Trophy, title: "Compete & Win", desc: "Register for multiple tests and maximize your chances of winning prizes", color: "from-purple-500 to-pink-600" },
-              { icon: BookOpen, title: "Multiple Subjects", desc: "Choose from various tests covering different domains and topics", color: "from-blue-500 to-cyan-600" },
+              { icon: BookOpen, title: "Multiple Tests", desc: "Choose from various tests covering different domains and topics", color: "from-blue-500 to-cyan-600" },
             ].map((item, index) => {
               const IconComponent = item.icon;
               return (
