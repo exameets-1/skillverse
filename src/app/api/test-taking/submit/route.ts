@@ -144,24 +144,6 @@ export async function POST(request: NextRequest) {
     const student = testAttempt.student;
     const testCourse = testAttempt.testCourse;
 
-    // Log test submission
-    // console.log('=== TEST SUBMITTED ===');
-    // console.log('Test Attempt ID:', testAttemptId);
-    // console.log('Student ID:', student._id.toString());
-    // console.log('Student Name:', student.name);
-    // console.log('Student Email:', student.studentEmail);
-    // console.log('Test Course:', testCourse.title);
-    // console.log('Submission Type:', isAutoSubmit ? 'Auto-submitted' : 'Manual');
-    // console.log('Start Time:', testAttempt.startTime.toISOString());
-    // console.log('End Time:', testAttempt.endTime.toISOString());
-    // console.log('Submission Time:', now.toISOString());
-    // console.log('Time Remaining at Submission:', testAttempt.timeRemaining, 'seconds');
-    // console.log('Calculated Time Remaining:', actualTimeRemaining, 'seconds');
-    // console.log('Total Answers:', testAttempt.answerAttempts.length);
-    // console.log('Total Questions:', testCourse.questions.length);
-    // console.log('Answer Coverage:', `${testAttempt.answerAttempts.length}/${testCourse.questions.length}`);
-    // console.log('======================');
-
     return NextResponse.json({
       message: 'Test submitted successfully',
       testAttemptId: testAttempt._id.toString(),

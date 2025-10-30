@@ -11,12 +11,15 @@ import {
   submitTest,
   updateLocalAnswer,
   clearTestSession,
-  trackQuestionTime
+  trackQuestionTime,
+  updateSessionInfo
 } from '@/store/slices/testTakingSlice';
 import { Clock, ChevronRight, AlertTriangle, CheckCircle, User, Mail } from 'lucide-react';
 import ExitModal from '@/components/modals/ExitModal';
 import FullscreenWarningModal from '@/components/modals/FullScreenWarningModal';
 import AutoSubmitModal from '@/components/modals/AutoSubmitModal';
+import ResumeTestModal from '@/components/modals/ResumeTestModal';
+import TabSwitchWarningModal from '@/components/modals/TabSwitchWarningModal';
 
 interface Question {
   id: string;
@@ -32,6 +35,8 @@ interface Course {
   totalMarks: number;
   totalQuestions: number;
   questions: Question[];
+  questionsPerTest: number;
+  instructions: [string];
 }
 
 interface ApiResponse {
@@ -45,6 +50,26 @@ interface StudentInfo {
   email: string;
 }
 
+interface SavedTestState {
+  courseId: string;
+  studentId: string;
+  courseTitle: string;
+  courseDescription: string;
+  durationMinutes: number;
+  totalMarks: number;
+  questionsPerTest: number;
+  instructions: string[];
+  questions: Question[];
+  answers: Record<string, number>;
+  currentQuestionIndex: number;
+  highestReachedIndex: number;
+  questionTimeSpent: number[];
+  testAttemptId: string;
+  sessionToken: string;
+  endTime: string;
+  lastUpdate: string;
+}
+
 export default function TestPage() {
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
@@ -56,15 +81,14 @@ export default function TestPage() {
   const [error, setError] = useState<string | null>(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, number>>({});
-  // Add state to track highest reached question
   const [highestReachedIndex, setHighestReachedIndex] = useState(0);
-  // Add time tracking for each question
   const [questionTimeSpent, setQuestionTimeSpent] = useState<number[]>([]);
   const [questionStartTime, setQuestionStartTime] = useState<Date | null>(null);
   const [timeLeft, setTimeLeft] = useState(0);
   const [testStarted, setTestStarted] = useState(false);
   const [testSubmitted, setTestSubmitted] = useState(false);
   const [studentInfo, setStudentInfo] = useState<StudentInfo | null>(null);
+  const [isRestoringState, setIsRestoringState] = useState(false);
 
   // Modal states
   const [showExitModal, setShowExitModal] = useState(false);
@@ -72,10 +96,96 @@ export default function TestPage() {
   const [showAutoSubmitModal, setShowAutoSubmitModal] = useState(false);
   const [autoSubmitMessage, setAutoSubmitMessage] = useState('');
   const [fullscreenExitCount, setFullscreenExitCount] = useState(0);
+  const [showResumeModal, setShowResumeModal] = useState(false);
+  const [showResumeExitConfirm, setShowResumeExitConfirm] = useState(false);
 
-  // Add new state for server sync
+  const [showTabSwitchModal, setShowTabSwitchModal] = useState(false);
+  const [tabSwitchCount, setTabSwitchCount] = useState(0);
+
   const [serverEndTime, setServerEndTime] = useState<Date | null>(null);
   const [lastSyncTime, setLastSyncTime] = useState<Date | null>(null);
+
+  // Generate storage key for this specific test session
+  const getTestStateKey = useCallback((studentId: string, courseId: string) => {
+    return `test_state_${studentId}_${courseId}`;
+  }, []);
+
+  const handleResumeTest = () => {
+  setShowResumeModal(false);
+  
+  // Now we have a user gesture, so fullscreen will work
+  const el = document.documentElement;
+  if (el.requestFullscreen && !document.fullscreenElement) {
+    el.requestFullscreen().catch((err) => {
+      console.error('Fullscreen failed:', err);
+    });
+  }
+};
+
+
+  // Load test state from localStorage
+  const loadTestState = useCallback((): SavedTestState | null => {
+    if (!studentInfo || !courseId) return null;
+
+    const stateKey = getTestStateKey(studentInfo.id, courseId);
+    try {
+      const savedState = localStorage.getItem(stateKey);
+      if (savedState) {
+        return JSON.parse(savedState) as SavedTestState;
+      }
+    } catch (error) {
+      // console.error('Failed to load test state:', error);
+    }
+    return null;
+  }, [studentInfo, courseId, getTestStateKey]);
+
+  // Clear test state from localStorage
+  const clearTestState = useCallback(() => {
+    if (!studentInfo || !courseId) return;
+
+    const stateKey = getTestStateKey(studentInfo.id, courseId);
+    try {
+      localStorage.removeItem(stateKey);
+      localStorage.removeItem('testTimerState');
+    } catch (error) {
+      // console.error('Failed to clear test state:', error);
+    }
+  }, [studentInfo, courseId, getTestStateKey]);
+
+  // Save test state to localStorage - FIXED with proper dependencies
+  const saveTestState = useCallback((partial?: Partial<SavedTestState>) => {
+    if (!studentInfo || !courseId || !course) return;
+
+    const stateKey = getTestStateKey(studentInfo.id, courseId);
+    const currentState: SavedTestState = {
+      courseId,
+      studentId: studentInfo.id,
+      courseTitle: course.title,
+      courseDescription: course.description,
+      durationMinutes: course.durationMinutes,
+      totalMarks: course.totalMarks,
+      questionsPerTest: course.questionsPerTest,
+      instructions: course.instructions,
+      questions: course.questions,
+      answers,
+      currentQuestionIndex,
+      highestReachedIndex,
+      questionTimeSpent,
+      testAttemptId: testTakingState.testAttemptId || '',
+      sessionToken: testTakingState.sessionToken || '',
+      endTime: serverEndTime?.toISOString() || '',
+      lastUpdate: new Date().toISOString(),
+      ...partial
+    };
+
+    try {
+      localStorage.setItem(stateKey, JSON.stringify(currentState));
+    } catch (error) {
+      // console.error('Failed to save test state:', error);
+    }
+  }, [studentInfo, courseId, course, answers, currentQuestionIndex, highestReachedIndex, 
+      questionTimeSpent, testTakingState.testAttemptId, testTakingState.sessionToken, 
+      serverEndTime, getTestStateKey]);
 
   // Get courseId and student info from sessionStorage
   useEffect(() => {
@@ -90,21 +200,91 @@ export default function TestPage() {
     setCourseId(storedCourseId);
     const student = JSON.parse(storedStudentInfo) as StudentInfo;
     setStudentInfo(student);
-    
-    // Log who is accessing the test
-    // console.log('=== TEST ACCESS ===');
-    // console.log('Student ID:', student.id);
-    // console.log('Student Name:', student.name);
-    // console.log('Student Email:', student.email);
-    // console.log('Course ID:', storedCourseId);
-    // console.log('Timestamp:', new Date().toISOString());
-    // console.log('==================');
   }, [router]);
 
-  // Fetch course data
+  
+
+  // Restore test state on component mount (handles page reload) - FIXED
+  useEffect(() => {
+    if (!courseId || !studentInfo || isRestoringState) return;
+
+    const savedState = loadTestState();
+    
+    if (savedState) {
+      if (savedState.courseId === courseId && savedState.studentId === studentInfo.id) {
+        // console.log('🔄 Restoring test state from localStorage');
+        setIsRestoringState(true);
+        
+        const restoredCourse: Course = {
+          id: savedState.courseId,
+          title: savedState.courseTitle,
+          description: savedState.courseDescription,
+          durationMinutes: savedState.durationMinutes,
+          totalMarks: savedState.totalMarks,
+          totalQuestions: savedState.questions.length,
+          questionsPerTest: savedState.questionsPerTest,
+          instructions: savedState.instructions as [string],
+          questions: savedState.questions,
+        };
+        
+        setCourse(restoredCourse);
+        setAnswers(savedState.answers);
+        setCurrentQuestionIndex(savedState.currentQuestionIndex);
+        setHighestReachedIndex(savedState.highestReachedIndex);
+        setQuestionTimeSpent(savedState.questionTimeSpent);
+        
+        // ✅ Restore Redux state
+        if (savedState.testAttemptId && savedState.sessionToken) {
+          dispatch(updateSessionInfo({
+            sessionToken: savedState.sessionToken,
+            testAttemptId: savedState.testAttemptId
+          }));
+          
+          // console.log('✅ Restored session to Redux:', {
+          //   testAttemptId: savedState.testAttemptId,
+          //   hasToken: !!savedState.sessionToken
+          // });
+        }
+        
+        // Restore test session
+        if (savedState.endTime) {
+          const endTime = new Date(savedState.endTime);
+          const now = new Date();
+          
+          if (now < endTime) {
+            setServerEndTime(endTime);
+            setTestStarted(true);
+            setLoading(false);
+            
+            // console.log('⏰ Test still active, time remaining:', Math.floor((endTime.getTime() - now.getTime()) / 1000), 'seconds');
+            setShowResumeModal(true);
+
+          } else {
+            // console.log('⏱️ Test expired during absence');
+            clearTestState();
+            setTestSubmitted(true);
+            setLoading(false);
+          }
+        }
+        
+        setIsRestoringState(false);
+        return;
+      }
+    }
+    
+    setIsRestoringState(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [courseId, studentInfo, isRestoringState, dispatch]);
+
+  // Fetch course data only if not restoring from saved state - FIXED
   useEffect(() => {
     const fetchCourse = async () => {
-      if (!courseId) return;
+      if (!courseId || isRestoringState) return;
+      
+      const savedState = loadTestState();
+      if (savedState && savedState.questions.length > 0) {
+        return;
+      }
       
       try {
         setLoading(true);
@@ -136,7 +316,17 @@ export default function TestPage() {
     };
 
     fetchCourse();
-  }, [courseId]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [courseId, isRestoringState]);
+
+  // Auto-save test state whenever critical state changes - FIXED
+  useEffect(() => {
+    if (testStarted && !testSubmitted && course && studentInfo) {
+      saveTestState();
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [testStarted, testSubmitted, answers, currentQuestionIndex, 
+      highestReachedIndex, questionTimeSpent, saveTestState]);
 
   const handleExitFullscreen = () => {
     if (document.fullscreenElement) {
@@ -144,91 +334,97 @@ export default function TestPage() {
     }
   };
 
-  // Move handleSubmitTest BEFORE the useEffects that use it
   const handleSubmitTest = useCallback(async () => {
     if (testSubmitted) return;
+
+    // Get session info from saved state if Redux doesn't have it
+    const savedState = loadTestState();
+    const sessionToken = testTakingState.sessionToken || savedState?.sessionToken;
+    const testAttemptId = testTakingState.testAttemptId || savedState?.testAttemptId;
+
+    // console.log('🚀 Submitting test with session:', {
+    //   hasToken: !!sessionToken,
+    //   hasAttemptId: !!testAttemptId,
+    //   fromRedux: !!testTakingState.sessionToken,
+    //   fromLocalStorage: !!savedState?.sessionToken
+    // });
 
     // Record final question time before submitting
     if (questionStartTime && questionTimeSpent.length > 0) {
       const finalTimeSpent = Math.round((new Date().getTime() - questionStartTime.getTime()) / 1000);
       const currentQuestionId = course?.questions[currentQuestionIndex]?.id;
       
-      // Log the final question time immediately
-      if (currentQuestionId) {
-        // console.log('=== FINAL QUESTION COMPLETED ===');
-        // console.log('Question ID:', currentQuestionId);
-        // console.log('Question Number:', currentQuestionIndex + 1);
-        // console.log('Time Spent:', finalTimeSpent, 'seconds');
-        // console.log('Time in Minutes:', Math.round(finalTimeSpent/60*100)/100, 'minutes');
-        // console.log('Student:', studentInfo?.name);
-        // console.log('Timestamp:', new Date().toISOString());
-        // console.log('==============================');
-
-        // Send final question time tracking to server
+      if (currentQuestionId && sessionToken) {
         try {
           await dispatch(trackQuestionTime({
             questionId: currentQuestionId,
             timeSpent: finalTimeSpent
           })).unwrap();
         } catch (error) {
-          //console.error('Failed to track final question time:', error);
-          // Don't block submission if time tracking fails
+          // console.error('Failed to track final question time:', error);
         }
       }
-      
-      const finalTimeArray = [...questionTimeSpent];
-      finalTimeArray[currentQuestionIndex] = finalTimeSpent;
-      
-      // console.log('=== FINAL TIME TRACKING SUMMARY ===');
-      // console.log('Student:', studentInfo?.name);
-      // console.log('Course:', course?.title);
-      
-      // Only show summary for visited questions
-      finalTimeArray.forEach((time, index) => {
-        if (index <= highestReachedIndex || index === currentQuestionIndex) {
-          const questionId = course?.questions[index]?.id;
-          //console.log(`Q${index + 1} (ID: ${questionId}): ${time}s (${Math.round(time/60*100)/100}m)`);
-        }
-      });
-      
-      // Calculate total time only for visited questions
-      const visitedQuestionsTimes = finalTimeArray.slice(0, Math.max(highestReachedIndex + 1, currentQuestionIndex + 1));
-      const totalTimeOnVisitedQuestions = visitedQuestionsTimes.reduce((a, b) => a + b, 0);
-      
-      // console.log('Total Time on Visited Questions:', totalTimeOnVisitedQuestions, 'seconds');
-      // console.log('Questions Visited:', Math.max(highestReachedIndex + 1, currentQuestionIndex + 1));
-      // console.log('Average Time per Visited Question:', Math.round(totalTimeOnVisitedQuestions / Math.max(highestReachedIndex + 1, currentQuestionIndex + 1)), 'seconds');
-      // console.log('Questions Answered:', Object.keys(answers).length, '/', course?.totalQuestions);
-      // console.log('================================');
     }
 
     handleExitFullscreen();
     
-    try {
-      await dispatch(submitTest()).unwrap();
-      setTestSubmitted(true);
+    // If we don't have session info in Redux but have it in localStorage,
+    // we need to submit directly via API
+    if (!testTakingState.sessionToken && savedState?.sessionToken && savedState?.testAttemptId) {
+      // console.log('📡 Submitting via direct API call (restored session)');
       
-      // Clear timer state from localStorage
-      localStorage.removeItem('testTimerState');
-      sessionStorage.removeItem('currentTestCourseId');
-      sessionStorage.removeItem('currentStudentInfo');
-      
-      if (studentInfo && course) {
-        // console.log('=== TEST SUBMITTED SUCCESSFULLY ===');
-        // console.log('Student ID:', studentInfo.id);
-        // console.log('Student Name:', studentInfo.name);
-        // console.log('Student Email:', studentInfo.email);
-        // console.log('Course:', course.title);
-        // console.log('Total Answers:', Object.keys(answers).length);
-        // console.log('Submit Time:', new Date().toISOString());
-        // console.log('Final Answers:', answers);
-        // console.log('==================');
+      try {
+        const response = await fetch('/api/test-taking/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${savedState.sessionToken}`,
+          },
+          body: JSON.stringify({
+            testAttemptId: savedState.testAttemptId,
+          }),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Failed to submit test');
+        }
+
+        const result = await response.json();
+        // console.log('✅ Test submitted successfully:', result);
+        
+        setTestSubmitted(true);
+        clearTestState();
+        sessionStorage.removeItem('currentTestCourseId');
+        sessionStorage.removeItem('currentStudentInfo');
+      } catch (error) {
+        // console.error('❌ Failed to submit test:', error);
+        setError(error instanceof Error ? error.message : 'Failed to submit test');
+        
+        // Don't clear state on error so user can retry
+        alert('Failed to submit test. Please check your connection and try again.');
       }
-    } catch (error) {
-      //console.error('Failed to submit test:', error);
-      //alert('Failed to submit test. Please try again.');
+    } else {
+      // Normal Redux submission
+      try {
+        await dispatch(submitTest()).unwrap();
+        setTestSubmitted(true);
+        
+        clearTestState();
+        sessionStorage.removeItem('currentTestCourseId');
+        sessionStorage.removeItem('currentStudentInfo');
+        
+      } catch (error) {
+        // console.error('❌ Submit test error:', error);
+        setError(error instanceof Error ? error.message : 'Failed to submit test');
+        
+        // Don't clear state on error
+        alert('Failed to submit test. Please check your connection and try again.');
+      }
     }
-  }, [testSubmitted, dispatch, studentInfo, course, questionStartTime, questionTimeSpent, currentQuestionIndex, highestReachedIndex]);
+  }, [testSubmitted, dispatch, course, questionStartTime, questionTimeSpent, 
+      currentQuestionIndex, clearTestState, testTakingState.sessionToken, 
+      testTakingState.testAttemptId, loadTestState]);
 
   // Enhanced timer countdown with server sync
   useEffect(() => {
@@ -255,12 +451,8 @@ export default function TestPage() {
       }
     };
 
-    // Update immediately
     updateTimer();
-
-    // Set up interval for continuous updates
     const timer = setInterval(updateTimer, 1000);
-
     return () => clearInterval(timer);
   }, [testStarted, testSubmitted, serverEndTime, handleSubmitTest, course?.id, studentInfo?.id]);
 
@@ -273,50 +465,42 @@ export default function TestPage() {
       try {
         const timerState = JSON.parse(storedTimerState);
         
-        // Verify this is the same test session
         if (timerState.courseId === course.id && timerState.studentId === studentInfo.id) {
           const endTime = new Date(timerState.endTime);
           const now = new Date();
           
-          // Check if test should still be running
           if (now < endTime) {
             setServerEndTime(endTime);
             setTestStarted(true);
-            
-            // console.log('=== TIMER RESTORED ===');
-            // console.log('End Time:', endTime.toISOString());
-            // console.log('Current Time:', now.toISOString());
-            // console.log('Remaining:', Math.floor((endTime.getTime() - now.getTime()) / 1000), 'seconds');
-            // console.log('====================');
           } else {
-            // Test time has expired, should auto-submit
             localStorage.removeItem('testTimerState');
             setTestSubmitted(true);
-            // console.log('Test time expired during absence');
           }
         }
       } catch (error) {
-        //console.error('Error restoring timer state:', error);
         localStorage.removeItem('testTimerState');
       }
     }
   }, [course, studentInfo]);
 
-  // Periodic server sync to account for clock drift
+  // Periodic server sync
   useEffect(() => {
-    if (!testStarted || testSubmitted || !testTakingState.testAttemptId) return;
+    const savedState = loadTestState();
+    const sessionToken = testTakingState.sessionToken || savedState?.sessionToken;
+    const testAttemptId = testTakingState.testAttemptId || savedState?.testAttemptId;
+    
+    if (!testStarted || testSubmitted || !testAttemptId || !sessionToken) return;
 
     const syncWithServer = async () => {
       try {
-        // Call a server endpoint to get current test status and remaining time
         const response = await fetch('/api/test-taking/sync-time', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${testTakingState.sessionToken}`,
+            'Authorization': `Bearer ${sessionToken}`,
           },
           body: JSON.stringify({
-            testAttemptId: testTakingState.testAttemptId,
+            testAttemptId: testAttemptId,
           }),
         });
 
@@ -326,28 +510,20 @@ export default function TestPage() {
             const newEndTime = new Date(data.endTime);
             setServerEndTime(newEndTime);
             setLastSyncTime(new Date());
-            
-            // console.log('=== TIMER SYNCED ===');
-            // console.log('Server End Time:', newEndTime.toISOString());
-            // console.log('Server Remaining:', data.timeRemaining, 'seconds');
-            // console.log('==================');
+            // console.log('🔄 Synced with server, time remaining:', Math.floor((newEndTime.getTime() - new Date().getTime()) / 1000), 'seconds');
           }
         }
       } catch (error) {
-        //console.error('Failed to sync with server:', error);
+        // console.error('Sync error:', error);
       }
     };
 
-    // Sync immediately when test starts
     syncWithServer();
-
-    // Set up periodic sync every 30 seconds
     const syncInterval = setInterval(syncWithServer, 30000);
-
     return () => clearInterval(syncInterval);
-  }, [testStarted, testSubmitted, testTakingState.testAttemptId, testTakingState.sessionToken]);
+  }, [testStarted, testSubmitted, testTakingState.testAttemptId, testTakingState.sessionToken, loadTestState]);
 
-  // Timer countdown (fallback for when server sync is not available)
+  // Fallback timer
   useEffect(() => {
     if (!testStarted || testSubmitted || timeLeft <= 0 || serverEndTime) return;
 
@@ -364,36 +540,33 @@ export default function TestPage() {
     return () => clearInterval(timer);
   }, [testStarted, testSubmitted, timeLeft, handleSubmitTest, serverEndTime]);
 
-  // Back navigation + tab close handling (APP ROUTER VERSION)
-  useEffect(() => {
-    if (!testStarted || testSubmitted) return;
+// Back navigation + tab close handling
+useEffect(() => {
+  // Only handle back button when test is actively running (not during resume modal)
+  if (!testStarted || testSubmitted || showResumeModal) return;
 
-    // Push a dummy state to history when test starts
+  window.history.pushState(null, '', window.location.href);
+
+  const handlePopState = (e: PopStateEvent) => {
+    e.preventDefault();
     window.history.pushState(null, '', window.location.href);
+    setShowExitModal(true);
+  };
 
-    const handlePopState = (e: PopStateEvent) => {
-      e.preventDefault();
-      // Push state again to prevent actual navigation
-      window.history.pushState(null, '', window.location.href);
-      // Show exit modal
-      setShowExitModal(true);
-    };
+  const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+    e.preventDefault();
+    e.returnValue = '';
+  };
 
-    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-      e.preventDefault();
-      e.returnValue = '';
-    };
+  window.addEventListener('popstate', handlePopState);
+  window.addEventListener('beforeunload', handleBeforeUnload);
 
-    window.addEventListener('popstate', handlePopState);
-    window.addEventListener('beforeunload', handleBeforeUnload);
-
-    return () => {
-      window.removeEventListener('popstate', handlePopState);
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
-  }, [testStarted, testSubmitted]);
-
-  // Detect fullscreen exit (anti-cheating)
+  return () => {
+    window.removeEventListener('popstate', handlePopState);
+    window.removeEventListener('beforeunload', handleBeforeUnload);
+  };
+}, [testStarted, testSubmitted, showResumeModal]); // Added showResumeModal
+  // Fullscreen exit detection
   useEffect(() => {
     if (!testStarted || testSubmitted) return;
 
@@ -417,45 +590,36 @@ export default function TestPage() {
     };
 
     document.addEventListener("fullscreenchange", handleFullscreenChange);
-
-    return () => {
-      document.removeEventListener("fullscreenchange", handleFullscreenChange);
-    };
+    return () => document.removeEventListener("fullscreenchange", handleFullscreenChange);
   }, [testStarted, testSubmitted, handleSubmitTest]);
 
   const handleStartTest = async () => {
     if (!studentInfo || !course) return;
 
     try {
-      // Create test attempt and get session token
       const result = await dispatch(createTestAttempt({
         studentId: studentInfo.id,
         testCourseId: course.id,
         durationMinutes: course.durationMinutes
       })).unwrap();
 
-      // Set server end time from the response
       const endTime = new Date(result.endTime);
       setServerEndTime(endTime);
       setTestStarted(true);
       
-      // Store initial timer state
-      localStorage.setItem('testTimerState', JSON.stringify({
+      // Save initial test state with the correct session info
+      saveTestState({
+        testAttemptId: result.testAttemptId || '',  // Ensure it's not undefined
+        sessionToken: result.sessionToken || '',      // Ensure it's not undefined
         endTime: endTime.toISOString(),
-        courseId: course.id,
-        studentId: studentInfo.id,
         lastUpdate: new Date().toISOString()
+      });
+
+      // Also update Redux store directly
+      dispatch(updateSessionInfo({
+        sessionToken: result.sessionToken,
+        testAttemptId: result.testAttemptId
       }));
-      
-      // console.log('=== TEST STARTED ===');
-      // console.log('Student:', studentInfo.name);
-      // console.log('Email:', studentInfo.email);
-      // console.log('Course:', course.title);
-      // console.log('Session Token Created');
-      // console.log('Test Attempt ID:', result.testAttemptId);
-      // console.log('Start Time:', result.startTime);
-      // console.log('End Time:', result.endTime);
-      // console.log('==================');
       
       // Enter fullscreen
       const el = document.documentElement;
@@ -463,73 +627,125 @@ export default function TestPage() {
         el.requestFullscreen().catch(() => {});
       }
     } catch (error) {
-      //console.error('Failed to start test:', error);
       setError('Failed to start test. Please try again.');
     }
   };
+
+  // Add this effect right after the state restoration effect
+  // useEffect(() => {
+  //   if (!isRestoringState || testTakingState.status !== 'idle') return;
+
+  //   const savedState = loadTestState();
+  //   if (savedState?.sessionToken && savedState?.testAttemptId) {
+  //     dispatch(updateSessionInfo({
+  //       sessionToken: savedState.sessionToken,
+  //       testAttemptId: savedState.testAttemptId
+  //     }));
+  //     console.log('Restored session info:', {
+  //       token: savedState.sessionToken.slice(0, 10) + '...',
+  //       attemptId: savedState.testAttemptId
+  //     });
+  //   }
+  // }, [isRestoringState, testTakingState.status, dispatch, loadTestState]);
 
   const handleAnswerSelect = async (optionIndex: number) => {
     if (!course || testSubmitted) return;
     
     const questionId = course.questions[currentQuestionIndex].id;
     
-    // Update local state immediately for UI responsiveness
+    // Get session info from saved state if Redux doesn't have it
+    const savedState = loadTestState();
+    const sessionToken = testTakingState.sessionToken || savedState?.sessionToken;
+    const testAttemptId = testTakingState.testAttemptId || savedState?.testAttemptId;
+    
+    // Update local state immediately
     dispatch(updateLocalAnswer({ questionId, optionSelected: optionIndex }));
-    setAnswers(prev => ({
-      ...prev,
-      [questionId]: optionIndex
-    }));
+    setAnswers(prev => {
+      const updated = {
+        ...prev,
+        [questionId]: optionIndex
+      };
+      
+      // Save state after answer update
+      saveTestState({ answers: updated });
+      return updated;
+    });
 
-    // Send to server in background
-    try {
-      await dispatch(submitAnswerAttempt({
-        questionId,
-        optionSelected: optionIndex
-      })).unwrap();
-
-      if (studentInfo) {
-        // console.log('=== ANSWER SAVED ===');
-        // console.log('Student:', studentInfo.name);
-        // console.log('Question ID:', questionId);
-        // console.log('Question Number:', currentQuestionIndex + 1);
-        // console.log('Selected Option:', optionIndex);
-        // console.log('Timestamp:', new Date().toISOString());
-        // console.log('==================');
+    // Send to server in background only if we have valid session
+    if (sessionToken && testAttemptId) {
+      try {
+        await dispatch(submitAnswerAttempt({
+          questionId,
+          optionSelected: optionIndex
+        })).unwrap();
+        
+        // console.log('✅ Answer submitted to server');
+      } catch (error) {
+        // console.error('❌ Failed to submit answer:', error);
+        // Store failed submission for retry
+        // console.log('💾 Answer saved locally, will retry on reconnect');
       }
-    } catch (error) {
-      //console.error('Failed to save answer:', error);
-      // Answer is still saved locally, user can continue
+    } else {
+      // console.warn('⚠️ No session token, answer saved locally only');
     }
   };
 
-  // Add cleanup on unmount - clear timer state if test is submitted
   useEffect(() => {
     return () => {
       if (testSubmitted) {
-        localStorage.removeItem('testTimerState');
+        clearTestState();
         dispatch(clearTestSession());
       }
     };
-  }, [testSubmitted, dispatch]);
+  }, [testSubmitted, dispatch, clearTestState]);
 
-  // Initialize question time tracking when test starts
+  // Page Visibility API - Detect tab switching
+useEffect(() => {
+  if (!testStarted || testSubmitted) return;
+
+  const handleVisibilityChange = () => {
+    if (document.hidden) {
+      // User switched away from the tab
+      console.log('⚠️ User switched away from test window');
+      
+      setTabSwitchCount(prev => {
+        const newCount = prev + 1;
+        
+        if (newCount >= 3) {
+          // Auto-submit after 3 violations
+          setAutoSubmitMessage("You switched tabs/windows 3 times. The test is being submitted automatically.");
+          setShowAutoSubmitModal(true);
+          setTimeout(() => {
+            handleSubmitTest();
+          }, 3000);
+        } else {
+          // Show warning modal
+          setShowTabSwitchModal(true);
+        }
+        
+        return newCount;
+      });
+    }
+  };
+
+  document.addEventListener('visibilitychange', handleVisibilityChange);
+
+  return () => {
+    document.removeEventListener('visibilitychange', handleVisibilityChange);
+  };
+}, [testStarted, testSubmitted, handleSubmitTest]);
+
+  // Initialize question time tracking
   useEffect(() => {
     if (testStarted && course && questionTimeSpent.length === 0) {
-      // Initialize array with zeros for each question
       setQuestionTimeSpent(new Array(course.questions.length).fill(0));
       setQuestionStartTime(new Date());
-      
-      // console.log('=== TIME TRACKING INITIALIZED ===');
-      // console.log('Total Questions:', course.questions.length);
-      // console.log('Starting Question 1');
-      // console.log('================================');
     }
   }, [testStarted, course, questionTimeSpent.length]);
 
   const handleNextQuestion = () => {
     if (!course) return;
     
-    // Record time spent on current question before moving
     if (questionStartTime) {
       const timeSpent = Math.round((new Date().getTime() - questionStartTime.getTime()) / 1000);
       const currentQuestionId = course.questions[currentQuestionIndex].id;
@@ -537,49 +753,31 @@ export default function TestPage() {
       setQuestionTimeSpent(prev => {
         const updated = [...prev];
         updated[currentQuestionIndex] = timeSpent;
-        
-        // Log individual question time immediately
-        // console.log('=== QUESTION COMPLETED ===');
-        // console.log('Question ID:', currentQuestionId);
-        // console.log('Question Number:', currentQuestionIndex + 1);
-        // console.log('Time Spent:', timeSpent, 'seconds');
-        // console.log('Time in Minutes:', Math.round(timeSpent/60*100)/100, 'minutes');
-        // console.log('Student:', studentInfo?.name);
-        // console.log('Timestamp:', new Date().toISOString());
-        // console.log('========================');
-        
         return updated;
       });
-
-      // Send time tracking data to server
-      dispatch(trackQuestionTime({
-        questionId: currentQuestionId,
-        timeSpent: timeSpent
-      })).catch((error) => {
-        //console.error('Failed to track question time:', error);
-        // Don't block navigation if time tracking fails
-      });
+      
+      // Get session info from saved state if Redux doesn't have it
+      const savedState = loadTestState();
+      const sessionToken = testTakingState.sessionToken || savedState?.sessionToken;
+      
+      if (sessionToken) {
+        dispatch(trackQuestionTime({
+          questionId: currentQuestionId,
+          timeSpent: timeSpent
+        })).catch((error) => {
+          // console.error('Failed to track time:', error);
+        });
+      }
     }
     
     if (currentQuestionIndex < course.questions.length - 1) {
       const nextIndex = currentQuestionIndex + 1;
       setCurrentQuestionIndex(nextIndex);
-      // Update highest reached index
       setHighestReachedIndex(Math.max(highestReachedIndex, nextIndex));
-      // Reset start time for next question
       setQuestionStartTime(new Date());
-      
-      //console.log(`=== MOVED TO QUESTION ${nextIndex + 1} ===`);
     }
   };
 
-  // Remove this functionality - no backward navigation allowed
-  const handlePreviousQuestion = () => {
-    // Remove this functionality - no backward navigation allowed
-    return;
-  };
-
-  // Enhanced time formatting with better precision
   const formatTime = (seconds: number) => {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
@@ -600,7 +798,9 @@ export default function TestPage() {
       <div className="min-h-screen bg-linear-to-br from-slate-50 to-indigo-50 flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-lg text-slate-600">Loading test...</p>
+          <p className="text-lg text-slate-600">
+            {isRestoringState ? 'Restoring your test session...' : 'Loading test...'}
+          </p>
         </div>
       </div>
     );
@@ -628,6 +828,31 @@ export default function TestPage() {
     return null;
   }
 
+// Show resume modal when restoring test
+if (showResumeModal && serverEndTime) {
+  const now = new Date();
+  const timeRemainingMs = serverEndTime.getTime() - now.getTime();
+  const timeRemainingSeconds = Math.max(0, Math.floor(timeRemainingMs / 1000));
+  
+  return (
+    <ResumeTestModal
+      timeRemaining={timeRemainingSeconds}
+      onResume={handleResumeTest}
+      onSubmitAndLeave={async () => {
+        setShowResumeModal(false);
+        setShowResumeExitConfirm(false);
+        await handleSubmitTest();
+        router.push('/test/setup');
+      }}
+      showExitConfirm={showResumeExitConfirm}
+      onHideExitConfirm={() => setShowResumeExitConfirm(false)}
+      onBackPressed={() => setShowResumeExitConfirm(true)}
+    />
+  );
+}
+
+
+
   // Test completed screen
   if (testSubmitted) {
     return (
@@ -642,7 +867,7 @@ export default function TestPage() {
             <div className="grid grid-cols-2 gap-4 text-sm">
               <div>
                 <span className="text-slate-500">Questions Answered:</span>
-                <p className="font-semibold text-slate-900">{getAnsweredQuestionsCount()} / {course.totalQuestions}</p>
+                <p className="font-semibold text-slate-900">{getAnsweredQuestionsCount()} / {course.questionsPerTest}</p>
               </div>
               <div>
                 <span className="text-slate-500">Total Marks:</span>
@@ -661,84 +886,67 @@ export default function TestPage() {
     );
   }
 
-  // Pre-test screen
+  // Pre-test instructions
   if (!testStarted) {
     return (
-      <div className="min-h-screen bg-linear-to-br from-slate-50 to-indigo-50 flex items-center justify-center p-4">
-        <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-2xl w-full">
-          {/* Student Information Header */}
+      <div className="min-h-screen bg-linear-to-br from-slate-100 via-white to-slate-50 flex items-center justify-center px-6 py-12">
+        <div className="bg-white/80 backdrop-blur-md border border-slate-200 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.05)] max-w-3xl w-full p-10">
+          
           {studentInfo && (
-            <div className="bg-linear-to-r from-indigo-50 to-purple-50 rounded-2xl p-6 mb-8 border border-indigo-200">
-              <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
-                <User className="w-5 h-5 text-indigo-600" />
+            <div className="border border-slate-200 rounded-xl p-6 mb-8 bg-linear-to-r from-slate-50 to-indigo-50">
+              <h2 className="text-xl font-semibold text-slate-900 mb-4 border-b border-slate-200 pb-2">
                 Test Taker Information
               </h2>
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center">
-                    <User className="w-5 h-5 text-indigo-600" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-slate-500">Name</p>
-                    <p className="font-semibold text-slate-900">{studentInfo.name}</p>
-                  </div>
+              <div className="grid sm:grid-cols-2 gap-6">
+                <div>
+                  <p className="text-sm text-slate-500">Name</p>
+                  <p className="text-base font-medium text-slate-900">{studentInfo.name}</p>
                 </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
-                    <Mail className="w-5 h-5 text-purple-600" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-slate-500">Email</p>
-                    <p className="font-semibold text-slate-900">{studentInfo.email}</p>
-                  </div>
+                <div>
+                  <p className="text-sm text-slate-500">Email</p>
+                  <p className="text-base font-medium text-slate-900">{studentInfo.email}</p>
                 </div>
               </div>
             </div>
           )}
 
-          <h1 className="text-3xl font-bold text-slate-900 mb-2">{course?.title}</h1>
-          <p className="text-slate-600 mb-8">{course?.description}</p>
-          
-          <div className="grid md:grid-cols-2 gap-6 mb-8">
-            <div className="bg-linear-to-br from-indigo-50 to-purple-50 rounded-xl p-6">
-              <Clock className="w-8 h-8 text-indigo-600 mb-3" />
+          <div className="mb-10">
+            <h1 className="text-3xl font-bold text-slate-900 tracking-tight">{course?.title}</h1>
+            <p className="text-slate-600 mt-2">{course?.description}</p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-6 mb-10">
+            <div className="border border-indigo-100 bg-linear-to-br from-indigo-50 to-white rounded-xl p-6 hover:shadow-md transition-all">
+              <Clock className="w-7 h-7 text-indigo-600 mb-3" />
               <h3 className="font-semibold text-slate-900 mb-1">Duration</h3>
               <p className="text-slate-600">{course.durationMinutes} minutes</p>
             </div>
-
-            <div className="bg-linear-to-br from-green-50 to-emerald-50 rounded-xl p-6">
-              <CheckCircle className="w-8 h-8 text-green-600 mb-3" />
+            <div className="border border-emerald-100 bg-linear-to-br from-emerald-50 to-white rounded-xl p-6 hover:shadow-md transition-all">
+              <CheckCircle className="w-7 h-7 text-emerald-600 mb-3" />
               <h3 className="font-semibold text-slate-900 mb-1">Questions</h3>
-              <p className="text-slate-600">{course.totalQuestions} questions ({course.totalMarks} marks)</p>
+              <p className="text-slate-600">
+                {course.questionsPerTest} questions ({course.totalMarks} marks)
+              </p>
             </div>
           </div>
 
-          <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-8">
-            <AlertTriangle className="w-6 h-6 text-amber-600 mb-2" />
-            <h4 className="font-semibold text-amber-900 mb-2">Important Instructions:</h4>
-            <ul className="text-sm text-amber-800 space-y-1">
-              <li>• Once started, the timer cannot be paused</li>
-              <li>• You can navigate between questions freely</li>
-              <li>• Test will auto-submit when time expires</li>
-              <li>• Timer syncs with server to prevent manipulation</li>
-              <li>• Make sure you have a stable internet connection</li>
-              <li>• Do not exit fullscreen mode during the test</li>
+          <div className="border border-amber-200 bg-linear-to-br from-amber-50 to-white rounded-xl p-6 mb-10">
+            <h4 className="font-semibold text-amber-900 mb-3 flex items-center gap-2">
+              <AlertTriangle className="w-5 h-5 text-amber-600" />
+              Important Instructions
+            </h4>
+            <ul className="text-sm text-amber-800 space-y-1 leading-relaxed">
+              {course.instructions.map((instruction, index) => (
+                <li key={index} className="flex items-start gap-2">
+                  <span className="text-amber-600 font-bold">•</span>
+                  <span>{instruction}</span>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Show timer restoration notice if applicable */}
-          {localStorage.getItem('testTimerState') && (
-            <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6">
-              <div className="flex items-center gap-2">
-                <Clock className="w-5 h-5 text-blue-600" />
-                <p className="text-blue-700 font-medium">Previous test session detected. Timer will be restored automatically.</p>
-              </div>
-            </div>
-          )}
-
-          {/* Show test taking status if there's an error */}
           {testTakingState.status === 'error' && testTakingState.error && (
-            <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-6">
+            <div className="border border-red-200 bg-red-50 rounded-xl p-4 mb-8">
               <div className="flex items-center gap-2">
                 <AlertTriangle className="w-5 h-5 text-red-600" />
                 <p className="text-red-700 font-medium">{testTakingState.error}</p>
@@ -749,7 +957,7 @@ export default function TestPage() {
           <button
             onClick={handleStartTest}
             disabled={testTakingState.status === 'loading'}
-            className="w-full py-4 bg-linear-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-semibold text-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full py-4 bg-linear-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-semibold text-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {testTakingState.status === 'loading' ? 'Starting Test...' : 'Start Test'}
           </button>
@@ -758,17 +966,16 @@ export default function TestPage() {
     );
   }
 
-  // Test interface with enhanced timer display
+  // Test interface
   if (testStarted && course) {
     const currentQuestion = course.questions[currentQuestionIndex];
     const selectedAnswer = answers[currentQuestion.id];
 
     return (
       <div className="min-h-screen bg-linear-to-br from-slate-50 to-indigo-50">
-        {/* Header with enhanced timer */}
+        {/* Header */}
         <div className="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-10">
           <div className="max-w-7xl mx-auto px-4 py-4">
-            {/* Student Info Bar */}
             {studentInfo && (
               <div className="bg-linear-to-r from-indigo-50 to-purple-50 rounded-lg p-3 mb-4 border border-indigo-200">
                 <div className="flex items-center justify-between">
@@ -798,7 +1005,7 @@ export default function TestPage() {
             <div className="flex items-center justify-between">
               <div>
                 <h1 className="text-xl font-bold text-slate-900">{course?.title}</h1>
-                <p className="text-sm text-slate-500">Question {currentQuestionIndex + 1} of {course?.totalQuestions}</p>
+                <p className="text-sm text-slate-500">Question {currentQuestionIndex + 1} of {course?.questionsPerTest}</p>
               </div>
               
               <div className="flex items-center gap-6">
@@ -820,7 +1027,7 @@ export default function TestPage() {
                 <div className="text-right">
                   <p className="text-sm text-slate-500">Answered</p>
                   <p className="text-lg font-bold text-slate-900">
-                    {getAnsweredQuestionsCount()} / {course?.totalQuestions}
+                    {getAnsweredQuestionsCount()} / {course?.questionsPerTest}
                   </p>
                 </div>
               </div>
@@ -829,6 +1036,16 @@ export default function TestPage() {
         </div>
 
         <div className="max-w-4xl mx-auto p-6">
+          {/* Reload indicator */}
+          {isRestoringState && (
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6">
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                <p className="text-blue-700 font-medium">Restoring your test session...</p>
+              </div>
+            </div>
+          )}
+
           {/* Question Card */}
           <div className="bg-white rounded-2xl shadow-lg p-8 mb-6">
             <div className="mb-6">
@@ -915,7 +1132,7 @@ export default function TestPage() {
             </div>
           </div>
 
-          {/* Question Navigator - Visual Only */}
+          {/* Question Navigator */}
           <div className="mt-8 bg-white rounded-2xl shadow-lg p-6">
             <h3 className="font-semibold text-slate-900 mb-4">Question Status</h3>
             <div className="mb-4 flex flex-wrap gap-4 text-sm">
@@ -988,17 +1205,34 @@ export default function TestPage() {
         )}
 
         {fullscreenWarning && (
-          <FullscreenWarningModal
-            onReenterFullscreen={() => {
-              setFullscreenWarning(false);
-              document.documentElement.requestFullscreen().catch(() => {});
-            }}
-          />
-        )}
+  <FullscreenWarningModal
+    onReenterFullscreen={() => {
+      setFullscreenWarning(false);
+      document.documentElement.requestFullscreen().catch(() => {});
+    }}
+    onSubmitAndLeave={async () => {
+      setFullscreenWarning(false);
+      await handleSubmitTest();
+      router.push('/test/setup');
+    }}
+  />
+)}
 
         {showAutoSubmitModal && (
           <AutoSubmitModal message={autoSubmitMessage} />
         )}
+
+        {showTabSwitchModal && (
+  <TabSwitchWarningModal
+    warningCount={tabSwitchCount}
+    onReturn={() => setShowTabSwitchModal(false)}
+    onSubmitAndLeave={async () => {
+      setShowTabSwitchModal(false);
+      await handleSubmitTest();
+      router.push('/test/setup');
+    }}
+  />
+)}
       </div>
     );
   }

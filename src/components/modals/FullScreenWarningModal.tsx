@@ -1,10 +1,73 @@
+import { AlertTriangle } from 'lucide-react';
+import { useState, useEffect } from 'react';
+
 interface FullscreenWarningModalProps {
   onReenterFullscreen: () => void;
+  onSubmitAndLeave: () => void;
 }
 
-export default function FullscreenWarningModal({ onReenterFullscreen }: FullscreenWarningModalProps) {
+export default function FullscreenWarningModal({ onReenterFullscreen, onSubmitAndLeave }: FullscreenWarningModalProps) {
+  const [showExitConfirm, setShowExitConfirm] = useState(false);
+
+  // Handle back button press
+  useEffect(() => {
+    // Push a new state to history
+    window.history.pushState(null, '', window.location.href);
+
+    const handlePopState = (e: PopStateEvent) => {
+      e.preventDefault();
+      // Push state again to prevent actual navigation
+      window.history.pushState(null, '', window.location.href);
+      // Show exit confirmation
+      setShowExitConfirm(true);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, []);
+
+  // Exit confirmation modal
+  if (showExitConfirm) {
+    return (
+      <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center">
+          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <AlertTriangle className="w-8 h-8 text-red-600" />
+          </div>
+          
+          <h2 className="text-2xl font-bold text-slate-900 mb-3">
+            Leave Test?
+          </h2>
+          
+          <p className="text-slate-600 mb-6">
+            Going back will submit your test and you won&apos;t be able to continue. Do you want to proceed?
+          </p>
+          
+          <div className="flex gap-3">
+            <button
+              onClick={onSubmitAndLeave}
+              className="flex-1 py-3 bg-red-600 text-white rounded-xl font-semibold hover:bg-red-700 transition-colors"
+            >
+              Submit & Leave
+            </button>
+            <button
+              onClick={() => setShowExitConfirm(false)}
+              className="flex-1 py-3 bg-slate-200 text-slate-700 rounded-xl font-semibold hover:bg-slate-300 transition-colors"
+            >
+              Stay
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Main fullscreen warning modal
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
       <div className="bg-white rounded-2xl shadow-xl p-6 w-80 text-center">
         <div className="flex justify-center mb-4">
           <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center">

@@ -171,6 +171,8 @@ interface Course {
   title: string;
   description: string;
   durationMinutes: number;
+  instructions: [string];
+  questionsPerTest: number;
   totalMarks: number;
   status: 'not_started' | 'in_progress' | 'submitted' | 'auto_submitted';
 }

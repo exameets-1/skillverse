@@ -408,6 +408,12 @@ const testTakingSlice = createSlice({
       state.error = action.payload;
       state.status = 'error';
     },
+    // Add this new reducer
+    updateSessionInfo: (state, action: PayloadAction<{ sessionToken: string; testAttemptId: string }>) => {
+      state.sessionToken = action.payload.sessionToken;
+      state.testAttemptId = action.payload.testAttemptId;
+      state.status = 'in_progress'; // Also update status
+    },
   },
   extraReducers: (builder) => {
     // Create test attempt
@@ -469,5 +475,5 @@ const testTakingSlice = createSlice({
   },
 });
 
-export const { updateLocalAnswer, clearTestSession, setError } = testTakingSlice.actions;
+export const { updateLocalAnswer, clearTestSession, setError, updateSessionInfo } = testTakingSlice.actions;
 export default testTakingSlice.reducer;

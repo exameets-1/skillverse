@@ -221,7 +221,7 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
       <div className="bg-white w-full max-w-3xl max-h-[95vh] overflow-y-auto rounded-3xl shadow-2xl border border-slate-200 relative">
         {/* Loading Overlay */}
         {registrationState.loading && (
-          <div className="fixed inset-0 bg-linear-to-br from-indigo-600/95 to-purple-600/95 backdrop-blur-sm z-[100] flex items-center justify-center rounded-3xl">
+          <div className="fixed inset-0 bg-linear-to-br from-indigo-600/95 to-purple-600/95 backdrop-blur-sm z-100 flex items-center justify-center rounded-3xl">
             <div className="flex flex-col items-center gap-6 text-center">
               <div className="relative">
                 <Loader2 className="w-20 h-20 animate-spin text-white" />
@@ -237,7 +237,7 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
 
         {/* Success Overlay */}
         {registrationState.success && (
-          <div className="fixed inset-0 bg-linear-to-br from-green-500/95 via-emerald-600/95 to-teal-600/95 backdrop-blur-sm z-[100] flex items-center justify-center rounded-3xl">
+          <div className="fixed inset-0 bg-linear-to-br from-green-500/95 via-emerald-600/95 to-teal-600/95 backdrop-blur-sm z-100 flex items-center justify-center rounded-3xl">
             <Confetti />
             <div className="flex flex-col items-center gap-8 text-center px-8 max-w-lg">
               <div className="relative">
@@ -299,7 +299,7 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
 
         {/* Error Overlay */}
         {registrationState.error && !registrationState.loading && (
-          <div className="fixed inset-0 bg-linear-to-br from-red-500/95 to-pink-600/95 backdrop-blur-sm z-[100] flex items-center justify-center rounded-3xl">
+          <div className="fixed inset-0 bg-linear-to-br from-red-500/95 to-pink-600/95 backdrop-blur-sm z-100 flex items-center justify-center rounded-3xl">
             <div className="flex flex-col items-center gap-8 text-center px-8 max-w-md">
               <div className="relative">
                 <div className="w-28 h-28 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
@@ -703,7 +703,7 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
             {!canSubmit && (
               <div className="mb-6 p-6 bg-linear-to-br from-amber-50 to-orange-50 border-2 border-amber-200 rounded-2xl">
                 <div className="flex items-start gap-4">
-                  <AlertCircle className="w-6 h-6 text-amber-600 flex-shrink-0 mt-1" />
+                  <AlertCircle className="w-6 h-6 text-amber-600 shrink-0 mt-1" />
                   <div>
                     <p className="font-bold text-amber-900 mb-3 text-lg">Complete these steps to register:</p>
                     <ul className="space-y-2 text-amber-800">
@@ -737,7 +737,7 @@ export default function StudentRegistrationModal({ isOpen, onClose }: StudentReg
 
             {registrationState.error && (
               <div className="mt-4 p-4 bg-red-50 border-2 border-red-200 rounded-xl flex items-start gap-3">
-                <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                <AlertCircle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
                 <span className="text-red-700 font-medium">{registrationState.error}</span>
               </div>
             )}
