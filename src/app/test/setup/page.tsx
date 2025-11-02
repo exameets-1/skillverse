@@ -137,6 +137,9 @@ export default function BeforeTestPage() {
     }
   };
 
+  const isTestingDisabled = true; // You can control this based on test dates
+  const testStartDate = "January 15, 2025"; // Update with actual date
+
   return (
     <div className="min-h-screen bg-linear-to-br from-slate-50 via-white to-slate-100">
       {/* Hero Section with Dynamic Gradient */}
@@ -191,18 +194,34 @@ export default function BeforeTestPage() {
                   <label htmlFor="email" className="block text-sm font-semibold text-slate-700 mb-3">
                     Email Address
                   </label>
-                  <div className="relative">
+                  <div className="relative group">
                     <input
                       type="email"
                       id="email"
                       value={email}
                       onChange={(e) => dispatch(setEmail(e.target.value))}
-                      className="w-full px-6 py-4 pl-12 border-2 border-slate-200 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none text-lg transition-all"
+                      className={`w-full px-6 py-4 pl-12 border-2 rounded-2xl outline-none text-lg transition-all ${
+                        isTestingDisabled 
+                          ? 'border-slate-200 bg-slate-50 cursor-not-allowed'
+                          : 'border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent'
+                      }`}
                       placeholder="Enter your registered email"
                       required
-                      disabled={sendingOTP}
+                      disabled={isTestingDisabled || sendingOTP}
                     />
                     <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                    
+                    {/* Tooltip that appears on hover when testing is disabled */}
+                    {isTestingDisabled && (
+                      <div className="absolute -top-20 left-0 right-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                        <div className="bg-slate-900 text-white p-4 rounded-xl text-center shadow-xl">
+                          <p className="text-sm font-medium">
+                            Tests will open shortly and will be announced via email.
+                          </p>
+                          <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-slate-900 rotate-45"></div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -223,27 +242,44 @@ export default function BeforeTestPage() {
                 )}
 
                 <div className="space-y-4">
-                  <button
-                    type="submit"
-                    disabled={sendingOTP || canRetryAfter > 0}
-                    className="group relative w-full px-10 py-5 bg-linear-to-r from-indigo-600 to-purple-600 text-white rounded-2xl text-lg font-semibold shadow-2xl shadow-indigo-500/40 hover:shadow-indigo-500/60 transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-                  >
-                    <span className="relative z-10 flex items-center justify-center gap-3">
-                      {sendingOTP ? 'Sending Code...' : 'Send Code'}
-                      {!sendingOTP && <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />}
-                    </span>
-                  </button>
+                  {isTestingDisabled ? (
+                    <div className="bg-linear-to-br from-purple-50 to-indigo-50 border-2 border-purple-100 rounded-2xl p-6 text-center">
+                      <h3 className="text-xl font-bold text-purple-900 mb-2">
+                        Coming Soon!
+                      </h3>
+                      <p className="text-purple-700 mb-4">
+                        The next round of tests will begin shortly. Stay tuned!
+                      </p>
+                      <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 rounded-full">
+                        <Clock className="w-4 h-4 text-purple-600" />
+                        <span className="text-sm font-medium text-purple-700">Mark your calendar</span>
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      <button
+                        type="submit"
+                        disabled={sendingOTP || canRetryAfter > 0}
+                        className="group relative w-full px-10 py-5 bg-linear-to-r from-indigo-600 to-purple-600 text-white rounded-2xl text-lg font-semibold shadow-2xl shadow-indigo-500/40 hover:shadow-indigo-500/60 transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                      >
+                        <span className="relative z-10 flex items-center justify-center gap-3">
+                          {sendingOTP ? 'Sending Code...' : 'Send Code'}
+                          {!sendingOTP && <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />}
+                        </span>
+                      </button>
 
-                  <button
-                    type="button"
-                    onClick={() => router.push('/test/register')}
-                    className="w-full px-10 py-5 border-2 border-indigo-200 text-indigo-600 hover:bg-indigo-50 rounded-2xl text-lg font-semibold transition-all duration-300"
-                  >
-                    <span className="flex items-center justify-center gap-2">
-                      Didn&apos;t register? Register now
-                      <ChevronRight className="w-5 h-5" />
-                    </span>
-                  </button>
+                      <button
+                        type="button"
+                        onClick={() => router.push('/test/register')}
+                        className="w-full px-10 py-5 border-2 border-indigo-200 text-indigo-600 hover:bg-indigo-50 rounded-2xl text-lg font-semibold transition-all duration-300"
+                      >
+                        <span className="flex items-center justify-center gap-2">
+                          Didn&apos;t register? Register now
+                          <ChevronRight className="w-5 h-5" />
+                        </span>
+                      </button>
+                    </>
+                  )}
                 </div>
               </form>
             </div>
