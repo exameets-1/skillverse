@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { CheckCircle, AlertCircle, Trophy, Gift, Award, Sparkles, ChevronRight, BookOpen, Star } from 'lucide-react';
 import StudentRegistrationModal from '@/components/modals/StudentRegistrationModal';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 const instructionsArray = [
   "Read each question carefully before answering",
@@ -314,6 +315,19 @@ export default function TestPage() {
           </div>
         </div>
       </section>
+
+      {/* Terms and Conditions */}
+      <div className="py-8 text-center bg-slate-50 border-t border-slate-200">
+        <p className="text-sm text-slate-600">
+          *Terms and Conditions apply. For more details and enquiries, please{' '}
+          <Link
+            href="/#visit-us" 
+            className="text-indigo-600 hover:text-indigo-800 underline decoration-1 underline-offset-2"
+          >
+            visit us
+          </Link>
+        </p>
+      </div>
 
       {/* Sticky Mobile CTA - Updated with both buttons */}
       <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-200 p-4 lg:hidden z-50 shadow-2xl">
