@@ -35,6 +35,10 @@ const testCourseSchema = new mongoose.Schema(
       type: Boolean,
       default: true
     },
+    testDate : {
+      type: Date,
+      default : null
+    },
     createdAt: {
       type: Date,
       default: Date.now
