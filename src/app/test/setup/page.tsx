@@ -36,6 +36,8 @@ export default function BeforeTestPage() {
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isTestingEnabled, setIsTestingEnabled] = useState(false);
+  const [isCheckingLiveStatus, setIsCheckingLiveStatus] = useState(true);
   
   const {
     email,
@@ -75,6 +77,24 @@ export default function BeforeTestPage() {
   useEffect(() => {
     dispatch(resetBeforeTest());
   }, [dispatch]);
+
+  // Check live status of tests
+  useEffect(() => {
+    const checkLiveStatus = async () => {
+      try {
+        const response = await fetch('/test/api/is-live');
+        const data = await response.json();
+        setIsTestingEnabled(data.isLive);
+      } catch (error) {
+        console.error('Failed to check live status:', error);
+        setIsTestingEnabled(false);
+      } finally {
+        setIsCheckingLiveStatus(false);
+      }
+    };
+
+    checkLiveStatus();
+  }, []);
 
   const handleSendOTP = (e: React.FormEvent) => {
     e.preventDefault();
@@ -137,9 +157,6 @@ export default function BeforeTestPage() {
     }
   };
 
-  const isTestingDisabled = true; // You can control this based on test dates
-  const testStartDate = "January 15, 2025"; // Update with actual date
-
   return (
     <div className="min-h-screen bg-linear-to-br from-slate-50 via-white to-slate-100">
       {/* Hero Section with Dynamic Gradient */}
@@ -201,18 +218,20 @@ export default function BeforeTestPage() {
                       value={email}
                       onChange={(e) => dispatch(setEmail(e.target.value))}
                       className={`w-full px-6 py-4 pl-12 border-2 rounded-2xl outline-none text-lg transition-all ${
-                        isTestingDisabled 
-                          ? 'border-slate-200 bg-slate-50 cursor-not-allowed'
-                          : 'border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent'
+                        isCheckingLiveStatus 
+                          ? 'border-slate-200 bg-slate-100 cursor-wait'
+                          : !isTestingEnabled 
+                            ? 'border-slate-200 bg-slate-50 cursor-not-allowed'
+                            : 'border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent'
                       }`}
-                      placeholder="Enter your registered email"
+                      placeholder={isCheckingLiveStatus ? "Checking test availability..." : "Enter your registered email"}
                       required
-                      disabled={isTestingDisabled || sendingOTP}
+                      disabled={isCheckingLiveStatus || !isTestingEnabled || sendingOTP}
                     />
                     <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                     
-                    {/* Tooltip that appears on hover when testing is disabled */}
-                    {isTestingDisabled && (
+                    {/* Tooltip for disabled state */}
+                    {!isTestingEnabled && !isCheckingLiveStatus && (
                       <div className="absolute -top-20 left-0 right-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                         <div className="bg-slate-900 text-white p-4 rounded-xl text-center shadow-xl">
                           <p className="text-sm font-medium">
@@ -242,17 +261,36 @@ export default function BeforeTestPage() {
                 )}
 
                 <div className="space-y-4">
-                  {isTestingDisabled ? (
-                    <div className="bg-linear-to-br from-purple-50 to-indigo-50 border-2 border-purple-100 rounded-2xl p-6 text-center">
-                      <h3 className="text-xl font-bold text-purple-900 mb-2">
-                        Coming Soon!
-                      </h3>
-                      <p className="text-purple-700 mb-4">
-                        The next round of tests will begin shortly. Stay tuned!
-                      </p>
-                      <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 rounded-full">
-                        <Clock className="w-4 h-4 text-purple-600" />
-                        <span className="text-sm font-medium text-purple-700">Mark your calendar</span>
+                  {isCheckingLiveStatus ? (
+                    <div className="bg-slate-50 border-2 border-slate-200 rounded-2xl p-6 text-center">
+                      <div className="animate-spin w-6 h-6 border-2 border-indigo-600 border-t-transparent rounded-full mx-auto mb-3"></div>
+                      <p className="text-slate-600">Checking test availability...</p>
+                    </div>
+                  ) : !isTestingEnabled ? (
+                    <div className="bg-linear-to-br from-purple-50 to-indigo-50 border-2 border-purple-100 rounded-2xl p-8 text-center space-y-8">
+                      <div>
+                        <h3 className="text-2xl font-bold text-purple-900 mb-4">
+                          Coming Soon!
+                        </h3>
+                        <p className="text-purple-700 mb-6">
+                          The next round of tests will begin shortly. Stay tuned!
+                        </p>
+                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 rounded-full">
+                          <Clock className="w-4 h-4 text-purple-600" />
+                          <span className="text-sm font-medium text-purple-700">Mark your calendar</span>
+                        </div>
+                      </div>
+
+                      <div className="border-t border-purple-200 pt-8">
+                        <p className="text-sm text-purple-800 mb-4">Not registered for the upcoming tests yet?</p>
+                        <button
+                          type="button"
+                          onClick={() => router.push('/test/register')}
+                          className="w-full px-10 py-5 bg-linear-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-700 hover:to-purple-700 rounded-2xl text-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+                        >
+                          Register Now
+                          <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                        </button>
                       </div>
                     </div>
                   ) : (
@@ -268,16 +306,6 @@ export default function BeforeTestPage() {
                         </span>
                       </button>
 
-                      <button
-                        type="button"
-                        onClick={() => router.push('/test/register')}
-                        className="w-full px-10 py-5 border-2 border-indigo-200 text-indigo-600 hover:bg-indigo-50 rounded-2xl text-lg font-semibold transition-all duration-300"
-                      >
-                        <span className="flex items-center justify-center gap-2">
-                          Didn&apos;t register? Register now
-                          <ChevronRight className="w-5 h-5" />
-                        </span>
-                      </button>
                     </>
                   )}
                 </div>
