@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/dbConnect';
-import Otp from '@/lib/models/Otp';
-import Student from '@/lib/models/Student';
+import Otp from '@/lib/test-models/Otp';
+import Student from '@/lib/test-models/Student';
 import { sendEmail } from '@/lib/sendEmail';
 
 // Generate 6-digit OTP

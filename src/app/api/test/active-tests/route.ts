@@ -32,7 +32,7 @@
 
 import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/dbConnect';
-import TestCourse from '@/lib/models/TestCourse';
+import TestCourse from '@/lib/test-models/TestCourse';
 
 const allowedOrigin = 'https://admin.exameets.in';
 

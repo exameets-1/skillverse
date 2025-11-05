@@ -115,8 +115,8 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/dbConnect';
-import Question from '@/lib/models/Question';
-import TestCourse from '@/lib/models/TestCourse';
+import Question from '@/lib/test-models/Question';
+import TestCourse from '@/lib/test-models/TestCourse';
 
 const allowedOrigin = 'https://admin.exameets.in';
 

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/dbConnect';
-import Student from '@/lib/models/Student';
-import Referral from '@/lib/models/Referral';
+import Student from '@/lib/test-models/Student';
+import Referral from '@/lib/test-models/Referral';
 
 // Generate a unique referral code
 function generateReferralCode(length: number = 5): string {

@@ -1,7 +1,7 @@
 // api/test-taking/question-time/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/dbConnect';
-import TestAttempt from '@/lib/models/TestAttempt';
+import TestAttempt from '@/lib/test-models/TestAttempt';
 import jwt from 'jsonwebtoken';
 
 interface JWTPayload {

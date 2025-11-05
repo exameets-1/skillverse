@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/dbConnect';
-import TestAttempt from '@/lib/models/TestAttempt';
-import Student from '@/lib/models/Student';
-import TestCourse from '@/lib/models/TestCourse';
+import TestAttempt from '@/lib/test-models/TestAttempt';
+import Student from '@/lib/test-models/Student';
+import TestCourse from '@/lib/test-models/TestCourse';
 import jwt from 'jsonwebtoken';
 
 export async function POST(request: NextRequest) {

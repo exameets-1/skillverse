@@ -3,9 +3,9 @@ import dbConnect from '@/lib/dbConnect';
 import mongoose from 'mongoose';
 
 // Import models in correct order
-import '@/lib/models/TestCourse';  // Import first to register schema
-import Student from '@/lib/models/Student';
-import TestAttempt from '@/lib/models/TestAttempt';
+import '@/lib/test-models/TestCourse';  // Import first to register schema
+import Student from '@/lib/test-models/Student';
+import TestAttempt from '@/lib/test-models/TestAttempt';
 
 const allowedOrigin = 'https://admin.exameets.in';
 

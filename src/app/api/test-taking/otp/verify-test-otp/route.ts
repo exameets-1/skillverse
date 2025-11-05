@@ -141,10 +141,10 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/dbConnect';
-import Otp from '@/lib/models/Otp';
-import Student from '@/lib/models/Student';
-import TestAttempt from '@/lib/models/TestAttempt';
-import TestCourse from '@/lib/models/TestCourse';
+import Otp from '@/lib/test-models/Otp';
+import Student from '@/lib/test-models/Student';
+import TestAttempt from '@/lib/test-models/TestAttempt';
+import TestCourse from '@/lib/test-models/TestCourse';
 
 export async function POST(request: NextRequest) {
   try {

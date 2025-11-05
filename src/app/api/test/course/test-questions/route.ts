@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/dbConnect';
-import TestCourse from '@/lib/models/TestCourse';
-import '@/lib/models/Question'; // Ensure model is registered
+import TestCourse from '@/lib/test-models/TestCourse';
+import '@/lib/test-models/Question'; // Ensure model is registered
 
 const allowedOrigin = 'https://admin.exameets.in';
 

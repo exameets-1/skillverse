@@ -1,6 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/dbConnect';
-import Referral from '@/lib/models/Referral';
+// Import Student schema first
+import '@/lib/test-models/Student';
+import Referral from '@/lib/test-models/Referral';
+
+interface PopulatedOwner {
+  name: string;
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -18,7 +24,7 @@ export async function POST(request: NextRequest) {
 
     const referralDoc = await Referral.findOne({ 
       referralCode: referralCode.toUpperCase() 
-    }).populate('owner', 'name');
+    }).populate<{ owner: PopulatedOwner }>('owner', 'name');
 
     if (!referralDoc) {
       return NextResponse.json(
