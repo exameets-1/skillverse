@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   description: `Transform your career with Exameets Skillverse Academy in Kadapa.
     Expert-led courses in Java, MERN, Web Development, Digital Marketing, Python, and more. 
     Hands-on labs, mock interviews, and career support included.`,
-  keywords: 'exam preparation, online courses, test preparation, competitive exams, study materials',
+  keywords: 'Exameets, Exameets Skillverse, Exameets Skillverse Academy, Skillverse Academy, Computer Coaching, Software Training in Kadapa, IT course in Kadapa, Best Computer Training in Kadapa, Java Full Stack in Kadapa, AI & ML Course in Kadapa, Data Science Course in Kadapa, Python Full Stack in Kadapa, MERN Full Stack in Kadapa, Digital Marketing Course in Kadapa, Advanced MS Office in Kadapa, Career Guidance in Kadapa',
   authors: [{ name: 'Exameets Skillverse Academy' }],
   publisher: 'Exameets Skillverse Academy',
   robots: 'index, follow',
