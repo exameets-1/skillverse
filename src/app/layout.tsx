@@ -5,6 +5,9 @@ import { Providers } from "./providers";
 import Script from "next/script";
 import Analytics from "@/components/Analytics";
 import { Suspense } from "react"; // ✅ import Suspense
+import AuthInit from "@/components/AuthInit";
+import { Inter } from 'next/font/google'
+import './globals.css'
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,7 +18,7 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: "Exameets Skillverse Academy | Best Tech Training in Kadapa",
@@ -38,6 +41,23 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
           rel="stylesheet"
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "EducationalOrganization",
+              "name": "ExaMeets SkillVerse",
+              "description": "Comprehensive exam preparation courses and practice tests",
+              "url": "https://exameets-skillverse.com",
+              "sameAs": [
+                "https://facebook.com/exameetsskillverse",
+                "https://twitter.com/exameetsverse",
+                "https://linkedin.com/company/exameets-skillverse"
+              ]
+            })
+          }}
+        />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {/* ✅ Google Analytics base script */}
@@ -53,15 +73,14 @@ export default function RootLayout({
             gtag('config', 'G-NPRC8MPNYD');
           `}
         </Script>
+          <Providers>
+            <AuthInit />   {/* ✅ auto restore session */}
+            {children}
 
-        <Providers>
-          {children}
-
-          {/* ✅ Wrap Analytics with Suspense */}
-          <Suspense fallback={null}>
-            <Analytics />
-          </Suspense>
-        </Providers>
+            <Suspense fallback={null}>
+              <Analytics />
+            </Suspense>
+          </Providers>
       </body>
     </html>
   );

@@ -15,34 +15,39 @@ export default function Footer() {
             <span className="text-gray-400">|</span>
             <Link 
               href="/#about" 
+              title='About Exameets Skillverse Academy - Kadapa'
               className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 px-2 py-1"
             >
               About Us
             </Link>
             <span className="text-gray-400">|</span>
             <Link 
-              href="/#visit-us" 
+              href="/#visit-us"
+              title='Visit Exameets Skillverse Academy - Kadapa'
               className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 px-2 py-1"
             >
               Contact Us
             </Link>
             <span className="text-gray-400">|</span>
             <Link 
-              href="/privacy-policy" 
+              href="/privacy-policy"
+              title='Privacy Policy'
               className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 px-2 py-1"
             >
               Privacy Policy
             </Link>
             <span className="text-gray-400">|</span>
             <Link 
-              href="/terms-and-conditions" 
+              href="/terms-and-conditions"
+              title='Terms and Conditions'
               className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 px-2 py-1"
             >
               Terms & Conditions
             </Link>
             <span className="text-gray-400">|</span>
             <Link 
-              href="/refund-policy" 
+              href="/refund-policy"
+              title='Refund Policy'
               className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 px-2 py-1"
             >
               Refund Policy

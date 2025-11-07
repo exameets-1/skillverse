@@ -191,10 +191,10 @@ export default function Hero() {
                   className="flex flex-col sm:flex-row gap-4 animate-fade-in-up delay-500"
                   style={{ opacity: 1 - scrollProgress * 1.5 }}
                 >
-                  <a href="#courses" className="bg-white text-black px-8 py-4 text-lg font-medium transition-all duration-300 hover:bg-gray-100 tracking-wide text-center cursor-pointer">
+                  <a href="#courses" title="Explore Courses in Skillverse Academy Kadapa" className="bg-white text-black px-8 py-4 text-lg font-medium transition-all duration-300 hover:bg-gray-100 tracking-wide text-center cursor-pointer">
                     Explore Courses
                   </a>
-                  <a href="#visit-us" className="border border-white text-white hover:bg-white hover:text-black px-8 py-4 text-lg font-medium transition-all duration-300 tracking-wide cursor-pointer">
+                  <a href="#visit-us" title="Join Skillverse Academy Kadapa" className="border border-white text-white hover:bg-white hover:text-black px-8 py-4 text-lg font-medium transition-all duration-300 tracking-wide cursor-pointer">
                     Join Now
                   </a>
                 </div>

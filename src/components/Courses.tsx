@@ -117,6 +117,7 @@ export default function Courses() {
               return (
                 <Link 
                   key={course.id}
+                  title={`Explore ${course.title} at Exameets Skillverse Academy - Kadapa`}
                   href={`/course/${course.slug}`}
                   className="group border border-gray-100 p-8 transition-all duration-300 hover:border-gray-200 hover:shadow-lg cursor-pointer block"
                 >
@@ -190,6 +191,7 @@ export default function Courses() {
               return (
                 <Link 
                   key={course.id}
+                  title={`Explore ${course.title} at Exameets Skillverse Academy - Kadapa`}
                   href={`/course/${course.slug}`}
                   className="border border-gray-100 p-6 block hover:shadow-md transition-all duration-300 cursor-pointer"
                 >

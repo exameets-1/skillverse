@@ -46,6 +46,7 @@ export default function TestInfo() {
               <div className="flex gap-4">
                 <Link
                   href="/test/register"
+                  title="Register for Exameets Skillverse Talent Hunt - 1 conducted by Exameets Skillverse Academy - Kadapa"
                   className="group bg-linear-to-r from-indigo-600 to-purple-600 text-white px-8 py-4 text-base font-semibold rounded-lg shadow-xl shadow-indigo-500/30 hover:shadow-indigo-500/50 transition-all duration-300 hover:scale-105 flex items-center"
                 >
                   Register Now
@@ -53,6 +54,7 @@ export default function TestInfo() {
                 </Link>
                 <Link
                   href="/test"
+                  title="View All Tests at Exameets Skillverse Talent Hunt - 1 conducted by Exameets Skillverse Academy - Kadapa"
                   className="group border-2 border-white/30 text-white hover:bg-white/10 px-8 py-4 text-base font-semibold rounded-lg backdrop-blur-sm transition-all duration-300 hover:scale-105"
                 >
                   View All Tests
@@ -138,12 +140,14 @@ export default function TestInfo() {
           <div className="space-y-3">
             <Link
               href="/test/register"
+              title="Register for Exameets Skillverse Talent Hunt - 1 conducted by Exameets Skillverse Academy - Kadapa"
               className="block w-full bg-linear-to-r from-indigo-600 to-purple-600 text-white px-6 py-4 text-base font-semibold text-center rounded-lg shadow-xl shadow-indigo-500/30"
             >
               Register Now
             </Link>
             <Link
               href="/test"
+              title="View All Tests at Exameets Skillverse Talent Hunt - 1 conducted by Exameets Skillverse Academy - Kadapa"
               className="block w-full border-2 border-white/30 text-white px-6 py-4 text-base font-semibold text-center rounded-lg backdrop-blur-sm"
             >
               View All Tests

@@ -91,6 +91,7 @@ export default function WhyChoose() {
                 <Image
                   src="/images/Vertical.webp"
                   alt="Team Meeting at Exameets Skillverse"
+                  title='Exameets Skillverse Academy - Kadapa'
                   className="w-full h-auto object-cover"
                   style={{ aspectRatio: '3/4' }}
                   width={896}
@@ -127,6 +128,7 @@ export default function WhyChoose() {
               <Image
                 src="/images/Vertical.webp"
                 alt="Team Meeting at Exameets Skillverse"
+                title='Exameets Skillverse Academy - Kadapa'
                 className="w-full h-auto object-cover"
                 width={896}
                 height={1192}

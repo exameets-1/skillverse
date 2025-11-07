@@ -1,43 +1,3 @@
-// import Hero from "@/components/Hero";
-// import About from "@/components/About";
-// import WhyChoose from "@/components/WhyChoose";
-// import Courses from "@/components/Courses";
-// // import SuccessStories from "@/components/SuccessStories";
-// import VisitUs from "@/components/VisitUs";
-// import CallToAction from "@/components/CallToAction";
-// import AIModal from "@/components/AiModal";
-// import Footer from "@/components/Footer";
-
-// export default function Home() {
-//   return (
-//     <>
-//       <section id="home">
-//         <Hero />
-//       </section>
-//       <section id="about">
-//         <About />
-//       </section>
-//       <section id="why-choose">
-//         <WhyChoose />
-//       </section>    
-//       <section id="courses">
-//         <Courses />
-//       </section>
-//       {/* <section id="features">
-//         <Features />
-//       </section> */}
-//       <section id="visit-us">
-//         <VisitUs />
-//       </section>
-//       <section id="call-to-action">
-//         <CallToAction />
-//       </section>
-//       <Footer />
-//       <AIModal courseData={undefined} quickQuestions={undefined} />
-//     </>
-//   );
-// }
-
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import TestInfo from "@/components/TestInfo";
@@ -48,10 +8,35 @@ import VisitUs from "@/components/VisitUs";
 import CallToAction from "@/components/CallToAction";
 import AIModal from "@/components/AiModal";
 import Footer from "@/components/Footer";
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Exameets Skillverse Academy | Best Tech Training in Kadapa',
+  description: `Transform your career with Exameets Skillverse Academy in Kadapa.
+    Expert-led courses in Java, MERN, Web Development, Digital Marketing, Python, and more. 
+    Hands-on labs, mock interviews, and career support included.`,
+  keywords: 'exam preparation, online courses, test preparation, competitive exams, study materials',
+  authors: [{ name: 'Exameets Skillverse Academy' }],
+  publisher: 'Exameets Skillverse Academy',
+  robots: 'index, follow',
+  openGraph: {
+    title: 'Exameets Skillverse Academy - Your Path to Tech Dream',
+    description: 'Comprehensive exam preparation courses and practice tests',
+    url: 'https://skillverse.exameets.in',
+    siteName: 'Exameets Skillverse Academy',
+    locale: 'en_US',
+    type: 'website',
+  },
+  alternates: {
+    canonical: 'https://skillverse.exameets.in/'
+  }
+};
 
 export default function Home() {
   return (
     <>
+    <h1>Best Tech and Software Training in Kadapa</h1>
+
       {/* Hero is now fixed/absolute positioned via internal styling */}
       <section id="home">
         <Hero />
