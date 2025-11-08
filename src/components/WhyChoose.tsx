@@ -90,7 +90,7 @@ export default function WhyChoose() {
               <div className="relative overflow-hidden">
                 <Image
                   src="/images/Vertical.webp"
-                  alt="Team Meeting at Exameets Skillverse"
+                  alt="Exameets Skillverse Academy - Kadapa"
                   title='Exameets Skillverse Academy - Kadapa'
                   className="w-full h-auto object-cover"
                   style={{ aspectRatio: '3/4' }}
@@ -127,7 +127,7 @@ export default function WhyChoose() {
             <div className="relative overflow-hidden mx-auto max-w-sm">
               <Image
                 src="/images/Vertical.webp"
-                alt="Team Meeting at Exameets Skillverse"
+                alt="Exameets Skillverse Academy - Kadapa"
                 title='Exameets Skillverse Academy - Kadapa'
                 className="w-full h-auto object-cover"
                 width={896}
