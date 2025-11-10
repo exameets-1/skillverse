@@ -1,0 +1,356 @@
+'use client';
+
+import { 
+  Clock, 
+  Target, 
+  Users, 
+  Award, 
+  CheckCircle, 
+  Code2, 
+  Box, 
+  Layers, 
+  Settings,
+  Star,
+  ArrowRight,
+  Phone,
+  Mail,
+} from 'lucide-react';
+import { useState } from 'react';
+import AIModal from '@/components/AiModal';
+import EnrollButton from '@/components/EnrollButton';
+
+// Define the course data type to match AIModal expectations
+interface CourseData {
+  name: string;
+  duration: string;
+  fee: string;
+  level: string;
+  description: string;
+  curriculum: string[];
+  highlights: string[];
+  prerequisites: string;
+  careerOutcomes: string;
+  salaryRange: string;
+  tools: string;
+}
+
+export default function PythonCoreOOPSPage() {
+  const [activeModule, setActiveModule] = useState<number | null>(null);
+
+  // Course-specific data for AI modal - properly typed
+  const courseData: CourseData = {
+    name: "Python Core & OOPs",
+    duration: "60 Days",
+    fee: "₹12,000",
+    level: "Beginner to Intermediate",
+    description: "Master Python programming fundamentals and Object-Oriented Programming concepts. Build strong foundation with Core Python, OOPs principles, Data Structures, File Handling through 5 practical projects.",
+    curriculum: [
+      "Level 0: Python Basics (12 Days) - Syntax, Variables, Data types, Operators, Control structures, Calculator App",
+      "Level 1: Object-Oriented Programming (15 Days) - Classes, Objects, Inheritance, Polymorphism, Student Management System", 
+      "Level 2: Advanced OOPs (12 Days) - Abstraction, Encapsulation, Methods, Modules, Banking System",
+      "Level 3: Data Structures (12 Days) - Lists, Dictionaries, Sets, Tuples, Library Management System",
+      "Level 4: File Handling & Exception Management (9 Days) - File operations, Exception handling, Employee Database System"
+    ],
+    highlights: [
+      "5 hands-on Python projects",
+      "Max 12 students for focused learning", 
+      "Industry-standard Python coding practices",
+      "Strong foundation for advanced Python topics",
+      "100% placement assistance",
+      "Real-world problem-solving approach"
+    ],
+    prerequisites: "No programming experience required - perfect for absolute beginners and CS students",
+    careerOutcomes: "Python Developer, Software Developer, Backend Developer, Data Analyst, Python Programmer",
+    salaryRange: "₹4-10 LPA for Python Core developers",
+    tools: "PyCharm/VS Code, Python, Git, SQLite"
+  };
+
+  const quickQuestions: string[] = [
+    "What will I learn in Python Core?",
+    "What projects will I build?", 
+    "Is this good for complete beginners?",
+    "What's the batch timing?",
+    "Do I get placement assistance?",
+    "What tools will I use?",
+    "Can I learn data science after this?"
+  ];
+
+  const curriculum = [
+    {
+      level: "Level 0",
+      title: "Python Basics",
+      duration: "12 Days",
+      icon: Code2,
+      topics: ["Python syntax & fundamentals", "Variables & data types", "Operators & control structures", "Calculator Application project"]
+    },
+    {
+      level: "Level 1", 
+      title: "Object-Oriented Programming",
+      duration: "15 Days",
+      icon: Box,
+      topics: ["Classes & Objects", "Inheritance & Polymorphism", "Method overloading & overriding", "Student Management System"]
+    },
+    {
+      level: "Level 2",
+      title: "Advanced OOPs",
+      duration: "12 Days", 
+      icon: Layers,
+      topics: ["Abstraction & Encapsulation", "Methods & Modules", "Package management", "Banking System project"]
+    },
+    {
+      level: "Level 3",
+      title: "Data Structures",
+      duration: "12 Days",
+      icon: Settings,
+      topics: ["Lists & Dictionaries", "Sets & Tuples", "Data manipulation", "Library Management System"]
+    },
+    {
+      level: "Level 4",
+      title: "File Handling & Exception Management",
+      duration: "9 Days",
+      icon: Award,
+      topics: ["File input/output operations", "Exception handling", "Error management", "Employee Database System"]
+    }
+  ];
+
+  const highlights = [
+    { icon: Award, title: "Practical Projects", desc: "5 real-world Python applications" },
+    { icon: Users, title: "Small Batches", desc: "Max 12 students for individual attention" },
+    { icon: Code2, title: "Industry Standards", desc: "Professional Python coding practices" },
+    { icon: CheckCircle, title: "Strong Foundation", desc: "Perfect base for advanced Python learning" }
+  ];
+
+  const faqs = [
+    {
+      q: "Do I need any programming background?",
+      a: "No! This course is designed for complete beginners. We start from absolute basics and build up to advanced OOPs concepts step by step."
+    },
+    {
+      q: "What kind of projects will I build?",
+      a: "Calculator App, Student Management System, Banking System, Library Management System, and Employee Database System - all using core Python concepts."
+    },
+    {
+      q: "Will this prepare me for data science?",
+      a: "Absolutely! This course builds a rock-solid foundation in Core Python and OOPs, preparing you for data science, web development, and automation."
+    },
+    {
+      q: "What's the class schedule like?",
+      a: "2 hours daily classes with hands-on coding practice. Additional doubt-clearing sessions and project guidance included."
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-white">
+      {/* Hero Section */}
+      <section className="pt-24 pb-16 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <h1 className="text-4xl lg:text-5xl font-light text-gray-900 mb-6 tracking-tight">
+            Python Core & <span className="font-medium text-black">OOPs</span>
+          </h1>
+          <p className="text-xl text-gray-600 font-light mb-8 leading-relaxed max-w-2xl mx-auto">
+            Master Python programming fundamentals and Object-Oriented Programming concepts
+          </p>
+          
+          {/* Quick Info */}
+          <div className="flex flex-wrap items-center justify-center gap-8 mb-10 text-sm">
+            <div className="flex items-center gap-2">
+              <Clock className="w-4 h-4 text-gray-500" />
+              <span className="text-gray-500">Duration:</span>
+              <span className="font-medium text-black">60 Days</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Target className="w-4 h-4 text-gray-500" />
+              <span className="text-gray-500">Level:</span>
+              <span className="font-medium text-black">Beginner to Intermediate</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Star className="w-4 h-4 text-gray-500" />
+              <span className="text-gray-500">Fee:</span>
+              <span className="font-medium text-black">₹12,000</span>
+            </div>
+          </div>
+
+          {/* CTA Button */}
+          <EnrollButton 
+            amount={12000}
+            courseName="Python Core & OOPs"
+          />
+        </div>
+      </section>
+
+      {/* Course Highlights */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-2xl text-black font-light text-center mb-12 tracking-tight">
+            Why Choose Our <span className="font-medium">Python Core & OOPs</span> Course
+          </h2>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {highlights.map((highlight, index) => {
+              const IconComponent = highlight.icon;
+              return (
+                <div key={index} className="text-center group">
+                  <div className="w-16 h-16 bg-black rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-105 transition-transform duration-300">
+                    <IconComponent className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className="font-medium text-black mb-2">{highlight.title}</h3>
+                  <p className="text-sm text-gray-600 font-light">{highlight.desc}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Curriculum Section */}
+      <section className="py-16">
+        <div className="max-w-4xl mx-auto px-6">
+          <h2 className="text-2xl text-black font-light text-center mb-4 tracking-tight">
+            What You&apos;ll <span className="font-medium">Learn</span>
+          </h2>
+          <p className="text-gray-600 text-center mb-12 font-light">
+            Comprehensive curriculum from Python basics to advanced Object-Oriented Programming
+          </p>
+
+          <div className="space-y-4">
+            {curriculum.map((module, index) => {
+              const IconComponent = module.icon;
+              const isActive = activeModule === index;
+              
+              return (
+                <div 
+                  key={index}
+                  className="border border-gray-200 transition-all duration-300 hover:border-gray-300"
+                >
+                  <button
+                    className="w-full p-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
+                    onClick={() => setActiveModule(isActive ? null : index)}
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center">
+                        <IconComponent className="w-5 h-5 text-white" />
+                      </div>
+                      <div>
+                        <div className="text-xs text-gray-500 font-light mb-1">{module.level}</div>
+                        <h3 className="font-medium text-black">{module.title}</h3>
+                        <div className="text-sm text-gray-600 font-light">{module.duration}</div>
+                      </div>
+                    </div>
+                    <ArrowRight className={`w-5 h-5 text-gray-400 transition-transform ${isActive ? 'rotate-90' : ''}`} />
+                  </button>
+                  
+                  {isActive && (
+                    <div className="px-6 pb-6">
+                      <div className="pl-16">
+                        <div className="grid gap-2">
+                          {module.topics.map((topic, idx) => (
+                            <div key={idx} className="flex items-center text-sm text-gray-700">
+                              <div className="w-1.5 h-1.5 bg-black rounded-full mr-3"></div>
+                              <span className="font-light">{topic}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Who Should Join */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h2 className="text-2xl text-black font-light mb-12 tracking-tight">
+            Perfect For <span className="font-medium">You</span> If
+          </h2>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            { [
+              "Complete beginners wanting to learn programming",
+              "CS students needing strong Python foundation", 
+              "Professionals planning to switch to Python development"
+            ].map((text, index) => (
+              <div key={index} className="p-6 bg-white border border-gray-100">
+                <CheckCircle className="w-8 h-8 text-black mx-auto mb-4" />
+                <p className="text-gray-700 font-light">{text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-16" id="faqs">
+        <div className="max-w-3xl mx-auto px-6">
+          <h2 className="text-2xl text-black font-light text-center mb-12 tracking-tight">
+            Frequently Asked <span className="font-medium">Questions</span>
+          </h2>
+          
+          <div className="space-y-6">
+            {faqs.map((faq, index) => (
+              <div key={index} className="border-b border-gray-100 pb-6">
+                <h3 className="font-medium text-black mb-3">{faq.q}</h3>
+                <p className="text-gray-600 font-light leading-relaxed">{faq.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA Section */}
+      <section className="py-16 bg-black text-white">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h2 className="text-2xl font-light mb-4 tracking-tight">
+            Ready to Master <span className="font-medium">Python Core & OOPs</span>?
+          </h2>
+          <p className="text-gray-300 font-light mb-8">
+            Join aspiring developers who have built strong programming foundations with Python
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <EnrollButton 
+              amount={12000}
+              courseName="Python Core & OOPs"
+              className="bg-white text-black px-8 py-4 text-sm font-medium tracking-wide hover:bg-gray-100 transition-all duration-300"
+            >
+              Book Free Demo
+            </EnrollButton>
+            <div className="flex items-center gap-6 text-sm">
+              <a href="tel:+91" title='Call us' className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors">
+                <Phone className="w-4 h-4" />
+                Call Us
+              </a>
+              <a href="mailto:" title="Email us" className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors">
+                <Mail className="w-4 h-4" />
+                Email
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Sticky CTA for Mobile */}
+      <div className="fixed bottom-0 left-0 right-0 bg-black text-white p-4 lg:hidden z-50">
+        <EnrollButton 
+          amount={12000}
+          courseName="Python Core & OOPs"
+          className="w-full py-3 text-sm font-medium tracking-wide"
+        >
+          Enroll Now - ₹12,000
+        </EnrollButton>
+      </div>
+
+      {/* Bottom padding for mobile sticky CTA */}
+      <div className="h-16 lg:hidden"></div>
+
+      {/* AI Modal with course-specific data */}
+      <AIModal 
+        courseData={courseData}
+        quickQuestions={quickQuestions}
+      />
+    </div>
+  );
+}
