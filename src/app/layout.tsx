@@ -6,7 +6,6 @@ import Script from "next/script";
 import Analytics from "@/components/Analytics";
 import { Suspense } from "react"; // ✅ import Suspense
 import AuthInit from "@/components/AuthInit";
-import { Inter } from 'next/font/google'
 import './globals.css'
 
 const geistSans = Geist({
@@ -18,7 +17,6 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: "Exameets Skillverse Academy | Best Tech Training in Kadapa",
@@ -37,27 +35,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
-          rel="stylesheet"
-        />
-        <script
+        {/* <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "EducationalOrganization",
-              "name": "ExaMeets SkillVerse",
-              "description": "Comprehensive exam preparation courses and practice tests",
-              "url": "https://exameets-skillverse.com",
-              "sameAs": [
-                "https://facebook.com/exameetsskillverse",
-                "https://twitter.com/exameetsverse",
-                "https://linkedin.com/company/exameets-skillverse"
-              ]
+              "name": "Exameets SkillVerse Academy",
+              "description": "Transform your career with Exameets Skillverse Academy in Kadapa. Expert-led courses in Java, MERN, Web Development, Digital Marketing, Python, and more. Hands-on labs, mock interviews, and career support included.",
+              "url": "https://skillverse.exameets.in"
             })
           }}
-        />
+        /> */}
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {/* ✅ Google Analytics base script */}
