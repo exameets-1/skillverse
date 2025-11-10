@@ -23,6 +23,7 @@ export async function GET(request: Request) {
       postedAt: 1,
       hook: 1,
       imageUrl: 1,
+      type: 1
     }).sort({ createdAt: -1 });
 
     return NextResponse.json(

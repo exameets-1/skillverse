@@ -115,6 +115,8 @@ export default async function BlogPage({
       />
       
       <article className="max-w-4xl mx-auto px-4 py-10">
+        {/* Add hero image if available */}
+        
         {/* <header className="mb-8">
           <h1 className="text-4xl font-bold mb-4">{blog.title}</h1>
           {blog.hook && (
