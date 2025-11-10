@@ -32,7 +32,7 @@ export async function generateMetadata(
   if (!blog) return { title: "Blog Not Found" };
 
   const description = blog.hook || blog.markdownText.substring(0, 150).replace(/\n/g, " ");
-  const canonicalUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${blog.slug}`;
+  const canonicalUrl = `https://skillverse.exameets.in/blog/${blog.slug}`;
 
   return {
     title: blog.title,
@@ -40,24 +40,45 @@ export async function generateMetadata(
     alternates: {
       canonical: canonicalUrl,
     },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
+    authors: [{ name: blog.author }],
+    publisher: 'Exameets Skillverse Academy',
     openGraph: {
       title: blog.title,
       description: description,
       url: canonicalUrl,
       type: "article",
-      images: blog.imageUrl,
+      images: [
+        {
+          url: blog.imageUrl || "https://skillverse.exameets.in/logo.jpg",
+          width: 1200,
+          height: 630,
+          alt: blog.title,
+        },
+      ],
       publishedTime: blog.postedAt?.toISOString(),
       authors: [blog.author],
       tags: blog.tags,
+      locale: 'en_US',
+      siteName: 'Exameets Skillverse Academy',
     },
     twitter: {
       card: "summary_large_image",
       title: blog.title,
       description: description,
-      images: [blog.imageUrl],
+      images: [blog.imageUrl || "https://skillverse.exameets.in/logo.jpg"],
     },
     keywords: blog.tags?.join(", "),
-    authors: [{ name: blog.author }],
   };
 }
 
@@ -114,41 +135,8 @@ export default async function BlogPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       
-      <article className="max-w-4xl mx-auto px-4 py-10">
-        {/* Add hero image if available */}
-        
-        {/* <header className="mb-8">
-          <h1 className="text-4xl font-bold mb-4">{blog.title}</h1>
-          {blog.hook && (
-            <p className="text-xl text-gray-700 font-medium mb-4">{blog.hook}</p>
-          )}
-          <div className="text-gray-500 text-sm mb-4">
-            <time dateTime={blog.postedAt?.toISOString()}>
-              {new Date(blog.postedAt).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-              })}
-            </time>
-            {" • "}
-            <span>{blog.author}</span>
-          </div>
-          {blog.tags && blog.tags.length > 0 && (
-            <div className="flex gap-2 flex-wrap">
-              {blog.tags.map((tag: string) => (
-                <span 
-                  key={tag}
-                  className="text-xs bg-blue-100 text-blue-800 px-3 py-1 rounded-full"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )}
-        </header> */}
-
-        {/* ReactMarkdown with proper styling */}
-        <div className="prose prose-lg">
+      <article className="max-w-4xl mx-auto px-4 py-10 text-justify">
+        <div className="prose prose-lg mx-auto">
           <ReactMarkdown 
             remarkPlugins={[remarkGfm]}
             rehypePlugins={[rehypeRaw]}
@@ -156,7 +144,6 @@ export default async function BlogPage({
             {blog.markdownText}
           </ReactMarkdown>
         </div>
-
       </article>
     </>
   );

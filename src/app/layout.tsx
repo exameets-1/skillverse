@@ -35,18 +35,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "EducationalOrganization",
-              "name": "Exameets SkillVerse Academy",
-              "description": "Transform your career with Exameets Skillverse Academy in Kadapa. Expert-led courses in Java, MERN, Web Development, Digital Marketing, Python, and more. Hands-on labs, mock interviews, and career support included.",
-              "url": "https://skillverse.exameets.in"
-            })
-          }}
-        /> */}
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {/* ✅ Google Analytics base script */}
